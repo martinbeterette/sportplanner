@@ -1,0 +1,121 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="formulario_wizard.css">
+</head>
+
+<form id="formulario-multipasos" action="alta.php" method="POST" enctype="multipart/form-data">
+  <!-- Paso 1 -->
+  <div class="paso" id="paso-1">
+    <h3>Paso 1: Datos del Complejo</h3>
+    <label for="iconoComplejo">Icono del Complejo</label>
+    <input type="file" id="iconoComplejo" name="iconoComplejo" accept="image/*" required>
+    <label for="nombreComplejo">Nombre del Complejo</label>
+    <input type="text" id="nombreComplejo" name="nombreComplejo" required>
+    <button type="button" onclick="mostrarPaso(2)">Siguiente</button>
+  </div>
+
+  <!-- Paso 2 -->
+  <div class="paso" id="paso-2">
+    <h3>Paso 2: Datos de la Sucursal</h3>
+    <label for="imagenesSucursal">Imágenes de la Sucursal</label>
+    <input type="file" id="imagenesSucursal" name="imagenesSucursal[]" accept="image/*" multiple required>
+    <div class="dos-columnas">
+      <div>
+        <label for="nombreSucursal">Nombre de la Sucursal</label>
+        <input type="text" id="nombreSucursal" name="nombreSucursal" required>
+      </div>
+      <div>
+        <label for="direccionSucursal">Dirección</label>
+        <input type="text" id="direccionSucursal" name="direccionSucursal" required>
+      </div>
+      <div>
+        <label for="contactoSucursal">Contacto</label>
+        <input type="text" id="contactoSucursal" name="contactoSucursal" required>
+      </div>
+    </div>
+    <div class="services">
+      <h4>Servicios Disponibles</h4>
+      <label><input type="checkbox" id="service-light"> Luz</label>
+      <label><input type="checkbox" id="service-roof"> Techo</label>
+      <label><input type="checkbox" id="service-wifi"> Wi-Fi</label>
+    </div>
+    <button type="button" onclick="mostrarPaso(1)">Anterior</button>
+    <button type="button" onclick="mostrarPaso(3)">Siguiente</button>
+  </div>
+
+  <!-- Paso 2 -->
+  <div class="paso" id="paso-2">
+    <h3>Paso 2: Datos de la Sucursal</h3>
+    <div class="file-group">
+      <div>
+        <label for="imagenesSucursal">Imágenes de la Sucursal</label>
+        <input type="file" id="imagenesSucursal" name="imagenesSucursal[]" accept="image/*" multiple required>
+      </div>
+      <div>
+        <label for="nombreSucursal">Nombre de la Sucursal</label>
+        <input type="text" id="nombreSucursal" name="nombreSucursal" required>
+      </div>
+    </div>
+    <div class="dos-columnas">
+      <div>
+        <label for="direccionSucursal">Dirección</label>
+        <input type="text" id="direccionSucursal" name="direccionSucursal" required>
+      </div>
+      <div>
+        <label for="contactoSucursal">Contacto</label>
+        <input type="text" id="contactoSucursal" name="contactoSucursal" required>
+      </div>
+    </div>
+    <div class="services">
+      <h4>Servicios Disponibles</h4>
+      <label><input type="checkbox" id="service-light"> Luz</label>
+      <label><input type="checkbox" id="service-roof"> Techo</label>
+      <label><input type="checkbox" id="service-wifi"> Wi-Fi</label>
+    </div>
+    <button type="button" onclick="mostrarPaso(1)">Anterior</button>
+    <button type="button" onclick="mostrarPaso(3)">Siguiente</button>
+  </div>
+
+  <!-- Paso 3 -->
+  <div class="paso" id="paso-3">
+    <h3>Paso 3: Zonas</h3>
+    <div class="dos-columnas">
+      <div>
+        <label for="nombreCancha">Nombre de la Cancha</label>
+        <input type="text" id="nombreCancha" name="nombreCancha" required>
+      </div>
+      <div>
+        <label for="deporte">Deporte</label>
+        <select id="deporte" name="deporte" required>
+          <option value="futbol">Fútbol</option>
+          <option value="voley">Vóley</option>
+          <option value="rugby">Rugby</option>
+        </select>
+      </div>
+      <div>
+        <label for="formatoDeporte">Formato</label>
+        <input type="text" id="formatoDeporte" name="formatoDeporte" required>
+      </div>
+      <div>
+        <label for="tipoTerreno">Tipo de Terreno</label>
+        <select id="tipoTerreno" name="tipoTerreno" required>
+          <option value="cesped">Césped</option>
+          <option value="pasto">Pasto</option>
+          <option value="piso">Piso</option>
+        </select>
+      </div>
+    </div>
+    <div class="services">
+      <h4>Servicios en la Cancha</h4>
+      <label><input type="checkbox" id="field-roof"> Techo</label>
+      <label><input type="checkbox" id="field-light"> Luz</label>
+      <label><input type="checkbox" id="field-cameras"> Cámaras</label>
+    </div>
+    <button type="button" onclick="mostrarPaso(2)">Anterior</button>
+    <button type="submit">Finalizar</button>
+  </div>
+
+
+</form>
+
+<script src="../../libs/jquery-3.7.1.min.js"></script>
+<script src="formulario_wizard.js"></script>

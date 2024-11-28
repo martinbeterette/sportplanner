@@ -1,0 +1,104 @@
+header {
+    background-color: #e0f2e9;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Asegura que los elementos internos tengan su contexto de z-index */
+}
+
+.menu {
+    display: flex;
+    position: relative;
+}
+
+/* Ajuste del contenedor del submenú */
+.menu ul.cont-ul > li > ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #a8e6cf;
+    list-style: none;
+    padding: 10px;
+    border-radius: 5px;
+    min-width: max-content; /* Ajusta el ancho al contenido más largo */
+    z-index: 1000; /* Superponlo a otros elementos */
+}
+
+/* Submenú para subopciones */
+.menu ul.cont-ul > li > ul > li {
+    position: relative;
+}
+
+/* Estilo para los enlaces dentro del submenú */
+.menu ul.cont-ul > li > ul > li > a {
+    text-decoration: none;
+    color: #3d9970;
+    padding: 8px 12px;
+    display: block;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se quiebre en varias líneas */
+}
+
+/* Al hacer hover, se muestra el submenú */
+.menu ul.cont-ul > li:hover > ul {
+    display: block;
+}
+
+
+.profile-menu {
+    position: relative;
+    margin-right: 20px;
+}
+
+.profile-button {
+    padding: 10px 15px;
+    background-color: #3d9970;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-button:hover {
+    background-color: #2e7d32;
+    transform: scale(1.1);
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #a8e6cf;
+    list-style: none;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000; /* Asegura que el menú del perfil esté sobre otros elementos */
+}
+
+.profile-dropdown li {
+    margin-bottom: 10px;
+}
+
+.profile-dropdown a {
+    text-decoration: none;
+    color: #3d9970;
+    padding: 8px 12px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.profile-dropdown a:hover {
+    background-color: #3d9970;
+    color: #e0f2e9;
+    transform: scale(1.05);
+}
+
+.profile-menu:hover .profile-dropdown {
+    display: block;
+}

@@ -1,0 +1,188 @@
+/* CONTENEDOR HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-radius: 0 0 10px 10px;
+}
+
+/* BOTÓN PERFIL */
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-dropdown-btn {
+  position: relative;
+  background-color: rgba(224, 224, 224, 0.8);
+  display: flex;
+  align-items: center;
+  padding-right: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 50px;
+  color: gray;
+  cursor: pointer;
+  border: 1px solid #227c70;
+  transition: box-shadow 0.2s ease-in, background-color 0.2s ease-in;
+}
+
+.profile-dropdown-btn:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(34, 124, 112, 0.2);
+}
+
+.profile-img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: url() center/cover;
+}
+
+.profile-dropdown-btn span {
+  margin: 0 6px;
+}
+
+.profile-dropdown-list {
+  position: absolute;
+  top: 3.5rem;
+  right: 1.5rem;
+  width: 14rem;
+  background-color: #212121;
+  border-radius: 10px;
+  max-height: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(34, 124, 112, 0.2);
+  transition: max-height 0.5s ease;
+  z-index: 10;
+}
+
+.profile-dropdown-list.active {
+  max-height: 500px;
+}
+
+.profile-dropdown-list-item {
+  padding: 8px 0 8px 16px;
+  transition: background-color 0.2s, padding-left 0.2s;
+}
+
+.profile-dropdown-list-item a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #dad6d6;
+}
+
+.profile-dropdown-list-item a:hover {
+  color: white;
+}
+
+.profile-dropdown-list-item a i {
+  margin-right: 16px;
+  font-size: 1.1rem;
+  width: 2.3rem;
+  height: 2.3rem;
+  color: darkcyan;
+  line-height: 2.3rem;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.profile-dropdown-list-item:hover {
+  padding-left: 24px;
+  background-color: rgba(34, 124, 112, 0.2);
+}
+
+/* TÍTULO */
+.titulo_inicio {
+  color: #161334;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.titulo_inicio:hover {
+  transform: scale(1.05);
+}
+
+.titulo_inicio img {
+  height: 30px;
+  width: 30px;
+  margin-bottom: 8px;
+  transition: all 0.5s ease;
+}
+
+@media (max-width: 520px) {
+  .titulo_inicio h2 {
+    display: none;
+  }
+  .titulo_inicio img {
+    height: 40px;
+    width: 35px;
+    margin-bottom: 2px;
+  }
+}
+
+
+
+
+/* Contenedor de notificaciones con animación */
+.notifications-dropdown {
+    display: none;
+    background-color: #212121;
+    color: #dad6d6;
+    border-radius: 10px;
+    margin-top: 8px;
+    padding: 8px;
+    box-shadow: 0px 8px 16px rgba(34, 124, 112, 0.2);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.notifications-dropdown.active {
+    display: block;
+    max-height: 300px; /* Altura máxima ajustada */
+    padding: 8px 12px;
+}
+
+.sub-notifications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sub-notifications-list li {
+    padding: 10px;
+    border-bottom: 1px solid #343434;
+    color: #dad6d6;
+}
+
+.sub-notifications-list li:last-child {
+    border-bottom: none;
+}
+
+.profile-dropdown-list-item a i#notificacion-icon {
+    color: darkcyan;
+}
+
+.badge {
+    position: absolute;
+    z-index: 100;
+    top: 0px;
+    right: 0px;
+    width: 13px; /* Tamaño de la burbuja */
+    height: 13px; /* Tamaño de la burbuja */
+    border-radius: 50%;
+    background-color: red;
+    font-size: 0; /* Esto es opcional para asegurarte de que no se vea nada de texto */
+}
+
+.profile-dropdown-list-item i {
+  position:relative ;
+}

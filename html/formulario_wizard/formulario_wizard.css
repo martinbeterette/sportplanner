@@ -1,0 +1,110 @@
+/* Estilos globales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9fff8; /* Fondo casi blanco */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Estilos para el formulario */
+#formulario-multipasos {
+  background-color: #ccffcc; /* Fondo del formulario */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de los encabezados */
+h3, h4 {
+  color: #388e3c;
+}
+
+/* Estilos para etiquetas y campos */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #388e3c;
+}
+
+input[type="text"],
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9fff8; /* Mantiene consistencia con el fondo */
+}
+
+/* Botones */
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #639c54;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: white;
+  color: #639c54;
+}
+
+/* Grupo de botones para navegación entre pasos */
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Estilos para los servicios */
+.services {
+  border: 1px solid #388e3c;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.services label {
+  margin-right: 10px;
+}
+
+/* Estilos para los pasos */
+.paso {
+  display: none;
+}
+
+.paso:first-child {
+  display: block;
+}
+
+/* Estilos para los campos en dos columnas */
+.dos-columnas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dos-columnas > div {
+  flex: 1 1 calc(50% - 20px); /* Ajusta el tamaño de los campos */
+}
+
+/* Ajustes para el input de tipo archivo */
+.file-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.file-group > div {
+  flex: 1 1 calc(50% - 20px); /* Ajusta el tamaño de los campos */
+}
+

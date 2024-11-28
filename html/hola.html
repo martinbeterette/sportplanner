@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Deportivo</title>
+    <style>
+        /* Estilo general */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* Blanco no tan claro */
+        }
+
+        /* Estilo de la barra de navegación */
+        .navbar {
+            background-color: #32cd32; /* Verde claro */
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* Estilo para los enlaces de navegación */
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        /* Estilo para la lista de items del menú desplegable */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        /* Mostrar el menú desplegable al hacer hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Estilo para la sección de perfil */
+        .profile-menu {
+            display: inline-block;
+            position: relative;
+        }
+
+        .profile-menu-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .profile-menu-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        /* Mostrar el menú de perfil al hacer click */
+        .profile-menu.active .profile-menu-content {
+            display: block;
+        }
+
+        .profile-menu-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 17px;
+            padding: 14px 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <!-- Opciones de navegación -->
+        <div>
+            <a href="#inicio">Inicio</a>
+            <a href="#contacto">Contacto</a>
+            <div class="dropdown">
+                <a href="#opciones">Opciones</a>
+                <div class="dropdown-content">
+                    <a href="#opcion1">Opción 1</a>
+                    <a href="#opcion2">Opción 2</a>
+                    <a href="#opcion3">Opción 3</a>
+                </div>
+            </div>
+            <a href="#reservas">Reservas</a>
+        </div>
+
+        <!-- Sección de perfil -->
+        <div class="profile-menu">
+            <button class="profile-menu-button">Mi perfil</button>
+            <div class="profile-menu-content">
+                <a href="#mis-datos">Mis datos</a>
+                <a href="#cerrar-sesion">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script para manejar el clic en el botón de perfil
+        document.querySelector('.profile-menu-button').addEventListener('click', function() {
+            document.querySelector('.profile-menu').classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>
