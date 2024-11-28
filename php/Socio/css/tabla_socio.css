@@ -1,0 +1,226 @@
+
+body {
+    background: #f3f3f3; /* Fondo blanco limpio */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Formulario Empleado */
+.containerEmpleado {
+    margin: auto;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.containerEmpleado h1 {
+    color: #009879; /* Verde deportivo */
+    text-align: center;
+}
+
+.containerEmpleado form {
+    margin-top: 10px;
+}
+
+.containerEmpleado label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333; /* Texto oscuro */
+}
+
+.containerEmpleado input[type="text"],
+.containerEmpleado input[type="date"],
+.containerEmpleado select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc; /* Borde gris claro */
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.containerEmpleado input[type="text"]:focus,
+.containerEmpleado input[type="date"]:focus,
+.containerEmpleado select:focus {
+    border-color: #009879; /* Verde al hacer foco */
+    box-shadow: 0px 0px 5px rgba(0, 152, 121, 0.5); /* Sombra verde ligera */
+    outline: none;
+}
+
+.containerEmpleado button {
+    padding: 12px;
+    background-color: #009879; /* Verde deportivo */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.containerEmpleado button:hover {
+    background-color: #007a63; /* Verde más oscuro */
+    box-shadow: 0px 0px 8px rgba(0, 122, 99, 0.3); /* Sombra verde más intensa */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+    .containerEmpleado {
+        padding: 10px;
+    }
+    .containerEmpleado label, 
+    .containerEmpleado input[type="text"],
+    .containerEmpleado input[type="date"],
+    .containerEmpleado select,
+    .containerEmpleado button {
+        font-size: 14px;
+    }
+}
+
+/* Tabla Registro */
+table {
+    width: 100%;
+    margin-top: 1%;
+    border-collapse: collapse;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+th, td {
+    text-align: center;
+    padding: 10px;
+}
+
+thead tr {
+    background-color: #009879; /* Verde deportivo */
+    color: #ffffff; /* Texto blanco */
+}
+
+/* Alternancia de colores en las filas */
+tbody tr:nth-child(odd) {
+    background-color: #f3f3f3; /* Fondo gris claro */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e2e2e2; /* Fondo gris más oscuro */
+}
+
+tbody tr:hover {
+    background-color: #d0d0d0; /* Efecto hover */
+}
+
+/* Imagenes en la tabla */
+tbody img {
+    height: 30px;
+}
+
+tbody a:hover {
+    cursor: pointer;
+}
+
+/* Tabla con estilo moderno */
+#tabla-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border-radius: 5px; /* Bordes redondeados */
+    overflow: hidden;
+    margin: 20px 0; /* Espacio alrededor de la tabla */
+}
+
+#tabla-container th {
+    background-color: #009879; /* Verde deportivo */
+    color: #ffffff; /* Texto blanco en los encabezados */
+    font-weight: bold;
+}
+
+#tabla-container th, #tabla-container td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Línea divisoria sutil */
+}
+
+#tabla-container tr:hover {
+    background-color: #e2e2e2; /* Efecto hover */
+}
+
+#tabla-container a {
+    color: #009879;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#tabla-container a:hover {
+    text-decoration: underline;
+}
+
+/* Paginación */
+#paginacion-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagina-boton {
+    background-color: #009879; /* Verde deportivo */
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagina-boton:hover {
+    background-color: #007a63; /* Verde más oscuro */
+}
+
+.pagina-activa {
+    background-color: #007a63; /* Verde más oscuro */
+    color: #ffffff;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Estilos adicionales */
+.alta {
+    text-align: center;
+    color: #333;
+}
+
+.acciones {
+    padding: 10px !important;
+    text-align: center !important;
+
+}
+
+td accion:hover {
+    cursor:pointer;
+}
+
+td img {
+    height: 25px;
+    width auto;
+}
+
+.añadir {
+
+    text-align: center !important;
+}
+
+.añadir img {
+    height: 30px;
+    width: auto;
+
+}
+.añadir:hover { 
+    cursor:pointer;
+}

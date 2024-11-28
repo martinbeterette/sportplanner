@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Zonas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6ffee;
+        }
+
+        .form-container {
+            background-color: #ccffcc;
+            width: 60%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #99cc99;
+            text-align: center;
+            background-image: url('https://www.transparenttextures.com/patterns/sports.png'); /* Fondo con patrón de deportes */
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #333;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-row .input-group {
+            width: 48%;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #99cc99;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+
+        .checkbox-group {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .checkbox-group label {
+            margin: 0 10px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .buttons .anterior {
+            background-color: #ffa07a;
+        }
+
+        .buttons .anterior:hover {
+            background-color: #ff7f50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Paso 3: Zonas</h2>
+
+        <form>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="nombre_cancha">Nombre de la Cancha:</label>
+                    <input type="text" id="nombre_cancha" name="nombre_cancha">
+                </div>
+
+                <div class="input-group">
+                    <label for="deporte">Deporte:</label>
+                    <select id="deporte" name="deporte">
+                        <option value="futbol">Fútbol</option>
+                        <option value="voley">Vóley</option>
+                        <option value="tenis">Tenis</option>
+                        <option value="basquet">Básquet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="formato">Formato:</label>
+                    <input type="text" id="formato" name="formato" placeholder="Fútbol 5, Vóley 6, etc.">
+                </div>
+
+                <div class="input-group">
+                    <label for="tipo_terreno">Tipo de Terreno:</label>
+                    <select id="tipo_terreno" name="tipo_terreno">
+                        <option value="cesped">Césped</option>
+                        <option value="cemento">Cemento</option>
+                        <option value="tierra">Tierra</option>
+                        <option value="sintetico">Sintético</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="techo"> Techo</label>
+                <label><input type="checkbox" name="luz"> Luz</label>
+                <label><input type="checkbox" name="camara"> Cámaras</label>
+            </div>
+
+           
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+.containerRegistros {
+  min-height: 100%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.tableRegistros {
+  background: #212121;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgb(128, 128, 128, 0.7);
+}
+
+.tableRegistros input {
+  margin-top: 8px;
+  padding: 10px;
+  width: 60%;
+  font-size: 15px;
+}
+
+/* Tabla Registro ////////////////////////////////////////// */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: auto;
+  margin-top: 1%;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+/* ESTILOS ESPECIALES A LOS THEAD */
+
+body table thead tr {
+  background-color: #161616;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  padding: 8px;
+}
+
+/* RENGLONES DE COLORES DIFERENTES */
+table tbody tr:nth-child(odd) {
+  background-color: #2c2c2c;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #161616;
+}
+
+.alta {
+  text-align: center;
+  color: #161616;
+}
+
+table tbody img {
+  height: 30px;
+}
+
+table tbody a:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,37 @@
+.titulo_inicio {
+  color: rgb(22, 19, 52);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.titulo_inicio:hover {
+  transform: scale(1.05);
+}
+
+.titulo_inicio img,
+.titulo_inicio h2 {
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.titulo_inicio img {
+  height: 1.875rem;
+  width: 1.5625rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 520px) {
+  .titulo_inicio h2 {
+    display: none;
+  }
+  .titulo_inicio img {
+    height: 40px;
+    width: 35px;
+    margin-bottom: 0.1rem;
+  }
+}

@@ -1,0 +1,138 @@
+@import url(../../../css/header.css);
+@import url(../../../css/aside.css);
+#contenido {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos del formulario */
+.formulario {
+    width: 45%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formulario label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.formulario input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-enviar {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-enviar:hover {
+    background-color: #218838;
+}
+
+/* Estilos de la tabla */
+.tabla {
+    width: 50%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabla table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla th, .tabla td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla th {
+    background-color: #3085d6; /* Color azul similar al de SweetAlert */
+    color: white;
+    text-align: left;
+    padding: 15px;
+}
+
+/*.tabla .actions img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.tabla .alta img {
+    width: 30px;
+    height: 30px;
+}*/
+
+/* Mejorar el estilo de Flatpickr */
+.time-picker {
+    background-color: #f8f9fa; /* Fondo más claro y limpio */
+    border: 1px solid #dee2e6; /* Borde suave */
+    border-radius: 8px; /* Bordes más redondeados */
+    padding: 10px; /* Un poco más de padding para mejor apariencia */
+    font-size: 16px; /* Tamaño de fuente más grande */
+    transition: all 0.3s ease; /* Transición suave al interactuar */
+}
+
+.time-picker:hover, .time-picker:focus {
+    background-color: #e2e6ea; /* Fondo ligeramente más oscuro al hacer hover */
+    border-color: #007bff; /* Color del borde más acentuado */
+    outline: none; /* Sin borde al hacer focus */
+}
+
+.time-picker.selected {
+    background-color: #007bff; /* Fondo azul al seleccionar */
+    color: #fff; /* Texto blanco para mejor contraste */
+    border-color: #0056b3; /* Borde un poco más oscuro */
+}
+
+.btn-modificar {
+    text-decoration: none;
+    background-color: #3085d6; /* Mismo azul que SweetAlert */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Hover para el botón */
+.btn-modificar:hover {
+    background-color: #2874c8;
+}
+
+.btn-eliminar {
+    text-decoration: none;
+    background-color: #ed420b; /* Mismo azul que SweetAlert */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Hover para el botón */
+.btn-eliminar:hover {
+    background-color: #e82409;
+}

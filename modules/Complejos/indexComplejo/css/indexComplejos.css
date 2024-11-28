@@ -1,0 +1,92 @@
+.indexComplejo {
+  height: 100%;
+  width: 100%;
+}
+
+.complejocontainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #212121;
+  margin: auto;
+  width: 70%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.complejoImg {
+  margin: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: 60%;
+  background-color: rgb(255, 252, 252);
+  height: 40%;
+  border-radius: 10px;
+}
+
+.complejoDescripcion {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.complejoDescripcion button {
+  color: lightgray;
+  text-decoration: none;
+  background-color: #161616;
+  font-weight: 500;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.complejoDescripcion button:hover {
+  transform: scale(1.08);
+  background-color: #0b0b0b;
+  box-shadow: 0px 0px 3px grey;
+}
+
+.complejoSucursales {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4px;
+  border-radius: 10px;
+}
+
+.complejoSucursal {
+  background: #2c2c2c;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  padding: 10px 50px 10px;
+  border: 1px solid #161616;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.complejoSucursal:hover {
+  transform: translateX(10px);
+  transition: all 0.5s ease;
+  box-shadow: 0px 0px 3px grey;
+}
+
+.complejoSucursal h3 {
+  margin-right: 60px;
+}
+
+@media (max-width: 850px) {
+  .complejoSucursales {
+    width: 94%;
+  }
+  #comienzo {
+    display: none;
+  }
+}

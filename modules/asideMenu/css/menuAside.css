@@ -1,0 +1,102 @@
+/* Botón de menú flotante en la esquina superior izquierda */
+.menu-btn {
+  position: absolute;
+  top: 0.3125rem;
+  left: 0.3125rem;
+  font-size: 1.5rem;
+  background: rgba(222, 213, 212, 0.6);
+  padding: 0.625rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Menú lateral */
+.menu_desplegable {
+  position: absolute;
+  top: 0;
+  left: -18.75rem;
+  width: 13.625rem;
+  height: 100%;
+  background-color: #0b0b0b;
+  color: rgb(211, 198, 198);
+  padding-top: 0rem;
+  z-index: 5;
+  border-radius: 0rem 0.625rem 0.625rem 0rem;
+  box-shadow: 1px 0px 3px #161616;
+  transition: left 0.5s;
+  overflow: auto;
+}
+
+.menu_desplegable.active {
+  left: 0rem;
+}
+
+.menu_desplegable p {
+  background-color: black;
+  padding: 0.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 0.5rem 0rem 0.5rem;
+}
+
+/* Estilos del menú y submenús */
+.menu_desplegable ul {
+  list-style-type: none;
+  padding: 0rem;
+}
+
+.menu_desplegable ul li {
+  padding: 0.25rem;
+  transition: all 0.5s ease;
+}
+
+.menu_desplegable ul li a {
+  color: rgb(181, 161, 161);
+  text-decoration: none;
+  display: block;
+  padding: 0.625rem 0.9375rem;
+  transition: all 0.5s ease;
+  border-radius: 0.625rem;
+}
+
+.menu_desplegable ul li a:hover {
+  background-color: #161616;
+  color: rgb(224, 209, 209);
+}
+
+.menu_desplegable a:hover {
+  padding-left: 1.875rem;
+}
+
+/* Submenús ocultos por defecto */
+.submenu {
+  background: #161616;
+  max-height: 0rem; /* Inicialmente oculto */
+  overflow: hidden; /* Oculta el contenido que excede max-height */
+  padding-left: 0.9375rem;
+  width: 100%;
+  border-radius: 0.625rem;
+  transition: max-height 0.5s ease-out; /* Transición suave */
+}
+
+/* Estilo para los elementos de submenú */
+.submenu li {
+  border-radius: 0.625rem;
+}
+
+/* Estilo para los enlaces en el submenú */
+.submenu a {
+  color: rgb(255, 255, 255, 0.7);
+  padding-left: 1.875rem;
+  transition: background-color 0.5s ease, padding-left 0.5s ease;
+}
+
+/* Activar el submenú */
+.submenu-active .submenu {
+  max-height: 18.75rem; /* Ajusta este valor para cubrir la altura del submenú */
+  transition: max-height 0.5s ease-out;
+}
+
+/* ////////////////////////////////////////////////// */

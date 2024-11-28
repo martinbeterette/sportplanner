@@ -1,0 +1,183 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+.header {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Contenedor de la información de la sucursal */
+.sucursal-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    margin: 20px auto;
+    width: 80%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Información de la sucursal (lado izquierdo) */
+.info-left {
+    flex: 1;
+}
+
+/* Botones de gestión (lado derecho) */
+.gestion-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px; /* Menor espacio entre botones */
+}
+
+/* Botones individuales */
+.gestion-buttons .btn-gestion {
+    padding: 8px 12px; /* Tamaño reducido */
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.gestion-buttons .btn-gestion:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Contenedor general de canchas */
+.canchas-container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* Grid de las tarjetas de canchas */
+.canchas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Tarjetas individuales */
+.cancha-card {
+    width: 250px;
+    height: 300px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+
+/* Estilo de los títulos y párrafos dentro de las tarjetas */
+.cancha-card h3 {
+    margin-top: 0;
+}
+
+.cancha-card p {
+    margin: 5px 0;
+}
+
+/* Botones en las tarjetas */
+.cancha-card .btn {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border:none;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cancha-card .btn:hover {
+    transform: scale(1.05);
+}
+
+/* Colores específicos para botones */
+.btn-reservar {
+    background-color: #28A745;
+}
+
+.btn-reservar:hover {
+    background-color: #1c7430;
+}
+
+.btn-modificar {
+    background-color: #FFC107;
+}
+
+.btn-modificar:hover {
+    background-color: #FFA000;
+}
+
+.btn-eliminar {
+    background-color: #F44336;
+}
+
+.btn-eliminar:hover {
+    background-color: #D32F2F;
+}
+
+/* Botón agregar */
+.btn-agregar {
+    background-color: #4CAF50;
+}
+
+.btn-agregar:hover {
+    background-color: #45a049;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 600px) {
+    .gestion-buttons {
+        align-items: center;
+    }
+
+    .canchas-grid {
+        flex-direction: column;
+    }
+}
+
+.btn-agregar {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-agregar:hover {
+  transform: scale(1.05);
+}

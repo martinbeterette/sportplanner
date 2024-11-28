@@ -1,0 +1,81 @@
+.misComplejos {
+  height: 100%;
+  width: 100%;
+}
+
+.containerComplejo {
+  background-color: #212121;
+  height: 100%;
+  width: 75%;
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 10px rgb(128, 128, 128, 0.7);
+}
+
+.containerComplejo form {
+  padding: 2px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.containerComplejo form input {
+  width: 60%; /* Ocupa el 100% del contenedor */
+  padding: 10px 15px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde del input */
+  border-radius: 25px; /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  font-size: 16px; /* Tamaño de la fuente */
+  transition: all 0.3s ease; /* Transición para los cambios en el input */
+  outline: none; /* Elimina el borde por defecto */
+}
+
+/* Cambios al enfocar el input */
+.containerComplejo form input:focus {
+  border-color: #007bff; /* Color del borde al enfocar */
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); /* Sombra más grande y azul */
+}
+
+/* Placeholder estilizado */
+.containerComplejo form input::placeholder {
+  color: #aaa; /* Color gris claro para el placeholder */
+  font-style: italic; /* Estilo en cursiva */
+}
+
+.complejoEncontrado {
+  background-color: #161616;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 0.5px solid #0b0b0b;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.complejoEncontrado:not(:first-child) {
+  margin-top: 10px;
+}
+
+.complejoEncontrado:hover {
+  box-shadow: 0px 0px 10px rgb(128, 128, 128, 0.7);
+  transform: scale(1.05);
+}
+
+.complejoEncontrado picture,
+.complejoEncontrado h2 {
+  pointer-events: none;
+}
+
+.complejoEncontrado picture img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}

@@ -1,0 +1,99 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8f5; /* Verde suave */
+    color: #333;
+}
+
+.formulario-wizard {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: #2e7d32; /* Verde más oscuro */
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los inputs y labels */
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #4c4c4c;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #cfd8dc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    margin-top: 5px;
+}
+
+input:focus, select:focus {
+    border-color: #81c784; /* Verde claro */
+    outline: none;
+}
+
+/* Estilos para errores */
+span {
+    color: #e57373; /* Rojo claro para los errores */
+    font-size: 0.85em;
+}
+
+span.success{
+    color: #81c784;
+    font-size: 0.85em;
+}
+
+/* Botones de navegación */
+.botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.siguiente {
+    background-color: #388e3c; /* Verde oscuro */
+    color: #fff;
+}
+
+.anterior {
+    background-color: #a5d6a7; /* Verde claro */
+    color: #fff;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Estilo para el botón de finalizar */
+#btn-finalizar {
+    background-color: #2e7d32; /* Verde intenso */
+    color: #fff;
+    font-weight: bold;
+}

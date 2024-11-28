@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportplanner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/pp2/modules/index/css/index.css">
+    <link rel="stylesheet" href="/pp2/modules/nav/titulo_inicio/css/titulo_inicio.css">
+    <link rel="stylesheet" href="/pp2/modules/nav/filtro_busqueda/css/filtro_busqueda.css">
+    <link rel="stylesheet" href="/pp2/modules/nav/btn_perfil/css/btn_perfil">
+    <link rel="stylesheet" href="/pp2/modules/menu_desplegable/css/menu_desplegable.css">
+    <link rel="stylesheet" href="/pp2/modules/complejo/modificar_complejo/css/modificar_complejo.css">
+</head>
+
+<body>
+    <div class="conteiner_index">
+        <div class="background_index">
+            <header>
+                <div class="titulo_inicio">
+                    <img src="/pp2/assets/icons/icono22.png" alt="icono inicio">
+                    <h2>Sportolanner</h2>
+                </div>
+
+                <form id="filtro_deporte">
+
+                    <!-- Selección del deporte -->
+                    <div class="form_filtro">
+                        <label for="deporte">Deporte:</label>
+                        <select id="deporte" name="deporte" onchange="updateTipoDeporte()">
+                            <option value="futbol">Fútbol</option>
+                            <option value="voley">Vóley</option>
+                            <option value="basquet">Básquet</option>
+                        </select>
+                    </div>
+
+                    <!-- Tipo de deporte dinámico -->
+                    <div class="form_filtro" id="tipo-deporte-container" style="display: none;">
+                        <label for="tipoDeporte">Formato:</label>
+                        <select id="tipoDeporte" name="tipoDeporte">
+                            <!-- Se llenará dinámicamente según el deporte -->
+                        </select>
+                    </div>
+
+                    <!-- Selección de la superficie -->
+                    <div class="form_filtro">
+                        <label for="superficie">Superficie:</label>
+                        <select id="superficie" name="superficie">
+                            <option value="cesped">Césped</option>
+                            <option value="piso">Piso</option>
+                            <option value="sintetico">Sintético</option>
+                        </select>
+                    </div>
+
+                    <!-- Selección de la fecha -->
+                    <div class="form_filtro">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha">
+                    </div>
+
+                    <!-- Selección de la hora -->
+                    <div class="form_filtro">
+                        <label for="hora">Hora:</label>
+                        <input type="time" id="hora" name="hora">
+                    </div>
+
+                    <button type="submit">Buscar Partido</button>
+                </form>
+
+                <div class="profile-dropdown">
+                    <div onclick="toggle()" class="profile-dropdown-btn">
+                        <div class="profile-img">
+                        </div>
+
+                        <span>Victoria
+                            <i class="fa-solid fa-angle-down"></i>
+                        </span>
+                    </div>
+
+                    <ul class="profile-dropdown-list">
+                        <li class="profile-dropdown-list-item">
+                            <a href="#">
+                                <i class="fa-regular fa-user"></i>
+                                Perfil
+                            </a>
+                        </li>
+
+                        <li class="profile-dropdown-list-item">
+                            <a href="#">
+                                <i class="fa-regular fa-envelope"></i>
+                                Notificacion
+                            </a>
+                        </li>
+
+                        <li class="profile-dropdown-list-item">
+                            <a href="#">
+                                <i class="fa-solid fa-futbol"></i>
+                                Mis Reservas
+                            </a>
+                        </li>
+
+                        <li class="profile-dropdown-list-item">
+                            <a href="#">
+                                <i class="fa-solid fa-toggle-off"></i>
+                                Modo Oscuro
+                            </a>
+                        </li>
+
+                        <li class="profile-dropdown-list-item">
+                            <a href="#">
+                                <i class="fa-regular fa-circle-question"></i>
+                                Ayuda
+                            </a>
+                        </li>
+                        <hr />
+
+                        <li class="profile-dropdown-list-item">
+                            <a href="#">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                Cerrar Sesion
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <main>
+                <div class="main_conteiner">
+                    <!-- Botón para abrir el menú -->
+                    <button id="toggle-menu" class="menu-btn">☰</button>
+
+                    <!-- Menú lateral -->
+                    <aside class="menu_desplegable" id="menu">
+                        <ul>
+                            <li><a href="#">Torneo</a></li>
+                            <li><a href="#">Buscar Rival</a></li>
+                            <p>administrador</p>
+                            <li><a href="#">Dashboard</a></li>
+                            <li>
+                                <a href="#" class="has-submenu">Reservas</a>
+                                <ul class="submenu">
+                                    <li><a href="#">Ver reservas</a></li>
+                                    <li><a href="#">Realizar Reserva</a></li>
+                                    <li><a href="#">Marketing</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="has-submenu">Socios</a>
+                                <ul class="submenu">
+                                    <li><a href="#">Ver Socios</a></li>
+                                    <li><a href="#">Notificar Socio</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Empleados</a></li>
+                            <li><a href="#">Reclamos</a></li>
+                            <li>
+                                <a href="#" class="has-submenu">Modulos</a>
+                                <ul class="submenu">
+                                    <li><a href="#">Personas</a></li>
+                                    <li><a href="#">Zonas</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </aside>
+                    <div class="complejo_alta">
+                        <!-- Formulario multipasos -->
+                        <form id="formulario-multipasos">
+                            <!-- Paso 1 -->
+                            <div class="paso" id="paso-1">
+                                <h3>Paso 1: Datos del Complejo</h3>
+                                <label for="iconoComplejo">Icono del Complejo</label>
+                                <input type="file" id="iconoComplejo" accept="image/*" required>
+                                <label for="nombreComplejo">Nombre del Complejo</label>
+                                <input type="text" id="nombreComplejo" required>
+                                <button type="button" onclick="mostrarPaso(2)">Siguiente</button>
+                            </div>
+
+                            <!-- Paso 2 -->
+                            <div class="paso" id="paso-2" style="display:none;">
+                                <h3>Paso 2: Datos de la Sucursal</h3>
+                                <div class="input_form">
+                                    <label for="imagenesSucursal">Imágenes de la Sucursal (máx. 5):</label>
+                                    <input type="file" id="imagenesSucursal" accept="image/*" multiple required>
+                                </div>
+                                <div class="input_form">
+                                    <label for="nombreSucursal">Nombre de la Sucursal:</label>
+                                    <input type="text" id="nombreSucursal" required>
+                                </div>
+                                <div class="input_form">
+                                    <label for="direccionSucursal">Dirección:</label>
+                                    <input type="text" id="direccionSucursal" required>
+                                </div>
+                                <div class="input_form">
+                                    <label for="contactoSucursal">Contacto (Teléfono o Correo):</label>
+                                    <input type="text" id="contactoSucursal" required>
+                                </div>
+                                <div class="servicios_form">
+                                    <h4>Servicios</h4>
+                                    <label><input type="checkbox" id="servicioLuz"> Luz</label>
+                                    <label><input type="checkbox" id="servicioTecho"> Techo</label>
+                                    <label><input type="checkbox" id="servicioWifi"> Wi-Fi</label>
+                                </div>
+                                <div class="btn_form">
+                                    <button type="button" onclick="mostrarPaso(1)">Anterior</button>
+                                    <button type="button" onclick="mostrarPaso(3)">Siguiente</button>
+                                </div>
+                            </div>
+
+                            <!-- Paso 3 -->
+                            <div class="paso" id="paso-3" style="display:none;">
+                                <h3>Paso 3: Zonas</h3>
+                                <div class="input_form">
+                                    <label for="nombreCancha">Nombre de la Cancha:</label>
+                                    <input type="text" id="nombreCancha" required>
+                                </div>
+                                <div class="input_form">
+                                    <label for="deporte">Deporte:</label>
+                                    <select id="deporte" required>
+                                        <option value="futbol">Fútbol</option>
+                                        <option value="voley">Vóley</option>
+                                        <option value="rugby">Rugby</option>
+                                    </select>
+                                </div>
+                                <div class="input_form">
+                                    <label for="formatoDeporte">Formato:</label>
+                                    <select name="formatoDeporte" id="formatoDeporte">
+                                        <option value="" selected disabled>Seleccionar...</option>
+                                        <option value="">Futbol 5</option>
+                                        <option value="">Futbol 7</option>
+                                        <option value="">Futbol 11</option>
+                                    </select>
+                                </div>
+                                <div class="input_form">
+                                    <label for="tipoTerreno">Tipo de Terreno:</label>
+                                    <select id="tipoTerreno" required>
+                                        <option value="cesped">Césped</option>
+                                        <option value="pasto">Pasto</option>
+                                        <option value="piso">Piso</option>
+                                    </select>
+                                </div>
+                                <div class="servicios_cancha">
+                                    <h4>Servicios en la Cancha</h4>
+                                    <label><input type="checkbox" id="canchaTecho"> Techo</label>
+                                    <label><input type="checkbox" id="canchaLuz"> Luz</label>
+                                    <label><input type="checkbox" id="canchaCamaras"> Cámaras</label>
+                                </div>
+                                <div class="estadoCancha" style="display: block;">
+                                    <label for="">Estado de la Cancha</label>
+                                    <select name="estadoCancha">
+                                        <option value="" selected disabled>Estado Cancha</option>
+                                        <option value="alta">Disponible</option>
+                                        <option value="baja">No Disponible</option>
+                                        <option value="mantenimiento">En Mantenimiento</option>
+                                    </select>
+                                </div>
+                                <div class="btn_form">
+                                    <button type="button" onclick="mostrarPaso(2)">Anterior</button>
+                                    <button type="submit">Finalizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <footer style="background-color: antiquewhite;">
+                        <h2>footer</h2>
+                    </footer>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="/pp2/modules/nav/btn_perfil/js/btn_perfil.js"></script>
+    <script src="/pp2/modules/nav/filtro_busqueda/js/filtro_busqueda.js"></script>
+    <script src="/pp2/modules/menu_desplegable/js/menu_desplegable.js"></script>
+    <script src="/pp2/modules/complejo/modificar_complejo/js/modificar_complejo.js"></script>
+</body>
+
+</html>

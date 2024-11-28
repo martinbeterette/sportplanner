@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Reservas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <h1>Dashboard de Reservas de Canchas</h1>
+
+        <!-- Filtros -->
+        <button id="exportarpdf">Exportar a PDF</button>
+
+        <div class="filters">
+            <label for="filter-period">Periodo:</label>
+            <select id="filter-period">
+                <option value="day">Día</option>
+                <option value="week">Semana</option>
+                <option value="month">Mes</option>
+                <option value="year">Año</option>
+                <option value="custom">Personalizado</option>
+            </select>
+            <div id="custom-date-range" style="display: none;">
+                <label for="start-date">Desde:</label>
+                <input type="date" id="start-date">
+                <label for="end-date">Hasta:</label>
+                <input type="date" id="end-date">
+                <button id="apply-custom-range">Aplicar</button>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="charts">
+            <div class="chart-container">
+                <h2>Reservas por Día de la Semana</h2>
+                <canvas id="reservationsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>Canchas Más Reservadas</h2>
+                <canvas id="popularCourtsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Tabla de reservas -->
+        <div class="reservations-table">
+            <h2>Historial de Reservas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cancha</th>
+                        <th>Total Reservas</th>
+                        <th>Finalizados</th>
+                        <th>Ausentes</th>
+                        <th>Cancelados</th>
+                        <th>Recaudación</th>
+                    </tr>
+                </thead>
+                <tbody id="reservation-data">
+                    <!-- Datos cargados dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <div class="registrosTurnos">
+            <table id="tarifasTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Descripción Tarifa</th>
+                        <th>Total Reservas</th>
+                        <th>Recaudación Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tarifasTableBody">
+                    <!-- Las filas se generarán dinámicamente -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Inicialización de gráficos
+            const reservationsChartCtx = document.getElementById('reservationsChart').getContext('2d');
+            const popularCourtsChartCtx = document.getElementById('popularCourtsChart').getContext('2d');
+
+            let reservationsChart = new Chart(reservationsChartCtx, {
+                type: 'bar',
+                data: { labels: [], datasets: [{ label: 'Reservas', data: [], backgroundColor: 'rgba(75, 192, 192, 0.5)' }] },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+
+            let popularCourtsChart = new Chart(popularCourtsChartCtx, {
+                type: 'bar',
+                data: { labels: [], datasets: [{ label: 'Reservas por Cancha', data: [], backgroundColor: 'rgba(255, 99, 132, 0.5)' }] },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+
+            // Función para cargar datos
+            function loadData(period = 'week', startDate = null, endDate = null) {
+                let requestData = { period, startDate, endDate };
+
+                $.ajax({
+                    url: 'get_reservation_data.php',
+                    method: 'GET',
+                    data: requestData,
+                    success: function (response) {
+                        let data;
+                        try {
+                            data = typeof response === 'string' ? JSON.parse(response) : response;
+                        } catch (error) {
+                            console.error('Error al parsear JSON:', error);
+                            return;
+                        }
+                        updateChartsAndTable(data);
+                        if (data.tarifas) renderTarifasTable(data.tarifas);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error en la solicitud AJAX:', error);
+                    }
+                });
+            }
+
+            // Actualización de gráficos y tablas
+            function updateChartsAndTable(data) {
+                // Actualizar gráficos
+                reservationsChart.data.labels = data.days.labels || [];
+                reservationsChart.data.datasets[0].data = data.days.values || [];
+                reservationsChart.update();
+
+                popularCourtsChart.data.labels = data.courts.labels || [];
+                popularCourtsChart.data.datasets[0].data = data.courts.Reserva_total || [];
+                popularCourtsChart.update();
+
+                // Actualizar tabla de reservas
+                const tableBody = $('#reservation-data');
+                tableBody.empty();
+                if (data.courts.labels.length > 0) {
+                    data.courts.labels.forEach((court, index) => {
+                        tableBody.append(`
+                    <tr>
+                        <td>${court || 'N/A'}</td>
+                        <td>${data.courts.Reserva_total[index] || 0}</td>
+                        <td>${data.courts.Finalizados[index] || 0}</td>
+                        <td>${data.courts.Ausente[index] || 0}</td>
+                        <td>${data.courts.Cancelado[index] || 0}</td>
+                        <td>${data.courts.recaudacion_por_cancha[index] || 0}</td>
+                    </tr>
+                `);
+                    });
+                } else {
+                    tableBody.append('<tr><td colspan="6">No hay datos disponibles.</td></tr>');
+                }
+            }
+
+            // Renderizar tabla de tarifas
+            function renderTarifasTable(tarifas) {
+                const tableBody = $('#tarifasTableBody');
+                tableBody.empty();
+                tarifas.labels.forEach((label, index) => {
+                    tableBody.append(`
+                <tr>
+                    <td>${label}</td>
+                    <td>${tarifas.total_reserva[index]}</td>
+                    <td>${tarifas.recaudacion_total[index]}</td>
+                </tr>
+            `);
+                });
+            }
+
+            // Eventos
+            $('#filter-period').change(function () {
+                const period = $(this).val();
+                if (period === 'custom') {
+                    $('#custom-date-range').show();
+                } else {
+                    $('#custom-date-range').hide();
+                    loadData(period);
+                }
+            });
+
+            $('#apply-custom-range').click(function () {
+                const startDate = $('#start-date').val();
+                const endDate = $('#end-date').val();
+                if (startDate && endDate && new Date(startDate) <= new Date(endDate)) {
+                    loadData('custom', startDate, endDate);
+                } else {
+                    alert('Por favor, selecciona un rango de fechas válido.');
+                }
+            });
+
+            $('#exportarpdf').click(async function () {
+                const charts = [];
+                const tableHeaders = [];
+                const tableRows = [];
+
+                // Capturar gráficos como imágenes
+                const chartElements = document.querySelectorAll('canvas');
+                for (let chart of chartElements) {
+                    // Usamos html2canvas para capturar el gráfico como una imagen
+                    await html2canvas(chart).then(canvas => {
+                        // Obtener el contexto y aplicar la opción willReadFrequently
+                        const context = canvas.getContext("2d", { willReadFrequently: true });
+                        // Aquí no es necesario realizar más cambios, solo seguimos capturando la imagen
+                        const imgData = canvas.toDataURL().split(',')[1]; // Convertir el canvas a una imagen en base64
+                        charts.push(imgData);
+                    });
+                }
+
+                // Capturar datos de la tabla
+                $('#reservation-data tr').each(function () {
+                    const row = [];
+                    $(this).find('td, th').each(function () {
+                        row.push($(this).text());
+                    });
+
+                    if ($(this).is('thead tr')) {
+                        tableHeaders.push(...row);
+                    } else {
+                        tableRows.push(row);
+                    }
+                });
+
+                // Enviar datos al servidor
+                const dataToSend = {
+                    charts,
+                    table: { headers: tableHeaders, rows: tableRows }
+                };
+
+                fetch('export_to_pdf.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataToSend)
+                })
+                    .then(response => {
+                        if (!response.ok) throw new Error('No se pudo generar el PDF.');
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'reporte_reservas.pdf';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    })
+                    .catch(error => alert(error.message));
+            });
+
+
+            // Carga inicial
+            loadData();
+        });
+
+    </script>
+</body>
+
+</html>

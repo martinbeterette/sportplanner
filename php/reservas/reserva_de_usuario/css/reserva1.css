@@ -1,0 +1,165 @@
+/* Reset de márgenes y estilos base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Título de la página */
+h1 {
+    text-align: center;
+    color: #007bff;
+    font-size: 28px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+/* Estilo de la tabla de canchas */
+#tabla-canchas {
+    margin: 20px auto;
+    width: 90%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+}
+
+td:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botón de seleccionar cancha */
+button.seleccionar-cancha {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.seleccionar-cancha:hover {
+    background-color: #0056b3;
+}
+
+/* Paginación */
+div div {
+    text-align: center;
+    margin-top: 10px;
+}
+
+button.pagina {
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.pagina:hover {
+    background-color: #0056b3;
+}
+
+/* Formulario de reserva */
+#form-reserva {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    display: none;
+    width: 80%;
+    margin: 20px auto;
+}
+
+#form-reserva h3 {
+    text-align: center;
+    color: #007bff;
+    font-size: 24px;
+}
+
+#form-reserva label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#form-reserva input[type="date"] {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+#form-reserva button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+#form-reserva button:hover {
+    background-color: #218838;
+}
+
+/* Estilo para la flechita de breadcrumb */
+.breadcrumb {
+    margin: 20px 0;
+    padding-left: 20px; /* Ajusta según necesites */
+}
+
+.back-arrow {
+    font-size: 20px;
+    color: #007bff; /* Color azul para la flecha */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.back-arrow:hover {
+    color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilo opcional para la flecha */
+.back-arrow::before {
+    content: "\2190"; /* Código Unicode para la flecha hacia la izquierda */
+    margin-right: 5px;
+    font-size: 24px; /* Tamaño de la flecha */
+}

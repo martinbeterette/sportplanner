@@ -1,0 +1,60 @@
+#filtro_deporte {
+  background-color: rgb(33, 33, 33, 0.2);
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 0.625rem;
+  padding: 3px 0px;
+}
+
+.form_filtro label {
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.form_filtro select {
+  width: 100%;
+  text-align: center;
+  border-radius: 0.625rem;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.flackFech {
+  width: 100%;
+  text-align: center;
+  border-radius: 0.625rem;
+  border: none;
+  padding: 0.5rem 0rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.flackFech:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#filtro_deporte button {
+  padding: 0.5rem;
+  background-color: white;
+  color: #427a35;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+
+#filtro_deporte button:hover {
+  background-color: #218838;
+  color: white;
+  transform: scale(1.05);
+}

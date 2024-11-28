@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportplanner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../index/css/index.css">
+    <link rel=" stylesheet" href="../../nav/titulo_inicio/css/titulo_inicio.css">
+    <link rel="stylesheet" href="../../nav/filtro_busqueda/css/filtro_busqueda.css">
+    <link rel="stylesheet" href="../../nav/btn_perfil/css/btn_perfil.css">
+    <link rel="stylesheet" href="../../menu_desplegable/css/menu_desplegable.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="titulo_inicio">
+                <img src="../../../assets/icons/icono22.png" alt="icono inicio">
+                <h2>Sportolanner</h2>
+            </div>
+
+            <!-- Botón que aparece en pantallas pequeñas -->
+            <button id="open-modal-btn" class="open-modal-btn" style="display: none;" onclick="openModal()">Buscar
+                Cancha</button>
+
+            <!-- Formulario de filtro que será contenido del modal en pantallas pequeñas -->
+            <form id="filtro_deporte">
+                <!-- Selección del deporte -->
+                <div class="form_filtro">
+                    <label for="deporte">Deporte:</label>
+                    <select id="deporte" name="deporte" onchange="updateTipoDeporte()">
+                        <option value="futbol">Fútbol</option>
+                        <option value="voley">Vóley</option>
+                        <option value="basquet">Básquet</option>
+                    </select>
+                </div>
+
+                <!-- Tipo de deporte dinámico -->
+                <div class="form_filtro" id="tipo-deporte-container" style="display: none;">
+                    <label for="tipoDeporte">Formato:</label>
+                    <select id="tipoDeporte" name="tipoDeporte">
+                        <!-- Se llenará dinámicamente según el deporte -->
+                    </select>
+                </div>
+
+                <!-- Selección de la superficie -->
+                <div class="form_filtro">
+                    <label for="superficie">Superficie:</label>
+                    <select id="superficie" name="superficie">
+                        <option value="cesped">Césped</option>
+                        <option value="piso">Piso</option>
+                        <option value="sintetico">Sintético</option>
+                    </select>
+                </div>
+
+                <!-- Selección de la fecha -->
+                <div class="form_filtro">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha">
+                </div>
+
+                <!-- Selección de la hora -->
+                <div class="form_filtro">
+                    <label for="hora">Hora:</label>
+                    <input type="time" id="hora" name="hora">
+                </div>
+
+                <!-- Button filtro -->
+                <div class="form_filtro">
+                    <label for="btnFiltroBusqueda">A Jugar!</label>
+                    <button type="submit">Buscar Cancha</button>
+                </div>
+
+            </form>
+
+            <!-- Modal -->
+            <div id="filter-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h3>Filtrar Deportes</h3>
+                    <!-- Aquí se carga el formulario de filtros -->
+                    <form id="filtro_deporte_modal"></form>
+                </div>
+            </div>
+
+            <div class="profile-dropdown">
+                <div onclick="toggle()" class="profile-dropdown-btn">
+                    <div class="profile-img">
+                    </div>
+
+                    <span>Lionel Messi
+                        <i class="fa-solid fa-angle-down"></i>
+                    </span>
+                </div>
+
+                <ul class="profile-dropdown-list">
+                    <li class="profile-dropdown-list-item">
+                        <a href="#">
+                            <i class="fa-regular fa-user"></i>
+                            Perfil
+                        </a>
+                    </li>
+
+                    <li class="profile-dropdown-list-item">
+                        <a href="#">
+                            <i class="fa-regular fa-envelope"></i>
+                            Notificacion
+                        </a>
+                    </li>
+
+                    <li class="profile-dropdown-list-item">
+                        <a href="#">
+                            <i class="fa-solid fa-futbol"></i>
+                            Mis Reservas
+                        </a>
+                    </li>
+
+                    <li class="profile-dropdown-list-item">
+                        <a href="#">
+                            <i class="fa-solid fa-toggle-off"></i>
+                            Modo Oscuro
+                        </a>
+                    </li>
+
+                    <li class="profile-dropdown-list-item">
+                        <a href="#">
+                            <i class="fa-regular fa-circle-question"></i>
+                            Ayuda
+                        </a>
+                    </li>
+                    <hr />
+
+                    <li class="profile-dropdown-list-item">
+                        <a href="#">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            Cerrar Sesion
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main>
+            <!-- Botón para abrir el menú -->
+            <button id="toggle-menu" class="menu-btn">☰</button>
+
+            <!-- Menú lateral -->
+            <aside class="menu_desplegable" id="menu">
+                <ul>
+                    <li><a href="#">Torneo</a></li>
+                    <li><a href="#">Buscar Rival</a></li>
+                    <li><a href="#">Complejos</a></li>
+                    <p>Gerente</p>
+                    <li><a href="#">Dashboard</a></li>
+                    <li>
+                        <a href="#" class="has-submenu">Reservas</a>
+                        <ul class="submenu">
+                            <li><a href="#">Ver reservas</a></li>
+                            <li><a href="#">Realizar Reserva</a></li>
+                            <li><a href="#">Marketing</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="has-submenu">Socios</a>
+                        <ul class="submenu">
+                            <li><a href="#">Ver Socios</a></li>
+                            <li><a href="#">Notificar Socio</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Empleados</a></li>
+                    <li><a href="#">Reclamos</a></li>
+                    <li>
+                        <a href="#" class="has-submenu">Modulos</a>
+                        <ul class="submenu">
+                            <li><a href="#">Personas</a></li>
+                            <li><a href="#">Zonas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+
+            <div class="contenido"></div>
+        </main>
+        <footer>
+            <h2>footer</h2>
+        </footer>
+    </div>
+    <script src="../../nav/filtro_busqueda/js/filtro_busqueda.js"></script>
+    <script src="../../nav/btn_perfil/js/btn_perfil.js"></script>
+    <script src="../../menu_desplegable/js/menu_desplegable.js"></script>
+    <script src="../../nav/filtro_busqueda/js/modal960px.js"></script>
+</body>
+
+</html>

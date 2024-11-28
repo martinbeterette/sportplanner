@@ -1,0 +1,104 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+.title {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin:auto;
+
+    padding: 3px;
+}
+/* Contenedor Flex para poner el formulario y el buscador lado a lado */
+.flex-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 20px; /* Espacio entre el formulario y el buscador */
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Estilos de los contenedores individuales */
+.form-container, .busqueda-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 45%; /* Ajuste del ancho para que quepan uno al lado del otro */
+}
+
+.form-container h2, .busqueda-container h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.form-container {
+    margin-left: 5%;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botón Buscar */
+#btn-buscar {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#btn-buscar:hover {
+    background-color: #0056b3;
+}
+
+/* Resultados de Personas */
+.resultados-personas p {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.resultados-personas p:hover {
+    cursor: pointer;
+    background-color: #e0f7fa; /* Un azul clarito para que llame la atención */
+    color: #00796b; /* Texto verde oscuro que contraste */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(5px); /* Movimiento ligero hacia la derecha */
+}
+
+
+.resultados-personas p {
+    margin: 8px 0;
+}
+.no-results {
+    color: gray;
+}
+
+.persona {
+    padding: 3px 10px;
+    transition: all 0.2s ease-in-out;
+}
+

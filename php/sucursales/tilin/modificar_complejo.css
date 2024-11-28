@@ -1,0 +1,125 @@
+.complejo_alta {
+  position: relative;
+  height: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paso {
+  position: relative;
+  background-color: rgb(255, 255, 255, 0.6);
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.paso h3 {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input_form {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  padding: 0px 10px;
+}
+
+.servicios_form {
+  border: 0.5px solid rgb(99, 156, 84, 0.5);
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.servicios_form input {
+  margin: 0px 5px 0px;
+  padding: 0;
+}
+
+.servicios_form h4 {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 400;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin: 0px 15px 0px;
+  padding: 10px 20px;
+  background-color: #639c54;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+button:hover {
+  background-color: white;
+  color: #639c54;
+  transform: scale(1.05);
+}
+
+#paso-1 {
+  flex-direction: column;
+}
+
+#paso-2,
+#paso-3 {
+  height: 75vh;
+  width: 800px;
+  overflow: auto;
+}
+
+.servicios_cancha {
+  border: 0.5px solid rgb(99, 156, 84, 0.5);
+  border-radius: 10px;
+  position: relative;
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.servicios_cancha h4 {
+  width: 100%;
+}
+
+.servicios_cancha label {
+  display: flex;
+}
+
+.estadoCancha {
+  width: 50%;
+}
+
+.estadoCancha select {
+  margin-top: 5px;
+  width: 90%;
+}

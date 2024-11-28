@@ -1,0 +1,62 @@
+@import url(../../../css/header.css);
+@import url(../../../css/aside.css);
+
+.contenido  {
+  font-family: arial;
+  position: relative;
+  height: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: rgb(240, 255, 255, 0.5);
+  position: relative;
+  height: 90%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.container input {
+  width: 50%;
+}
+
+.sucursal {
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  width: 75%;
+  padding: 10px;
+  border: 1.5px solid grey;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.sucursal:not(:first-child) {
+  margin-top: 10px;
+}
+
+.sucursal:hover {
+  transform: scale(1.05);
+}
+
+.sucursal picture,
+.sucursal h2 {
+  pointer-events: none;
+}
+
+picture img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}

@@ -1,0 +1,84 @@
+/* Estilos generales */
+* {
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #161616;
+}
+
+/* Contenedores principales */
+.indexComplejo {
+  position: relative;
+  background-color:#161616 ;
+  height: 90%;
+  width: 100%;
+  overflow: auto;
+}
+
+.complejocontainer {
+  background-color: white;
+  margin: 20px auto;
+  width: 65%;
+  min-height: 500px;
+  overflow: auto;
+}
+
+/* Imagen y descripción del complejo */
+.complejoImg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background:center;
+  margin: 20px auto;
+  width: 70%;
+  background-color: black;
+  height: 160px;
+}
+
+.complejoDescripcion {
+  display: flex;
+  padding: 15px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.complejoDescripcion a {
+  color: white;
+  text-decoration: none;
+  background-color: rgb(101, 209, 101);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Sucursales del complejo */
+.complejoSucursales {
+  margin: 35px auto 20px;
+  width: 70%;
+  border: 2px solid lightgray;
+  background-color: rgb(241, 230, 230);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.complejoSucursal {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 3px solid gray;
+  background-color: lightgray;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.complejoSucursal:hover {
+  cursor: pointer;
+  background-color: lightslategray;
+}
+
+.complejoSucursal:not(:first-child) {
+  margin-top: 20px;
+}  
+
+footer {
+    background-color: #161616;
+}

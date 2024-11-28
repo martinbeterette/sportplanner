@@ -1,0 +1,108 @@
+/* Reset de márgenes y estilos base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Título de la página */
+h2 {
+    text-align: center;
+    color: #007bff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    margin: 20px;
+}
+
+.back-arrow {
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.back-arrow:hover {
+    color: #0056b3;
+}
+
+.back-arrow::before {
+    content: "\2190";
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+/* Tabla de resultados */
+#tabla-canchas,
+#tabla-personas {
+    margin: 20px auto;
+    width: 90%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+}
+
+td:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botones */
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.seleccionar-cancha, 
+button.seleccionar-persona {
+    background-color: #007bff;
+    color: white;
+}
+
+button.seleccionar-cancha:hover, 
+button.seleccionar-persona:hover {
+    background-color: #0056b3;
+}
+
+button[type="submit"] {
+    margin: 20px auto;
+    display: block;
+    background-color: #28a745;
+    color: white;
+    width: 50%;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
