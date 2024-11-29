@@ -19,7 +19,7 @@ validarAcceso($modulo, $perfil);
 // print_r($_SESSION);
 
 //probandooooooooooooo
-$resetear_credenciales = $conexion->query("SELECT resertear_credenciales FROM usuarios WHERE id_usuario = {$_SESSION['id_usuario']}")->fetch_assoc()['resertear_credenciales'];
+// $resetear_credenciales = $conexion->query("SELECT resertear_credenciales FROM usuarios WHERE id_usuario = {$_SESSION['id_usuario']}")->fetch_assoc()['resertear_credenciales'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
