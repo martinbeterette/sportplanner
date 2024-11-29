@@ -1,7 +1,7 @@
 <?php 
 
 $ubicacionActualPath = __DIR__;
-$nombreDirectorio  = 'PROYECTO_PP2_2024';
+$nombreDirectorio  = 'sportplanner';
 
 define('RUTA', $ubicacionActualPath . '/' .'../');
 

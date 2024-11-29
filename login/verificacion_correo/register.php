@@ -41,7 +41,7 @@ try {
         // }
 
         if ($mail->send()) {
-            header("Location: ../inicio_sesion.php?correo_enviado");
+            header("Location: ../../inicio_sesion.php?correo_enviado");
             exit();
         } else {
             echo "ha ocurrido un error al enviar el correo". $mail->errorInfo;
@@ -49,7 +49,7 @@ try {
         }
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_GET['registro_usuario'])) {
 
         try {
 
@@ -59,20 +59,20 @@ try {
 
             $pdo->beginTransaction();
 
-            $nombre         = $_POST['nombre'];
-            $apellido       = $_POST['apellido'];
-            $documento      = $_POST['documento'];
-            $tipo_documento = $_POST['tipo_documento'];
-            $sexo           = $_POST['sexo'];
-            $username       = $_POST['username'];
-            $email          = $_POST['email'];
-            $password       = $_POST['password'];
+            $nombre         = $_REQUEST['nombre'];
+            $apellido       = $_REQUEST['apellido'];
+            $documento      = $_REQUEST['documento'];
+            $tipo_documento = $_REQUEST['tipo_documento'];
+            $sexo           = $_REQUEST['sexo'];
+            $username       = $_REQUEST['username'];
+            $email          = $_REQUEST['email'];
+            $password       = $_REQUEST['password'];
             $contrasena_hasheada = password_hash($password, PASSWORD_DEFAULT);
 
             //inicializamos la transaccion
             $existe_usuario = $conexion->query("SELECT * FROM usuarios WHERE username LIKE '$username'");
             if($existe_usuario->num_rows > 0){
-                header("Location: ../registro_usuario.php?username_repetido");
+                header("Location: ../registrarse/registro_usuario.php?username_repetido");
             }
             //Insertar en persona
             $stmt = $pdo->prepare("INSERT INTO persona (nombre, apellido, rela_sexo, fecha_alta) VALUES (?, ?, ?, CURRENT_DATE())");
