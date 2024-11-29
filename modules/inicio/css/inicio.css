@@ -1,0 +1,611 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  scrollbar-color: #f8c471 lightblue;
+  scrollbar-width: 1px;
+}
+
+.contenedor_banner {
+  position: relative;
+  height: 100dvh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+.parte2 {
+  height: 100dvh;
+  width: 73.7dvw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+  mask-image: linear-gradient(to left, black 80%, transparent);
+}
+
+.iniciarsesion {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+  padding: 10px;
+}
+
+.iniciarsesion .btn {
+  background-color: #f8f9fa;
+  color: #28a745;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.iniciarsesion .btn:hover {
+  background-color: #28a745;
+  color: #f8f9fa;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.filtroBusqueda {
+  background-color: rgba(249, 250, 251, 0.5);
+  width: fit-content;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.search-container select,
+.search-container input {
+  padding: 10px;
+  border: 1.5px solid #28a745;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f8f9fa;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.search-container select:hover,
+.search-container input:hover {
+  background-color: #e8f5e9;
+  transform: translateY(-2px);
+}
+
+.search-container select:focus,
+.search-container input:focus {
+  outline: none;
+  border-color: #218838;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+.search-container .search-btn {
+  background-color: #28a745;
+  color: #f8f9fa;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-container .search-btn:hover {
+  background-color: #218838;
+  color: #28a745;
+  transform: scale(1.05);
+}
+
+.search-container .search-btn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 480px) {
+  .search-container select,
+  .search-container input {
+    width: 100%;
+  }
+}
+
+.parte1 {
+  height: 100dvh;
+  width: 25dvw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nombre_pagina {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 330px;
+  width: 230px;
+}
+
+.nombre_pagina h1 {
+  transform: rotate(-90deg); /* Rota el h1 90 grados en sentido antihorario */
+  position: absolute;
+  color: #427a35;
+  font-size: 2.3rem; /* Ajusta según tus necesidades */
+  font-weight: 900;
+  z-index: 2; /* Asegura que el texto esté encima de la imagen */
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6); /* Opcional: Agrega sombra para mejorar la visibilidad */
+  border: none; /* Elimina cualquier borde del h1 */
+  background: transparent; /* Asegura que el fondo sea transparente */
+  margin: 30px 150px 0px 0px; /* Elimina márgenes adicionales */
+  padding: 0; /* Elimina relleno adicional */
+}
+
+.nombre_pagina img {
+  height: 300px;
+}
+
+.nosotros_pagina {
+  background-color: rgba(255, 255, 255, 0.47);
+  margin: 0px 0px 0px 230px;
+  width: 500px;
+  z-index: 5;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+}
+
+.nosotros_pagina h1 {
+  color: #427a35;
+  font-weight: 700;
+  font-size: 25px;
+}
+
+.redes_pagina {
+  height: 80px;
+  width: 300px;
+  padding-top: 6px;
+  border-radius: 10px 10px 0px 0px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.redes_pagina p {
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  color: #427a35;
+}
+
+.social_icons i {
+  font-size: 25px; /* Ajusta este valor según el tamaño deseado */
+  padding: 0px;
+  margin: 0px 10px; /* Espacio entre los íconos */
+  color: #333; /* Cambia el color si es necesario */
+  transition: color 0.3s ease, 0.5s ease; /* Efecto de transición para el color */
+  cursor: pointer;
+}
+
+.social_icons i:hover {
+  transform: scale(1.2);
+  color: #007bff; /* Cambia el color al pasar el mouse por encima */
+}
+
+.social_icons {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+section {
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+}
+
+.porquenosotros {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 30dvh;
+  background: linear-gradient(135deg, #28a745, #218838);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-content {
+  z-index: 1;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  animation: fadeInDown 1s ease;
+}
+
+.header p {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  animation: fadeInUp 1s ease;
+}
+
+.header .btn {
+  background-color: #fff;
+  color: #28a745;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.header .btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-content {
+  background: url(../../../assets/img/Hexagon.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  background-color: #f9f9f9;
+  height: 70vh;
+  width: 100%;
+}
+
+.main-content h2 {
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  background: white;
+  width: 21%;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.card img {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background: #28a745;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+@keyframes fadeInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.swal2-modal-custom {
+  border-radius: 15px;
+  background-color: #f8f9fa;
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+}
+
+.facilreserva {
+  background: url(../../../assets/img/Shiny\ Overlay.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.facilreservaheader {
+  height: 30dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #f8f9fa;
+  position: relative;
+  overflow: hidden;
+}
+
+.facilreservaheader-content {
+  z-index: 1;
+}
+
+.facilreservaheader h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  animation: fadeInDown 1s ease;
+}
+
+.facilreservaheader p {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  animation: fadeInUp 1s ease;
+}
+
+.facilreservaheader .btn {
+  background-color: #f8f9fa;
+  color: #28a745;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.facilreservaheader .btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.facilreservamain-content {
+  padding: 20px;
+  height: 70vh;
+  width: 100%;
+}
+
+.facilreservamain-content h2 {
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: f8f9fa;
+  width: 30%;
+}
+
+.facilreservacards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.facilreservacard {
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.facilreservacard img {
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+.facilreservacard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background: #28a745;
+}
+
+.facilreservacard h3 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.facilreservacard p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.footerpage {
+  display: flex;
+  flex-direction: column;
+}
+
+.ubicacionargentina {
+  height: 70dvh;
+}
+
+.footerdiv {
+  background: rgb(135, 204, 117);
+  background: linear-gradient(
+    180deg,
+    rgba(135, 204, 117, 1) 0%,
+    rgba(115, 184, 99, 1) 50%,
+    rgba(96, 164, 80, 1) 80%
+  );
+  height: 30dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logotitulo {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logotitulo img {
+  height: 96px;
+  width: 80px;
+}
+
+.logotitulo h2 {
+  font-size: 20px;
+}
+
+.terminocondiciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.condiciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.condiciones button {
+  background-color: #218838;
+  color: f8f9fa;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.condiciones button:hover {
+  transform: scale(1.05);
+  background-color: #87cc75;
+}
+
+.iconarg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.iconarg img {
+  height: 20px;
+  width: 20px;
+}
+
+.footerdiv1 {
+  background: url(../../../assets/img/Meteor.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.ubicacionargentina {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+  padding-left: 60px;
+}
+
+.ubicacionargentina h1 {
+  background: rgb(248, 249, 250, 0.6);
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.ubicacionargentina h3 {
+  background: rgb(248, 249, 250, 0.6);
+  margin-bottom: 30px;
+}
+
+.ubicacionargentina button {
+  background-color: #28a745;
+  color: f8f9fa;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.ubicacionargentina button:hover {
+  transform: scale(1.05);
+  background-color: #218838;
+}
+
+.imagenarg {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagenarg img {
+  height: 400px;
+  width: 300px;
+}
