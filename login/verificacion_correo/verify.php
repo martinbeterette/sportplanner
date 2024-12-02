@@ -38,7 +38,7 @@ try {
 
             if($reg) {
                 $username = $reg['username'];
-                header("Location: ../inicio_sesion.php?verificacion_expirada&email={$email}&username={$username}");
+                header("Location: ../inicio_sesion/inicio_sesion.php?verificacion_expirada&email={$email}&username={$username}");
             }
         }
     } else {

@@ -1,61 +1,56 @@
 <?php  
-    // session_start();
-    // $_SESSION['id_perfil'] = 1;
-    $id_perfil = isset($_SESSION['id_perfil']) ? $_SESSION['id_perfil'] : die("no hay perfil");/*23*/; // perfil del usuario almacenado en sesión
-    /*
-    $querySinRuta = "SELECT m.descripcion_modulo, sm.descripcion_submodulo
-              FROM modulo m 
-              JOIN asignacion_perfil_modulo apm ON m.id_modulo = apm.rela_modulo
-              JOIN submodulo sm ON m.id_modulo = sm.rela_modulo
-              WHERE apm.rela_perfil = ?";
-    */
-    $query_modulos = "SELECT m.descripcion_modulo, sm.descripcion_submodulo, m.ruta as ruta_modulo,sm.ruta as ruta_submodulo 
-              FROM modulo m 
-              JOIN asignacion_perfil_modulo apm ON m.id_modulo = apm.rela_modulo
-              JOIN submodulo sm ON m.id_modulo = sm.rela_modulo
-              WHERE apm.rela_perfil = ?";
+$id_perfil = isset($_SESSION['id_perfil']) ? $_SESSION['id_perfil'] : die("no hay perfil"); // Verifica el perfil
 
-    $stmt_modulos = $conexion->prepare($query_modulos);
-    $stmt_modulos->bind_param("i", $id_perfil);
-    $stmt_modulos->execute();
-    $result_modulos = $stmt_modulos->get_result();
+// Consulta los módulos con permisos para el perfil actual
+$sql = "
+    SELECT m.id_modulo, m.ruta, m.padre, m.nombre 
+    FROM modulo_prueba m 
+    JOIN modulo_por_perfil p ON m.id_modulo = p.rela_modulo 
+    WHERE p.rela_perfil = $id_perfil
+";
+$resultado = $conexion->query($sql);
 
-    $modulos = [];
-    while ($row = $result_modulos->fetch_assoc()) {
-        $modulos[$row['descripcion_modulo']]['ruta_modulo'] = $row['ruta_modulo'];
-        $modulos[$row['descripcion_modulo']]['submodulos'][] = [
-            'nombre' => $row['descripcion_submodulo'],
-            'ruta' => $row['ruta_submodulo']
-        ];
-    }
+// Almacena los módulos por jerarquía
+$modulos = [];
+while ($fila = $resultado->fetch_assoc()) {
+    // Si el padre es NULL, vacío o 0, lo tratamos como raíz
+    $padre = $fila['padre'] ?: null; 
+    $modulos[$padre][] = $fila; // Clasifica los módulos por su padre
+}
 
-
-
+// Genera el menú
+$menu = construir_menu($modulos);
 ?>
-    <!-- Botón de menú (hamburguesa) -->
-    <!-- <div class="menu-btn" > -->
-        <!-- &#9776; <!-- Icono de las tres rayas --> 
-    <!-- </div> -->
-    <button class="menu-btn" id="toggle-menu">☰</button>
-    <aside id="aside-menu" class="menu_desplegable">
 
-        <?php foreach ($modulos as $modulo => $data): ?>
-            
-            <div class="indice">
-                <p><?php echo $modulo; ?></p>
-                <ul>
-                    <?php foreach ($data['submodulos'] as $submodulo): ?>
-                        <li>
-                            <a href="<?php echo BASE_URL . $submodulo['ruta']; ?>"><?php echo $submodulo['nombre']; ?></a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
+<!-- Botón de menú (hamburguesa) -->
+<button class="menu-btn" id="toggle-menu">☰</button>
+<aside id="aside-menu" class="menu_desplegable">
+    <?php echo $menu; // Muestra el menú dinámico ?>
+</aside>
 
-            </div>
+<?php 
+function construir_menu($modulos, $padre = null) {
+    $html = '<ul class="menu">'; // Abre la lista de menú
+    if (isset($modulos[$padre])) {
+        foreach ($modulos[$padre] as $modulo) {
+            $esIndice = empty($modulo['ruta']) || $modulo['ruta'] === '#';
+            $html .= '<li class="menu-item">';
 
-        <?php endforeach; ?>
-    </aside>
+            // Contenido del módulo (enlace o índice)
+            $html .= '<div class="indice">';
+            if ($esIndice) {
+                $html .= '<p>' . htmlspecialchars($modulo['nombre']) . '</p>';
+            } else {
+                $html .= '<a href="' . htmlspecialchars(BASE_URL . $modulo['ruta']) . '">' . htmlspecialchars($modulo['nombre']) . '</a>';
+            }
+            $html .= '</div>';
 
-
-
-
+            // Llamada recursiva para los hijos de este módulo
+            $html .= construir_menu($modulos, $modulo['id_modulo']);
+            $html .= '</li>';
+        }
+    }
+    $html .= '</ul>'; // Cierra la lista de menú
+    return $html;
+}
+?>
