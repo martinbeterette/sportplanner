@@ -41,7 +41,7 @@ try {
         // }
 
         if ($mail->send()) {
-            header("Location: ../../inicio_sesion.php?correo_enviado");
+            header("Location: ../inicio_sesion/inicio_sesion.php?correo_enviado");
             exit();
         } else {
             echo "ha ocurrido un error al enviar el correo". $mail->errorInfo;

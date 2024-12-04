@@ -1,6 +1,6 @@
 <?php
 if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['usuario'])) {
-    header("Location: " . BASE_URL . "errors/error403.php?no_tiene_sesion");
+    header("Location: " . BASE_URL . "login/inicio_sesion/inicio_sesion.php");
     exit();
 }
 function obtenerSucursalPorEmpleado($username, $id_persona)
@@ -187,7 +187,7 @@ if (isset($query_notificacion)) {
             <hr />
 
             <li class="profile-dropdown-list-item">
-                <a href="<?php echo BASE_URL . "login/cerrar_sesion.php" ?>">
+                <a href="<?php echo BASE_URL . "login/cerrar_sesion/cerrar_sesion.php" ?>">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     Cerrar Sesión
                 </a>
