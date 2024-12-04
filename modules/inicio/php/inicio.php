@@ -12,6 +12,11 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../css/inicio.css">
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +37,9 @@
                 </div>
                 <div class="parte2">
                     <div class="iniciarsesion">
-                        <button id="register-btn" class="btn">Inciar sesion</button>
+                        <form action="../../../login/inicio_sesion/Inicio_sesion.php" method="POST">
+                            <button type="submit" id="register-btn" class="btn">Iniciar sesión</button>
+                        </form>
                     </div>
 
                     <div class="filtroBusqueda">
@@ -65,7 +72,7 @@
                 <div class="header-content">
                     <h1>Registra tu complejo deportivo</h1>
                     <p>¡Forma parte de nuestro sistema y gestiona tus canchas fácilmente!</p>
-                    <button id="register-btn" class="btn">Registrar complejo</button>
+                    <button id="register-complejo" class="btn">Registrar complejo</button>
                 </div>
             </header>
             <main class="main-content">
@@ -100,7 +107,9 @@
                 <div class="facilreservaheader-content">
                     <h1>Haz tu reserva facil</h1>
                     <p>¡Registrate y reserva de manera segura y manten registro de ellas!</p>
-                    <button id="register-btn" class="btn">Registrate!</button>
+                    <form action="../../../login/inicio_sesion/Inicio_sesion.php" method="POST">
+                        <button type="submit" id="register-btn" class="btn">Iniciar sesión</button>
+                    </form>
                 </div>
             </header>
             <main class="facilreservamain-content">
@@ -174,56 +183,32 @@
 
     <script src="../../../libs/sweetalert2.all.min.js"></script>
     <script src="../js/inicio.js"></script>
+    <script src="../../../js/terminoscondiciones.js"></script>
 
     <script>
-        document.querySelector('.vercondiciones').addEventListener('click', function () {
+        // Cuando el botón sea clickeado
+        document.getElementById("register-complejo").addEventListener("click", function() {
+            // Muestra el modal con SweetAlert2
             Swal.fire({
-                title: '<strong>Términos y Condiciones</strong>',
-                html: `
-                <div style="text-align: left; max-height: 70vh; overflow-y: auto; padding: 10px; font-size: 14px;">
-                    <h3>1. Introducción</h3>
-                    <p>Al utilizar la plataforma Sportsplanner, el usuario acepta los términos y condiciones aquí establecidos...</p>
-                    
-                    <h3>2. Alcance del Servicio</h3>
-                    <p>Sportsplanner proporciona una plataforma para la gestión de reservas de canchas deportivas...</p>
-                    
-                    <h3>3. Responsabilidades del Usuario</h3>
-                    <p>El usuario es responsable de proveer información completa y veraz...</p>
-                    
-                    <h3>4. Limitación de Responsabilidad</h3>
-                    <p>Sportsplanner no será responsable de errores en el sistema debido a fallos técnicos...</p>
-                    
-                    <h3>5. Pagos y Transacciones</h3>
-                    <p>Los pagos realizados a través de la plataforma están sujetos a las políticas del proveedor...</p>
-                    
-                    <h3>6. Seguridad de los Datos</h3>
-                    <p>Sportsplanner implementa medidas razonables para proteger la información del usuario...</p>
-                    
-                    <h3>7. Propiedad Intelectual</h3>
-                    <p>Todos los derechos sobre el diseño, funcionalidad, y contenido de Sportsplanner son propiedad...</p>
-                    
-                    <h3>8. Modificaciones al Servicio o al Deslinde</h3>
-                    <p>Sportsplanner se reserva el derecho de modificar el servicio, los términos...</p>
-                    
-                    <h3>9. Contacto y Asistencia</h3>
-                    <p>Para reportar problemas técnicos, disputas, o consultas generales, el usuario puede contactarnos...</p>
-                    
-                    <h3>10. Aceptación de los Términos</h3>
-                    <p>El uso continuo de la plataforma implica la aceptación de este deslinde de responsabilidad en su totalidad...</p>
-                </div>
-            `,
-                showCloseButton: true,
-                showConfirmButton: false,
-                width: '90%',
-                customClass: {
-                    popup: 'swal2-modal-custom'
+                title: '¿Cómo registrar tu complejo?',
+                text: 'Sigue estos pasos para registrar tu complejo deportivo en nuestro sistema:',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ir al registro',
+                cancelButtonText: 'Cancelar',
+                footer: '<p>Pasos a seguir:</p><ul><li>1. Completa los datos del complejo.</li><li>2. Agrega las instalaciones disponibles.</li><li>3. Confirma la información y guarda.</li></ul>',
+            }).then((result) => {
+                // Si el usuario hace clic en "Ir al registro"
+                if (result.isConfirmed) {
+                    // Redirige al archivo PHP donde se pueden cargar los datos
+                    window.location.href = 'registro_complejo.php'; // Cambia la URL según el archivo PHP que necesites
                 }
             });
         });
     </script>
 
     <script>
-        document.getElementById('registrarProvincia').addEventListener('click', function () {
+        document.getElementById('registrarProvincia').addEventListener('click', function() {
             Swal.fire({
                 title: 'Registrar Provincia',
                 html: `

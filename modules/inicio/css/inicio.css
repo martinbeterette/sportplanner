@@ -185,11 +185,11 @@ body {
   margin-top: 20px;
 }
 
-.redes_pagina p {
+.redes_pagina h3 {
   padding: 0;
   margin: 0;
   font-weight: 600;
-  color: #427a35;
+  color: #f9f9f9;
 }
 
 .social_icons i {
@@ -288,7 +288,8 @@ section {
   margin: 0 auto;
   margin-bottom: 20px;
   font-size: 1.8rem;
-  background: white;
+  background: #f9f9f9;
+  color: #427a35;
   width: 21%;
 }
 
@@ -300,7 +301,7 @@ section {
 }
 
 .card {
-  background: #fff;
+  background: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 200px;
@@ -324,6 +325,7 @@ section {
 .card h3 {
   font-size: 1.2rem;
   margin: 10px 0;
+  color: #427a35;
 }
 
 .card p {
@@ -424,7 +426,7 @@ section {
   margin: 0 auto;
   margin-bottom: 20px;
   font-size: 1.8rem;
-  color: f8f9fa;
+  color: #f8f9fa;
   width: 30%;
 }
 
@@ -461,6 +463,7 @@ section {
 .facilreservacard h3 {
   font-size: 1.2rem;
   margin: 10px 0;
+  color: #427a35;
 }
 
 .facilreservacard p {
@@ -517,6 +520,10 @@ section {
   justify-content: center;
 }
 
+.terminocondiciones {
+  color: #f8f9fa;
+}
+
 .condiciones {
   display: flex;
   flex-direction: column;
@@ -524,9 +531,13 @@ section {
   justify-content: center;
 }
 
+.condiciones h3 {
+  color: #f8f9fa;
+}
+
 .condiciones button {
   background-color: #218838;
-  color: f8f9fa;
+  color: #f8f9fa;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -575,16 +586,18 @@ section {
   background: rgb(248, 249, 250, 0.6);
   font-size: 30px;
   margin-bottom: 10px;
+  color: #427a35;
 }
 
 .ubicacionargentina h3 {
   background: rgb(248, 249, 250, 0.6);
   margin-bottom: 30px;
+  color: #427a35;
 }
 
 .ubicacionargentina button {
   background-color: #28a745;
-  color: f8f9fa;
+  color: #f8f9fa;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
@@ -608,4 +621,8 @@ section {
 .imagenarg img {
   height: 400px;
   width: 300px;
+}
+
+.ubicacionweb h3 {
+  color: #f8f9fa;
 }

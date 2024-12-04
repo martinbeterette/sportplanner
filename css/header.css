@@ -55,10 +55,17 @@ header {
   box-shadow: 0 2px 8px rgba(34, 124, 112, 0.2);
   transition: max-height 0.5s ease;
   z-index: 10;
+  padding: 0;
+  margin: 0;
+  margin-right: -30px;
 }
 
 .profile-dropdown-list.active {
-  max-height: 500px;
+  list-style: none;
+  max-height: 900px;
+  padding: 0;
+  margin: 0;
+  margin-right: -30px;
 }
 
 .profile-dropdown-list-item {
@@ -128,61 +135,62 @@ header {
   }
 }
 
-
-
-
 /* Contenedor de notificaciones con animación */
 .notifications-dropdown {
-    display: none;
-    background-color: #212121;
-    color: #dad6d6;
-    border-radius: 10px;
-    margin-top: 8px;
-    padding: 8px;
-    box-shadow: 0px 8px 16px rgba(34, 124, 112, 0.2);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease, padding 0.5s ease;
+  display: none;
+  background-color: #212121;
+  color: #dad6d6;
+  border-radius: 10px;
+  margin-top: 8px;
+  padding: 8px;
+  box-shadow: 0px 8px 16px rgba(34, 124, 112, 0.2);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease;
 }
 
 .notifications-dropdown.active {
-    display: block;
-    max-height: 300px; /* Altura máxima ajustada */
-    padding: 8px 12px;
+  display: block;
+  max-height: 300px; /* Altura máxima ajustada */
+  padding: 8px 12px;
 }
 
 .sub-notifications-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sub-notifications-list li {
-    padding: 10px;
-    border-bottom: 1px solid #343434;
-    color: #dad6d6;
+  padding: 10px;
+  border-bottom: 1px solid #343434;
+  color: #dad6d6;
 }
 
 .sub-notifications-list li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .profile-dropdown-list-item a i#notificacion-icon {
-    color: darkcyan;
+  color: darkcyan;
 }
 
 .badge {
-    position: absolute;
-    z-index: 100;
-    top: 0px;
-    right: 0px;
-    width: 13px; /* Tamaño de la burbuja */
-    height: 13px; /* Tamaño de la burbuja */
-    border-radius: 50%;
-    background-color: red;
-    font-size: 0; /* Esto es opcional para asegurarte de que no se vea nada de texto */
+  position: absolute;
+  z-index: 100;
+  top: 0px;
+  right: 0px;
+  width: 13px; /* Tamaño de la burbuja */
+  height: 13px; /* Tamaño de la burbuja */
+  border-radius: 50%;
+  background-color: red;
+  font-size: 0; /* Esto es opcional para asegurarte de que no se vea nada de texto */
 }
 
 .profile-dropdown-list-item i {
-  position:relative ;
+  position: relative;
+}
+
+ul {
+  list-style: none;
 }

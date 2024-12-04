@@ -1,10 +1,9 @@
-<?php   
-    require_once("../../config/database/conexion.php");
-    session_start();
+<?php
+require_once("../../config/root_path.php");
+require_once("../../config/database/conexion.php");
+session_start();
 
-    
-
-    $sql = "SELECT
+$sql = "SELECT
     			persona.nombre,
     			persona.apellido,
     			documento.descripcion_documento,
@@ -27,13 +26,13 @@
 				contacto.descripcion_contacto LIKE ?
     		";
 
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param('s', $_SESSION['email']);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    $datos_personales = $resultado->fetch_assoc();
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param('s', $_SESSION['email']);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$datos_personales = $resultado->fetch_assoc();
 
-    /*if($datos_personales) {
+/*if($datos_personales) {
 
     	$nombre 	= $datos_personales['nombre'];
     	$apellido 	= $datos_personales['apellido'];
@@ -42,110 +41,63 @@
 
     }*/
 
-    $nombre = $datos_personales['nombre'];
-    $apellido = $datos_personales['apellido'];
-    $documento = $datos_personales['descripcion_documento'];
-    $sexo = $datos_personales['descripcion_sexo'];
-    unset($_SESSION['datos_personales']);
-    $_SESSION['datos_personales'] = $datos_personales;
+$nombre = $datos_personales['nombre'];
+$apellido = $datos_personales['apellido'];
+$documento = $datos_personales['descripcion_documento'];
+$sexo = $datos_personales['descripcion_sexo'];
+unset($_SESSION['datos_personales']);
+$_SESSION['datos_personales'] = $datos_personales;
 
-
- ?>
+?>
 
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Datos de Usuario</title>
-	<style type="text/css">
-		
-		body {
-			background-color: #F1F1F1;
-			padding:0;
-			margin:0;
-			font-family: arial;
-		}
-
-		form {
-			background-color: #f7f7f7;
-		  	border: 1px solid #ccc;
-		  	border-radius: 10px;
-		  	box-shadow: 2px 2px 20px #AFAFAF;
-		  	margin: 0px auto;
-		  	margin-top: 15vh;
-		  	margin-bottom: 20px;
-		  	padding: 20px;
-		  	width: 400px;
-		}
-
-		form h1 {
-			text-align: center;
-		}	
-
-		form .modificar {
-			text-align: right;
-		}
-
-		form img {
-			width: 40px;
-		}
-
-		form h3 {
-			display: inline-block;
-		}
-
-		.back-button {
-            background-color: #a8e6cf;
-            color: #3d9970;
-            text-decoration: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .back-button:hover {
-            background-color: #79b8a0;
-            color: white;
-        }
-	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="../../css/header.css">
+	<link rel="stylesheet" href="../../css/aside.css">
+	<link rel="stylesheet" href="../../css/footer.css">
+	<link rel="stylesheet" href="misDatos.css">
 </head>
-<body>
-	<a class="back-button" href="../../index_tincho.php">Volver</a>
 
+<body>
+	<?php include(RUTA . "includes/header.php"); ?>
+	<?php include(RUTA . "includes/menu_aside.php") ?>
 
 	<form>
 		<h1>Datos de Usuario</h1>
-
-		
 
 		<fieldset>
 			<legend align="center">Informacion Personal</legend>
 
 			<div class="modificar">
-				<a href="modificar_mis_datos.php?datos_personales"><img src="../../assets/icons/editar_azul.png"></a>
+				<button onclick="location.href='modificar_mis_datos.php?datos_personales'">
+					<i class="fa-solid fa-user-pen fa-2xl" style="color: #28a745;"></i>
+				</button>
 				<br>
 			</div>
 
 			<label for="nombre">nombre:</label>
 			<h3 name="nombre"><?php echo $nombre; ?></h3>
-			<br>
 
 			<label for="apellido">apellido:</label>
 			<h3 name="apellido"><?php echo $apellido; ?></h3>
-			<br>
 
 			<label for="dni">dni:</label>
 			<h3 name="dni"><?php echo $documento; ?></h3>
-			<br>
 
 			<label for="sexo">sexo:</label>
 			<h3 name="sexo"><?php echo $sexo; ?></h3>
-			<br>
 
 		</fieldset>
 
@@ -153,32 +105,36 @@
 			<legend align="center">Datos del Usuario</legend>
 
 			<div class="modificar">
-				<a href="modificar_mis_datos.php?datos_de_usuario"><img src="../../assets/icons/editar_azul.png"></a>
+				<button onclick="location.href='modificar_mis_datos.php?datos_de_usuario'">
+					<i class="fa-solid fa-user-pen fa-2xl" style="color: #28a745;"></i>
+				</button>
 				<br>
 			</div>
 
 			<label for="email">Email:</label>
 			<h3 name="email"><?php echo $_SESSION['email']; ?></h3>
-			<br>
 
 			<label for="usuario">Usuario:</label>
 			<h3 name="usuario"><?php echo $_SESSION['usuario']; ?></h3>
-			<br>
 
 			<label for="perfil">Perfil:</label>
 			<h3 name="perfil"><?php echo $_SESSION['perfil']; ?></h3>
-			<br>
 
+			<div class="modificarcontrasena">
+				<button onclick="location.href='cambiar_contrasena.php'">
+					Cambiar contraseña
+				</button>
+			</div>
 		</fieldset>
-
-		<div class="modificar" style="text-align: center; margin: 10px">
-			<a href="cambiar_contrasena.php" >Cambiar contrase&ntilde;a</a>
-			<br>
-		</div>
-
-
 	</form>
 
+	<?php include(RUTA . "includes/footer.php") ?>
 
+	<script src="../../libs/jquery-3.7.1.min.js"></script>
+	<script src="../../libs/sweetalert2.all.min.js"></script>
+	<script src="../../js/aside.js"></script>
+	<script src="../../js/header.js"></script>
+	<script src="../../js/terminoscondiciones.js"></script>
 </body>
+
 </html>

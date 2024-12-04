@@ -1,0 +1,127 @@
+.footerdiv {
+  background: rgb(135, 204, 117);
+  background: linear-gradient(
+    180deg,
+    rgba(135, 204, 117, 1) 0%,
+    rgba(115, 184, 99, 1) 50%,
+    rgba(96, 164, 80, 1) 80%
+  );
+  height: 20dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.logotitulo {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logotitulo img {
+  height: 76px;
+  width: 60px;
+}
+
+.logotitulo h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.terminocondiciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminocondiciones h3 {
+  margin: 0;
+}
+
+.condiciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.condiciones button {
+  background-color: #218838;
+  color: #f8f9fa;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.3s, background-color 0.3s;
+  margin: 4px 0px;
+}
+
+.condiciones button:hover {
+  transform: scale(1.05);
+  background-color: #87cc75;
+}
+
+.ubicacionweb h3 {
+  margin-bottom: 1px;
+}
+
+.iconarg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.iconarg h3 {
+  margin: 0;
+}
+
+.iconarg img {
+  height: 20px;
+  width: 20px;
+}
+
+.redes_pagina {
+  height: 80px;
+  width: 300px;
+  border-radius: 10px 10px 0px 0px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.redes_pagina p {
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  color: #427a35;
+}
+
+.social_icons i {
+  font-size: 25px; /* Ajusta este valor según el tamaño deseado */
+  padding: 0px;
+  margin: 0px 10px; /* Espacio entre los íconos */
+  color: #333; /* Cambia el color si es necesario */
+  transition: color 0.3s ease, 0.5s ease; /* Efecto de transición para el color */
+  cursor: pointer;
+}
+
+.social_icons i:hover {
+  transform: scale(1.2);
+  color: #007bff; /* Cambia el color al pasar el mouse por encima */
+}
+
+.social_icons {
+  position: relative;
+  display: flex;
+  gap: 10px;
+}

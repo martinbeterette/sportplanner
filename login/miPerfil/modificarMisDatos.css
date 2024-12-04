@@ -1,0 +1,131 @@
+/* General Styles */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom, #2ecc71, #1abc9c);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: #34495e;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Form Container */
+form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+  border: 2px solid #27ae60;
+}
+
+/* Input Fields */
+label {
+  display: block;
+  font-weight: bold;
+  color: #34495e;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+select {
+  width: 90%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #bdc3c7;
+  border-radius: 8px;
+  background: #ecf0f1;
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: #27ae60;
+  background-color: #fdfdfd;
+  outline: none;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(45deg, #27ae60, #2ecc71);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+/* Error Messages */
+
+/* Back Button */
+.back-button {
+  display: inline-block;
+  text-decoration: none;
+  background: #e74c3c;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 10px;
+  margin-left: 80px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.back-button:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  form {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  button[type="submit"] {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
