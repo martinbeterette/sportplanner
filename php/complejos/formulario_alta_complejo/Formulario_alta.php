@@ -1,10 +1,10 @@
 <?php  
 session_start();
 require_once("../../../config/root_path.php");
+require_once(RUTA . "config/database/conexion.php");
+
 $errores = isset($_GET['errores']) ? $_GET['errores'] : [];
-if(!empty($errores)) {
-	echo "errores encontrados";
-}
+
 ?>
 
 <html lang="en">
@@ -12,9 +12,14 @@ if(!empty($errores)) {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="<?php echo BASE_URL. "css/header.css" ?>">
+	<link rel="stylesheet" href="<?php echo BASE_URL. "css/aside.css" ?>">
 	<link rel="stylesheet" href="css/formulario_wizard.css">
 </head>
 <body>
+	<?php include(RUTA . "includes/header.php"); ?>
+	<?php include(RUTA . "includes/menu_aside.php"); ?>
+
 	<div class="formulario-wizard">
 		
 		<form action="includes/alta_complejo.php" method="POST" id="formulario">
@@ -87,35 +92,71 @@ if(!empty($errores)) {
 			    <h3>Crear Cuenta de Administrador</h3>
 
 			    <label for="email">Correo Electrónico:</label>
-			    <input type="email" name="email" id="email" required>
+			    <input type="email" name="email" id="email">
 			    <span id="error_email"></span>
 
 			    <label for="username">Nombre de Usuario:</label>
-			    <input type="text" name="username" id="username" required>
+			    <input type="text" name="username" id="username">
 			    <span id="username-feedback" class="error"></span><br>
 			    <span id="error_username"></span>
 
 			    <label for="password">Contraseña:</label>
-			    <input type="password" name="password" id="password" required>
+			    <input type="password" name="password" id="password">
 			    <span id="error_password"></span>
 
 			    <label for="confirm_password">Confirmar Contraseña:</label>
-			    <input type="password" name="confirm_password" id="confirm_password" required>
+			    <input type="password" name="confirm_password" id="confirm_password">
 			    <span id="error_confirm_password"></span>
 
 			    <div class="botones">
 			        <button type="button" class="anterior" paso="3">Anterior</button>
-			        <button type="button" id="btn-finalizar">Finalizar</button>
+			        <button type="submit" id="btn-finalizar">Finalizar</button>
 			    </div>
 			</div>
 
 
 		</form>
+
+		<!-- Contenedor de mensaje tipo "naranja" -->
+	    <div class="message-container" id="mensaje-prueba">
+	        <span id="mensaje">Formulario rechazado. Verifique los campos del formulario.</span>
+	        <span class="close-btn" onclick="cerrarMensaje()">×</span>
+	    </div>
+
 	</div>
 	<!-- <script>alert("falta los divs de los inputs (no los pongo porque rompe el css)");</script> -->
 	<script src="<?php echo BASE_URL; ?>libs/jquery-3.7.1.min.js"></script>
 	<script src="js/pasos_y_obtener_domicilios.js"></script>
 	<!-- <script src="js/validaciones_de_formulario.js"></script> -->
 	<script src="js/verificar_usuario_existente.js"></script>
+	<script src="<?php echo BASE_URL ?>js/header.js"></script>
+	<script src="<?php echo BASE_URL ?>js/aside.js"></script>
+
+	<script>
+	    // Función para mostrar el contenedor de mensaje
+	    function mostrarMensaje() {
+	        $("#mensaje-prueba").css('display','block');
+	    }
+
+	    // Función para cerrar el contenedor de mensaje
+	    function cerrarMensaje() {
+	        $('#mensaje-prueba').css('display','none');
+	    }
+
+	    let errores = 
+	    <?php 
+	        if (!empty($errores)) {
+	            echo json_encode($errores);
+	        } else {
+	            echo 'false';
+	        }
+        ?>;
+
+        $(document).ready(function() {
+        	if (errores) {
+        		mostrarMensaje();
+        	}
+        });
+	</script>
 </body>
 </html>

@@ -16,10 +16,10 @@
         $stmt_sucursal_empleado->bind_param("is", $id_persona, $username);
 
         if ($stmt_sucursal_empleado->execute()) {
-            $id_sucursal = $stmt_sucursal_empleado->get_result()->fetch_assoc()['id_sucursal'];
+            $id_sucursal = $stmt_sucursal_empleado->get_result()->fetch_assoc()['id_sucursal'] ?? 0;
             return $id_sucursal;
         }
-        return false;
+        return 0;
     }
 
     function obtenerSucursalesPorPropietario($username, $id_persona, $id_usuario) {
@@ -50,8 +50,7 @@
 
         //obtenemos el idsucursal del empleado
         $sucursal_del_empleado = obtenerSucursalPorEmpleado($username,$id_persona);
-
-        $query_notificacion = "SELECT * FROM notificacion WHERE estado = 'no leido' AND rela_sucursal IN($sucursal_del_empleado) LIMIT 3";
+        $query_notificacion = "SELECT * FROM notificacion WHERE estado = 'no leido' AND rela_sucursal IN($sucursal_del_empleado)";
     }
 
     if ($_SESSION['id_perfil']  == 23) {
@@ -97,7 +96,7 @@
 
 ?>
 <header>
-    <a href="<?php echo BASE_URL . 'index2.php' ?>" style="text-decoration: none;">
+    <a href="<?php echo BASE_URL . 'index.php' ?>" style="text-decoration: none;">
         <div class="titulo_inicio">
             <img src="<?php echo BASE_URL. "assets/icons/juego.png" ?>" alt="icono inicio">
             <h2>SportPlanner</h2>

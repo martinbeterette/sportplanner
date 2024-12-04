@@ -97,3 +97,40 @@ button:hover {
     color: #fff;
     font-weight: bold;
 }
+
+
+/* Estilo del contenedor de mensajes tipo "naranja" */
+    .message-container {
+        display: none; /* Inicialmente oculto */
+        background-color: #FF6B1A; /* Naranja rojizo */
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        width: 90%;
+        max-width: 400px;
+        font-size: 16px;
+    }
+
+    .message-container .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .message-container .close-btn:hover {
+        color: #ddd;
+    }
+
+    #mensaje {
+        color:white;
+        font-size: 15px;
+    }
+/* Estilo del contenedor de mensajes tipo "naranja" */

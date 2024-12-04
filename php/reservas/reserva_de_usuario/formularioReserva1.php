@@ -25,7 +25,7 @@
     <?php include(RUTA. "includes/menu_aside.php") ?>
         <!-- Flechita de breadcrumb -->
     <div class="breadcrumb">
-        <a href="<?php echo BASE_URL . "index2.php" ?>" class="back-arrow">
+        <a href="<?php echo BASE_URL . "index.php" ?>" class="back-arrow">
             &#8592; Volver
         </a>
     </div>
