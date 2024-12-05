@@ -7,9 +7,35 @@
     	$id_persona = $_SESSION['id_persona'];
     	$id_usuario = $_SESSION['id_usuario'];
     	$id_sucursal = obtenerSucursal($id_persona, $id_usuario);
-    } else {
-    	$id_sucursal = $_GET['id_sucursal'] ?? false;
-    }
+    } 
+
+    if ($_SESSION['id_perfil'] == 23) {
+
+	    if (isset($_GET['id_sucursal'])) {
+	        $id_sucursal = $_GET['id_sucursal'];
+	        $id_usuario = $_SESSION['id_usuario'];
+
+	        //obtenemos las sucursales del propietario y las validamos por la seleccionada
+	        //es decir, si puede gestionar la que esta en la url
+	        $sucursales = obtenerSucursalesDelPropietario($id_usuario);
+	        if($sucursales) {
+	            $array_sucursales = [];
+	            foreach ($sucursales as $reg) {
+	                $array_sucursales[] = $reg['id_sucursal'];
+	            }
+
+	        }
+
+	        if (!in_array($id_sucursal, $array_sucursales)) {
+	            header("Location: includes/seleccionar_sucursal.php");
+	            exit();
+	        }
+
+	    } else {
+	        header("Location: includes/seleccionar_sucursal.php");
+	        exit();
+	    }
+	}
 
     if ($id_sucursal) {
     	//redirigimos a la seleccion de sucursal
@@ -216,6 +242,23 @@
         return false;
     }
 
+    function obtenerSucursalesDelPropietario($id_usuario) {
+        global $conexion;
+        $sql = "
+            SELECT id_sucursal
+            FROM sucursal s JOIN complejo ON id_complejo = s.rela_complejo
+            JOIN asignacion_persona_complejo apc ON id_complejo = apc.rela_complejo
+            WHERE apc.rela_usuario = ?
+        ";
+
+        $stmt_sucursales_propietario = $conexion->prepare($sql);
+        $stmt_sucursales_propietario->bind_param("i",$id_usuario);
+        if($stmt_sucursales_propietario->execute()){
+            $registros = $stmt_sucursales_propietario->get_result();
+            return $registros;
+        }
+        return false;
+    }
 
 ?>
 <?php $conexion->close(); ?>
