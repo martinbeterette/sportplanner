@@ -8,7 +8,7 @@ if (isset($_GET['id_complejo'])) {
     $id_complejo = $_GET['id_complejo'];
 } else {
     echo "ha ocurrido un error :( falta get de complejo" . "<br>";
-    echo "<a href='" . BASE_URL . "index2.php" . "'>Volver</a>";
+    echo "<a href='" . BASE_URL . "index.php" . "'>Volver</a>";
     die;
 }
 

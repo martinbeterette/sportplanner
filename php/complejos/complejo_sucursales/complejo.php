@@ -5,26 +5,6 @@ session_start();
 require_once("../../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
 
-function obtenerComplejoPorPersona($id_persona, $id_usuario) {
-    global $conexion;
-
-    $sql_sucursal_empleado = "
-        SELECT apc.rela_complejo, descripcion_complejo, complejo.fecha_fundacion
-            FROM asignacion_persona_complejo apc
-            JOIN complejo on apc.rela_complejo = id_complejo
-            WHERE apc.rela_persona = ? AND apc.rela_usuario = ?";
-
-    $stmt_obtener_complejo = $conexion->prepare($sql_sucursal_empleado);
-    $stmt_obtener_complejo->bind_param("ii", $id_persona, $id_usuario);
-
-    if ($stmt_obtener_complejo->execute()) {
-        $datos_complejo = $stmt_obtener_complejo->get_result()->fetch_assoc() ?? false;
-        return $datos_complejo;
-    }
-    return false;
-}
-
-// $id_complejo = isset($_GET['id_complejo']) ? (int)$_GET['id_complejo'] : 0;
 
 
 $sql = false;
@@ -136,3 +116,26 @@ if($id_complejo){
 <script src="js/modificar.js"></script>
 </body>
 </html>
+
+<?php  
+
+function obtenerComplejoPorPersona($id_persona, $id_usuario) {
+    global $conexion;
+
+    $sql_sucursal_empleado = "
+        SELECT apc.rela_complejo, descripcion_complejo, complejo.fecha_fundacion
+            FROM asignacion_persona_complejo apc
+            JOIN complejo on apc.rela_complejo = id_complejo
+            WHERE apc.rela_persona = ? AND apc.rela_usuario = ?";
+
+    $stmt_obtener_complejo = $conexion->prepare($sql_sucursal_empleado);
+    $stmt_obtener_complejo->bind_param("ii", $id_persona, $id_usuario);
+
+    if ($stmt_obtener_complejo->execute()) {
+        $datos_complejo = $stmt_obtener_complejo->get_result()->fetch_assoc() ?? false;
+        return $datos_complejo;
+    }
+    return false;
+}
+
+?>

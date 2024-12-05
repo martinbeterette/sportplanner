@@ -126,9 +126,9 @@ $horario = $conexion->query("SELECT id_horario, horario_inicio, horario_fin FROM
         $(document).ready(function() {
 
             let images = [
-                'url("maquetado inicio/carrusel_2.jpg")',
-                'url("maquetado inicio/carrusel_3.jpg")',
-                'url("maquetado inicio/carrusel_4.jpg")',
+                'url("assets/carrusel/carrusel_2.jpg")',
+                'url("assets/carrusel/carrusel_3.jpg")',
+                'url("assets/carrusel/carrusel_4.jpg")',
                 // Agrega más URLs de imágenes según lo necesites
             ];
 

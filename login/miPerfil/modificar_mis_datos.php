@@ -4,7 +4,7 @@
     session_start();
 
     if (!isset($_SESSION['usuario']) || !isset($_SESSION['id_perfil'])) {
-        header("Location: ../../index_tincho.php");
+        header("Location: ../../index.php");
         exit();
     }
 
