@@ -4,6 +4,10 @@ require_once("../../../config/root_path.php");
 require_once(RUTA. "config/database/conexion.php");
 require_once("includes/functions.php");
 
+if(!isset($_SESSION['id_usuario'])) {
+    header("Location: ". BASE_URL);
+}
+
 $id_persona = $_SESSION['id_persona'];
 $id_usuario = $_SESSION['id_usuario'];
 
@@ -61,7 +65,7 @@ $consulta_reservas =
         WHERE 
             s.id_sucursal = {$id_sucursal}
 ";
-
+echo $id_sucursal;
 $reservas_hechas = $conexion->query($consulta_reservas);
 ?>
 <html lang="es">
