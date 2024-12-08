@@ -1,6 +1,7 @@
 <?php  
 
-function obtenerSucursalDelEmpleado($id_usuario, $id_persona) {
+
+    function obtenerSucursalDelEmpleado($username, $id_persona) {
         global $conexion;
         $sql_sucursal_empleado = "
             SELECT s.id_sucursal 
@@ -13,7 +14,7 @@ function obtenerSucursalDelEmpleado($id_usuario, $id_persona) {
         $stmt_sucursal_empleado->bind_param("ii", $id_persona, $id_usuario);
 
         if ($stmt_sucursal_empleado->execute()) {
-            $id_sucursal = $stmt_sucursal_empleado->get_result()->fetch_assoc()['id_sucursal'];
+            $id_sucursal = $stmt_sucursal_empleado->get_result()->fetch_assoc()['id_sucursal'] ?? null;
             return $id_sucursal;
         }
         return false;

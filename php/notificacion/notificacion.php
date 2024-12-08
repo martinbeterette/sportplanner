@@ -1,6 +1,7 @@
 <?php
 // Conexión a la base de datos
 session_start();
+print_r($_SESSION);
 require_once('includes/functions.php');
 require_once("../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
@@ -30,25 +31,29 @@ require_once("includes/obtener_notificaciones.php");
         <p>Notificaciones no leídas: <?php echo $unread_count; ?></p>
         <div class="container">
             <div class="sidebar">
-                <?php if ($Notificaciones->num_rows > 0): ?>
-                    <?php while ($row = $Notificaciones->fetch_assoc()): ?>
-                        <div class="notification-item <?php echo $row['leido'] == 'no leido' ? 'unread' : ''; ?>" row="<?php echo htmlspecialchars(json_encode($row)); ?>"
-                            onclick=" showDetails('<?php echo htmlspecialchars($row['mensaje']); ?>', '<?php echo $row['titulo']; ?>' , <?php echo $row['id_notificacion']; ?>)"
-                            id-notificacion="<?php echo $row['id_notificacion'] ?>"
-                        >
-                            <div class="notification-title">
-                                <div class="imgNotificacion">
-                                    <?php if ($row['leido'] == 'no leido') { ?>
-                                        <img src="../../assets/icons/CiNotification.svg">
-                                    <?php } ?>
+                <?php if(!is_null($Notificaciones)): ?>
+                    <?php if ($Notificaciones->num_rows > 0): ?>
+                        <?php while ($row = $Notificaciones->fetch_assoc()): ?>
+                            <div class="notification-item <?php echo $row['leido'] == 'no leido' ? 'unread' : ''; ?>" row="<?php echo htmlspecialchars(json_encode($row)); ?>"
+                                onclick=" showDetails('<?php echo htmlspecialchars($row['mensaje']); ?>', '<?php echo $row['titulo']; ?>' , <?php echo $row['id_notificacion']; ?>)"
+                                id-notificacion="<?php echo $row['id_notificacion'] ?>"
+                            >
+                                <div class="notification-title">
+                                    <div class="imgNotificacion">
+                                        <?php if ($row['leido'] == 'no leido') { ?>
+                                            <img src="../../assets/icons/CiNotification.svg">
+                                        <?php } ?>
+                                    </div>
+                                    <?php echo htmlspecialchars($row['titulo']); ?>
                                 </div>
-                                <?php echo htmlspecialchars($row['titulo']); ?>
+                                <div class="time-ago">
+                                    hace <?php echo $row['dias']; ?> días <?php echo $row['horas']; ?> horas
+                                </div>
                             </div>
-                            <div class="time-ago">
-                                hace <?php echo $row['dias']; ?> días <?php echo $row['horas']; ?> horas
-                            </div>
-                        </div>
-                    <?php endwhile; ?>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p>No hay notificaciones.</p>
+                    <?php endif; ?>
                 <?php else: ?>
                     <p>No hay notificaciones.</p>
                 <?php endif; ?>
