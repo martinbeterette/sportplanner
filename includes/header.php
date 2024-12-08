@@ -1,27 +1,29 @@
-<?php
-if (!isset($_SESSION['id_usuario']) || !isset($_SESSION['usuario'])) {
-    header("Location: " . BASE_URL . "errors/error403.php?no_tiene_sesion");
-    exit();
-}
-function obtenerSucursalPorEmpleado($username, $id_persona)
-{
-    global $conexion;
-    $sql_sucursal_empleado = "
+<?php  
+    if(!isset($_SESSION['id_usuario']) || !isset($_SESSION['usuario'])) {
+        header("Location: ". BASE_URL . "login/inicio_sesion/inicio_sesion.php");
+        exit();
+    }
+    function obtenerSucursalPorEmpleado($username, $id_persona) {
+        global $conexion;
+        $sql_sucursal_empleado = "
             SELECT s.id_sucursal 
                 FROM empleado e
                 JOIN sucursal s ON e.rela_sucursal = s.id_sucursal
                 JOIN usuarios u ON u.id_usuario = e.rela_usuario 
                 WHERE e.rela_persona = ?
                 AND u.username = ?";
-    $stmt_sucursal_empleado = $conexion->prepare($sql_sucursal_empleado);
-    $stmt_sucursal_empleado->bind_param("is", $id_persona, $username);
+        $stmt_sucursal_empleado = $conexion->prepare($sql_sucursal_empleado);
+        $stmt_sucursal_empleado->bind_param("is", $id_persona, $username);
 
-    if ($stmt_sucursal_empleado->execute()) {
-        $id_sucursal = $stmt_sucursal_empleado->get_result()->fetch_assoc()['id_sucursal'];
-        return $id_sucursal;
+
+            if ($stmt_sucursal_empleado->execute()) {
+                $id_sucursal = $stmt_sucursal_empleado->get_result()->fetch_assoc()['id_sucursal'] ?? 0;
+                return $id_sucursal;
+            }
+            return 0;
+        return false;
     }
-    return false;
-}
+    
 
 function obtenerSucursalesPorPropietario($username, $id_persona, $id_usuario)
 {
@@ -74,11 +76,38 @@ if ($_SESSION['id_perfil']  == 23) {
     // Ahora puedes usar implode para generar una lista separada por comas
     $lista_sucursales_del_propietario = implode(",", $array_sucursales);
 
-    if ($lista_sucursales_del_propietario) {
+
+        //obtenemos el idsucursal del empleado
+        $sucursal_del_empleado = obtenerSucursalPorEmpleado($username,$id_persona);
+        $query_notificacion = "SELECT * FROM notificacion WHERE estado = 'no leido' AND rela_sucursal IN($sucursal_del_empleado)";
+}
+
+    if ($_SESSION['id_perfil']  == 23) {
+        //obtenemos los parametros
+        $username = $_SESSION['usuario'];
+        $id_persona = $_SESSION['id_persona'];
+        $id_usuario = $_SESSION['id_usuario'];
+
+        //obtenemos el idsucursal del empleado
+        $sucursales_del_propietario = obtenerSucursalesPorPropietario($username,$id_persona, $id_usuario);
+
+        $array_sucursales = [];
+        foreach ($sucursales_del_propietario as $reg) {
+            // Agregar directamente el ID de la sucursal al array
+            $array_sucursales[] = $reg['id_sucursal'];
+        }
+
+        // Ahora puedes usar implode para generar una lista separada por comas
+        $lista_sucursales_del_propietario = implode(",", $array_sucursales);
+
+        if($lista_sucursales_del_propietario) {
+
+            $query_notificacion = "SELECT * FROM notificacion WHERE estado = 'no leido' AND rela_sucursal IN($lista_sucursales_del_propietario) LIMIT 3";
+        }
 
         $query_notificacion = "SELECT * FROM notificacion WHERE estado = 'no leido' AND rela_sucursal IN($lista_sucursales_del_propietario) LIMIT 3";
     }
-}
+
 
 
 if ($_SESSION['id_perfil'] == 1) {
@@ -98,7 +127,7 @@ if (isset($query_notificacion)) {
 
 ?>
 <header>
-    <a href="<?php echo BASE_URL . 'index2.php' ?>" style="text-decoration: none;">
+    <a href="<?php echo BASE_URL . 'index.php' ?>" style="text-decoration: none;">
         <div class="titulo_inicio">
             <img src="<?php echo BASE_URL . "assets/icons/juego.png" ?>" alt="icono inicio">
             <h2>SportPlanner</h2>
@@ -187,7 +216,8 @@ if (isset($query_notificacion)) {
             <hr />
 
             <li class="profile-dropdown-list-item">
-                <a href="<?php echo BASE_URL . "login/cerrar_sesion.php" ?>">
+
+                <a href="<?php echo BASE_URL. "login/cerrar_sesion/cerrar_sesion.php" ?>">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     Cerrar Sesión
                 </a>

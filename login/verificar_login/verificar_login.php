@@ -94,7 +94,7 @@ if($datos->num_rows == 1) {
         if (isset($complejos)) {$_SESSION['complejos']      =   $complejos;}
         if (isset($sucursales)) {$_SESSION['sucursales']    =   $sucursales;}
 
-        header('location: {$base_url}index2.php');
+        header("location: {$base_url}index.php");
         exit();
     }
     else {

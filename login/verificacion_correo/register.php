@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
+$base_url = BASE_URL;
 try {
 
     $token = bin2hex(random_bytes(16)); // Genera un token único
@@ -13,7 +14,7 @@ try {
 
     function enviarVerificacion($email, $username, $token) {
          // Enviar correo de verificación
-        $verification_link = htmlSpecialchars("http://localhost/proyecto_pp2_2024/login/verificacion_correo/verify.php?email=" . $email . "&token=" . $token . "&username=" . $username);
+        $verification_link = htmlSpecialchars("{$base_url}login/verificacion_correo/verify.php?email=" . $email . "&token=" . $token . "&username=" . $username);
 
         
         $subject = 'Verificación de Correo Electrónico';
@@ -41,7 +42,7 @@ try {
         // }
 
         if ($mail->send()) {
-            header("Location: ../../inicio_sesion.php?correo_enviado");
+            header("Location: ../inicio_sesion/inicio_sesion.php?correo_enviado");
             exit();
         } else {
             echo "ha ocurrido un error al enviar el correo". $mail->errorInfo;

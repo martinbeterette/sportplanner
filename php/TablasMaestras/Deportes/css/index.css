@@ -1,0 +1,270 @@
+/* Estilos básicos */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+.header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+.header h1 {
+    margin: 0;
+}
+
+/* Estilo de formulario */
+.form-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+.form-container h2 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-group select {
+    height: 35px;
+}
+
+.form-btn-container {
+    text-align: center;
+}
+
+.form-btn {
+    padding: 10px 20px;
+    background-color: #28A745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-btn:hover {
+    background-color: #218838;
+}
+
+/* Estilos de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table thead {
+    background-color: #333;
+    color: #fff;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+table tbody tr:hover {
+    background-color: #e9e9e9;
+}
+table i, table img {
+    height:30px;
+}
+
+/* Estilos de los botones */
+.btn-ver-detalles, .btn-modificar, .btn-eliminar {
+    padding: 8px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-ver-detalles {
+    background-color: #007BFF;
+}
+
+.btn-ver-detalles:hover {
+    background-color: #0056b3;
+}
+
+.btn-modificar {
+    background-color: #28A745;
+}
+
+.btn-modificar:hover {
+    background-color: #218838;
+}
+
+.btn-eliminar {
+    background-color: #DC3545;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+}
+
+/* Estilos de botones SweetAlert personalizados */
+.swal2-confirm.btn-ver-mas {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.swal2-confirm.btn-ver-mas:hover {
+    cursor: pointer;
+    background-color: #49AF00;
+}
+
+.swal2-cancel {
+    background-color: #f44336;
+    color: #fff;
+}
+
+/* Botón Agregar Socio */
+.btn-agregar {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 15px;
+    display: block;
+    text-align: center;
+    width: fit-content;
+}
+
+.btn-agregar:hover {
+    background-color: #0056b3;
+}
+
+/* Paginación */
+#paginacion-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagina-boton {
+    background-color: #009879; /* Verde deportivo */
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagina-boton:hover {
+    background-color: #007a63; /* Verde más oscuro */
+}
+
+.pagina-activa {
+    background-color: #007a63; /* Verde más oscuro */
+    color: #ffffff;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+form {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            margin: 0 auto;
+            font-size: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #4A90E2;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
+            outline: none;
+        }
+
+        button {
+            background-color: #4A90E2;
+            color: #FFFFFF;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #357ABD;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }

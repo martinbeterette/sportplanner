@@ -4,13 +4,41 @@ require_once("../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
 require_once(RUTA . "php/functions/consulta_reutilizable_mysql.php");
 
-if (isset($_GET['id_sucursal'])) {
-    $id_sucursal = $_GET['id_sucursal'];
+
+
+if ($_SESSION['id_perfil'] == 23) {
+
+    if (isset($_GET['id_sucursal'])) {
+        $id_sucursal = $_GET['id_sucursal'];
+        $id_usuario = $_SESSION['id_usuario'];
+
+        //obtenemos las sucursales del propietario y las validamos por la seleccionada
+        //es decir, si puede gestionar la que esta en la url
+        $sucursales = obtenerSucursalesDelPropietario($id_usuario);
+        if($sucursales) {
+            $array_sucursales = [];
+            foreach ($sucursales as $reg) {
+                $array_sucursales[] = $reg['id_sucursal'];
+            }
+
+        }
+
+        if (!in_array($id_sucursal, $array_sucursales)) {
+            header("Location: includes/seleccionar_sucursal.php");
+            exit();
+        }
+
+    } else {
+        header("Location: includes/seleccionar_sucursal.php");
+        exit();
+    }
+
 } else {
-    echo "ha ocurrido un error :( Falta GET de sucursal" . "<br>";
-    echo "<a href='" . BASE_URL . "index_tincho.php" . "'>Volver</a>";
-    die;
+    header("Location: ". BASE_URL);
+    exit();
 }
+
+
 
 // Define las variables reutilizables
 $titulo_pagina = "Tarifas";
@@ -187,3 +215,24 @@ $registros = obtenerRegistros($tabla, $campos, $join, $condicion);
 </body>
 
 </html>
+
+<?php    
+
+    function obtenerSucursalesDelPropietario($id_usuario) {
+        global $conexion;
+        $sql = "
+            SELECT id_sucursal
+            FROM sucursal s JOIN complejo ON id_complejo = s.rela_complejo
+            JOIN asignacion_persona_complejo apc ON id_complejo = apc.rela_complejo
+            WHERE apc.rela_usuario = ?
+        ";
+
+        $stmt_sucursales_propietario = $conexion->prepare($sql);
+        $stmt_sucursales_propietario->bind_param("i",$id_usuario);
+        if($stmt_sucursales_propietario->execute()){
+            $registros = $stmt_sucursales_propietario->get_result();
+            return $registros;
+        }
+        return false;
+    }
+?>

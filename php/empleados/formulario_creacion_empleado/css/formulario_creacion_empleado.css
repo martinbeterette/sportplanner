@@ -1,0 +1,112 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f9f7; /* Verde muy suave */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+#altaEmpleadoForm {
+    width: 500px; /* Ancho fijo del formulario */
+    margin: auto ; /* Centrando con margin auto y separando del encabezado */
+    padding: 25px;
+    background-color: #ffffff;
+    border: 2px solid #b0bec5; /* Borde gris claro */
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box; /* Evita que el padding aumente el ancho */
+}
+
+/* Títulos */
+h3 {
+    color: #1b5e20; /* Verde oscuro */
+    font-size: 1.6em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los inputs y labels */
+label {
+    display: block;
+    margin-top: 18px;
+    font-weight: bold;
+    color: #3a3a3a;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #b0bec5;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+}
+
+input[type="file"] {
+    margin-top: 8px;
+}
+
+input:focus, select:focus {
+    border-color: #66bb6a; /* Verde suave */
+    outline: none;
+}
+
+/* Estilos para mensajes */
+#correoStatus {
+    color: #e57373; /* Rojo claro para los errores */
+    font-size: 0.85em;
+}
+
+span.success {
+    color: #66bb6a; /* Verde claro */
+    font-size: 0.85em;
+}
+
+/* Contenedor de botones de navegación */
+.botones {
+    display: flex;
+    justify-content: center; /* Centrar los botones */
+    gap: 15px; /* Espacio entre los botones */
+    margin-top: 25px;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.siguiente {
+    background-color: #388e3c; /* Verde oscuro */
+    color: #fff;
+}
+
+.anterior {
+    background-color: #a5d6a7; /* Verde claro */
+    color: #fff;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Estilos para validaciones */
+input.error, select.error {
+    border-color: #e57373; /* Rojo claro */
+}
+
+/* Mensaje de validación debajo del input */
+.validacion-error {
+    color: #d32f2f; /* Rojo fuerte */
+    font-size: 0.8em;
+    margin-top: 4px;
+}

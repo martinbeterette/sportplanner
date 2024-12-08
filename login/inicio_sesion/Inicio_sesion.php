@@ -93,7 +93,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Si confirma, redirigir a verify
-                        window.location.href = 'verificacion_correo/register.php?<?php echo "email={$email}&username={$username}&reenviar_verificacion"; ?>';
+                        window.location.href = '../verificacion_correo/register.php?<?php echo "email={$email}&username={$username}&reenviar_verificacion"; ?>';
                     }
                 });
             <?php endif; ?>

@@ -75,21 +75,16 @@ while ($row = $result->fetch_assoc()) {
                     <td>{$row['monto_final']}</td>
                     <td>{$row['entrada']}</td>
                     <td>{$row['salida']}</td>";
-    // Botones de acciones
+    // Botón que llama al modal
     $tabla .= '<td>
-        <div class="btn-contenedor">
-            <a href="includes/marcar_llegada.php?id_reserva=' . $row['id_reserva'] . '&id_sucursal=' . $id_sucursal . '&pagina_actual='.$pagina_actual.'" 
-               class="btn-llegada" 
-               data-id="' . $row['id_reserva'] . '">Marcar Llegada</a>
-            <a href="includes/marcar_salida.php?id_reserva=' . $row['id_reserva'] . '&id_sucursal=' . $id_sucursal . '&pagina_actual='.$pagina_actual.'" 
-               class="btn-salida" 
-               data-id="' . $row['id_reserva'] . '" 
-               >Marcar Salida
-            </a>
-            <a data-id="'.$row['id_reserva'].'" href="includes/marcar_inasistencia.php?id_reserva=' . $row['id_reserva'] . '&id_sucursal=' . $id_sucursal . '&pagina_actual='.$pagina_actual.'" 
-               class="btn-inasistencia" 
-               data-id="' . $row['id_reserva'] . '">Marcar Inasistencia</a>
-        </div>
+        <button 
+            data-pagina="'. $pagina_actual .'"
+            data-id-sucursal="'. $id_sucursal .'"
+            data-id-reserva="'. $row['id_reserva'] .'"
+            class="acciones"
+            style="background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer;">
+            Acciones
+        </button>
     </td>';
 }
 $tabla .= '</tbody></table>';
@@ -101,9 +96,10 @@ $stmt_count->execute();
 $total_items = $stmt_count->get_result()->fetch_assoc()['total'];
 $total_pages = ceil($total_items / $registros_por_pagina);
 
+// Envío de respuesta JSON
 echo json_encode(["tabla" => $tabla, "total_pages" => $total_pages, "current_page" => $pagina_actual]);
 
 $conexion->close();
-
-
 ?>
+
+

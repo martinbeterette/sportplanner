@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- Breadcrumb con flecha hacia atrás -->
-    <div class="breadcrumb" onclick="window.location.href='login.php';">
+    <div class="breadcrumb" onclick="window.location.href='../inicio_sesion/inicio_sesion.php';">
         Volver al Login
     </div>
 

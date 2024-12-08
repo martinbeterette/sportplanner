@@ -12,12 +12,6 @@ $superficie = $conexion->query("SELECT id_tipo_terreno, descripcion_tipo_terreno
 $horario = $conexion->query("SELECT id_horario, horario_inicio, horario_fin FROM horario");
 
 
-
-$modulo = "Inicio";
-$perfil = $_SESSION['perfil'];
-validarAcceso($modulo, $perfil);
-// print_r($_SESSION);
-
 //probandooooooooooooo
 // $resetear_credenciales = $conexion->query("SELECT resertear_credenciales FROM usuarios WHERE id_usuario = {$_SESSION['id_usuario']}")->fetch_assoc()['resertear_credenciales'];
 ?>
@@ -78,7 +72,10 @@ validarAcceso($modulo, $perfil);
 
     <section class="info-section">
         <h2>Registra tu complejo deportivo para ser parte de nuestro sistema</h2>
-        <button onclick="location.href='tu-formulario.html'" class="register-btn">Registrar complejo</button>
+        <button 
+            onclick=
+            "location.href='<?php echo BASE_URL . "php/complejos/formulario_alta_complejo/Formulario_alta.php" ?>'" class="register-btn"
+        >Registrar complejo</button>
     </section>
 
     <section class="features-section">
@@ -129,9 +126,9 @@ validarAcceso($modulo, $perfil);
         $(document).ready(function() {
 
             let images = [
-                'url("maquetado inicio/carrusel_2.jpg")',
-                'url("maquetado inicio/carrusel_3.jpg")',
-                'url("maquetado inicio/carrusel_4.jpg")',
+                'url("assets/carrusel/carrusel_2.jpg")',
+                'url("assets/carrusel/carrusel_3.jpg")',
+                'url("assets/carrusel/carrusel_4.jpg")',
                 // Agrega más URLs de imágenes según lo necesites
             ];
 

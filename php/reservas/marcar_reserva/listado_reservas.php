@@ -4,12 +4,16 @@ require_once("../../../config/root_path.php");
 require_once(RUTA. "config/database/conexion.php");
 require_once("includes/functions.php");
 
-$id_persona = $_SESSION['id_persona'];
-$id_usuario = $_SESSION['id_usuario'];
+if(!isset($_SESSION['id_usuario'])) {
+    header("Location: ". BASE_URL);
+}
+
+echo $id_persona = $_SESSION['id_persona'];
+echo $id_usuario = $_SESSION['id_usuario'];
 
 if ($_SESSION['id_perfil'] == 3) {
     $id_sucursal = obtenerSucursalDelEmpleado($id_persona, $id_usuario);
-    if(!$id_sucursal) {header("Location: " . BASE_URL ."index2,php");}
+    if(!$id_sucursal) {header("Location: " . BASE_URL ."index,php");}
 }
 
 
@@ -24,6 +28,8 @@ if($_SESSION['id_perfil'] == 23) {
         if(!in_array($id_sucursal, $array_sucursales)) {
             header("Location: includes/seleccionar_sucursal.php");
         }
+    } else {
+        header("Location: includes/seleccionar_sucursal.php");
     }
 
 }
@@ -61,7 +67,7 @@ $consulta_reservas =
         WHERE 
             s.id_sucursal = {$id_sucursal}
 ";
-
+echo $id_sucursal;
 $reservas_hechas = $conexion->query($consulta_reservas);
 ?>
 <html lang="es">
@@ -123,5 +129,70 @@ $reservas_hechas = $conexion->query($consulta_reservas);
 </script>
 <script src="js/habilitaciones_botones.js"></script>
 <script src="js/tablaYPaginado.js"></script>
+<script>
+    $(document).ready(function() {
+        $(document).on("click",".acciones", function(){
+            let id_reserva      = $(this).data('id-reserva');
+            let pagina_actual   = $(this).data('pagina');
+            let id_sucursal     = $(this).data('id_sucursal');
+            abrirModal(id_reserva);
+        });
+
+    });
+
+
+    function abrirModal(idReserva) {
+        Swal.fire({
+            title: '¿Qué acción deseas registrar?',
+            html: `
+                <h3>Selecciona una opción para continuar:</h3>
+                <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 10px;">
+                    <button onclick="marcarLlegada(${idReserva})" style="margin: 5px; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer;" title="El cliente llegó a jugar">Marcar Llegada</button>
+                    <button onclick="marcarSalida(${idReserva})" style="margin: 5px; padding: 10px; background: #2196F3; color: white; border: none; cursor: pointer;" title="El cliente se retiró de forma satisfactoria">Marcar Salida</button>
+                    <button onclick="marcarInasistencia(${idReserva})" style="margin: 5px; padding: 10px; background: #f44336; color: white; border: none; cursor: pointer;" title="El cliente no se presentó a jugar">Marcar Inasistencia</button>
+                    <button onclick="salidaAnticipada(${idReserva})" style="margin: 5px; padding: 10px; background: #FFC107; color: black; border: none; cursor: pointer;" title="El cliente no concluyó su reserva esperadamente">Salida Anticipada</button>
+                </div>
+                <button onclick="Swal.close()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+            `,
+            showConfirmButton: false
+        });
+    }
+
+
+
+    function marcarLlegada(id) {
+        console.log("Marcar llegada para ID: " + id);
+        window.location.href = `includes/marcar_llegada.php?id_reserva=${id}&id_sucursal=
+        ${id_sucursal}&pagina_actual=${pagina_actual}`;
+    }
+
+    function marcarSalida(id) {
+        console.log("Marcar salida para ID: " + id);
+        window.location.href = `includes/marcar_salida.php?id_reserva=${id}&id_sucursal=
+        ${id_sucursal}&pagina_actual=${pagina_actual}`;
+    }
+
+    function marcarInasistencia(id) {
+        console.log("Marcar inasistencia para ID: " + id);
+        window.location.href = `includes/marcar_inasistencia.php?id_reserva=${id}&id_sucursal=
+        ${id_sucursal}&pagina_actual=${pagina_actual}`;
+    }
+
+    function salidaAnticipada(id) {
+        console.log("Salida anticipada para ID: " + id);
+        Swal.fire({
+            title: "salida anticipada",
+            html: `
+                <button onclick="Swal.close()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+                <input type='text' placeholder='motivo de salida'>`,
+            showConfirmButton: false,
+
+        });
+        if (input is confirmed) {
+            window.location.href = `includes/marcar_salida_anticipada.php?id_reserva=${id}&id_sucursal=
+        ${id_sucursal}&pagina_actual=${pagina_actual}`;
+        }
+    }
+</script>
 </body>
 </html>

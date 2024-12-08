@@ -20,11 +20,18 @@ if ($_SESSION['id_perfil'] == 3) {
     $id_complejo = obtenerIdComplejoDelEmpleado($id_persona,$id_usuario); //de la persona en realidad
 } 
 
+if($_SESSION['id_perfil'] == 23) {
+    $id_persona = $_SESSION['id_persona'];
+    $id_usuario = $_SESSION['id_usuario'];
+
+    $id_complejo = obtenerComplejo($id_usuario);
+    $id_complejo = $id_complejo->fetch_assoc()['rela_complejo'];
+}
 
 
-/*if(!$id_complejo) {
-    header("Location: " . BASE_URL . "errors/error403.php?no_tiene_acceso");
-}*/
+if(!$id_complejo) {
+    header("Location: " . BASE_URL);
+}
 
 $registros_socios = obtenerSocios($id_complejo);
 ?>
@@ -43,15 +50,15 @@ $registros_socios = obtenerSocios($id_complejo);
 <body>
     <?php include(RUTA . "includes/header.php"); ?>
     <?php include(RUTA . "includes/menu_aside.php"); ?>
-<div class="container">
-    <h1 align="center">Listado de Socios</h1>
-    <input type="text" id="buscador" placeholder="Nombre, Apellido, Documento">
-    <div id="tabla-container"></div>
-    <div id="paginacion-container"></div>
+    <div class="container">
+        <h1 align="center">Listado de Socios</h1>
+        <input type="text" id="buscador" placeholder="Nombre, Apellido, Documento">
+        <div id="tabla-container"></div>
+        <div id="paginacion-container"></div>
 
-    <button class="btn-agregar" onclick="window.location.href='includes/agregar.php'">Agregar Socio</button>
+        <button class="btn-agregar" onclick="window.location.href='includes/agregar.php'">Agregar Socio</button>
 
-</div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
@@ -89,3 +96,23 @@ $registros_socios = obtenerSocios($id_complejo);
 <script src="js/TablaYPaginado.js"></script>
 </body>
 </html>
+
+<?php  
+
+function obtenerComplejo($id_usuario) {
+    global $conexion;
+    $sql = "
+        SELECT rela_complejo
+        FROM asignacion_persona_complejo apc 
+        WHERE apc.rela_usuario = ?
+    ";
+
+    $stmt_complejo_del_propietario = $conexion->prepare($sql);
+    $stmt_complejo_del_propietario->bind_param("i",$id_usuario);
+    if($stmt_complejo_del_propietario->execute()){
+        $registros = $stmt_complejo_del_propietario->get_result();
+        return $registros;
+    }
+    return false;
+}
+?>

@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#filtro-fecha").flatpickr({
         dateFormat: "Y-m-d",
         defaultDate: today,
-        minDate: today,
+        // minDate: today,
         maxDate: new Date(new Date().setDate(new Date().getDate() + 7)), // Máximo 7 días
         onChange: function (selectedDates, dateStr) {
             cargarTabla(id_sucursal, "", dateStr); // Recargar la tabla con la nueva fecha

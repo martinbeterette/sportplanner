@@ -4,22 +4,35 @@ require_once("../../../config/root_path.php");
 require_once(RUTA. "config/database/conexion.php");
 require_once("includes/functions.php");
 
+if(!isset($_SESSION['id_usuario'])) {
+    header("Location: ". BASE_URL);
+}
+
+echo $id_persona = $_SESSION['id_persona'];
+echo $id_usuario = $_SESSION['id_usuario'];
 
 if ($_SESSION['id_perfil'] == 3) {
-    $id_persona = $_SESSION['id_persona'];
-    $id_usuario = $_SESSION['id_usuario'];
     $id_sucursal = obtenerSucursalDelEmpleado($id_persona, $id_usuario);
+    if(!$id_sucursal) {header("Location: " . BASE_URL ."index,php");}
 }
+
 
 if($_SESSION['id_perfil'] == 23) {
 
-    $id_sucursal = isset($_GET['id_sucursal']) ? filter_input(INPUT_GET, 'id_sucursal',FILTER_SANITIZE_NUMBER_INT) : header("Location: includes/elegir_sucursal.php");
+    $id_sucursal = isset($_GET['id_sucursal']) ? filter_input(INPUT_GET, 'id_sucursal',FILTER_SANITIZE_NUMBER_INT) : header("Location: includes/seleccionar_sucursal.php");
+    $sucursales = obtenerSucursalesDelPropietario($id_usuario);
+    if($sucursales) {
+        foreach ($sucursales as $reg) {
+            $array_sucursales[] = $reg['id_sucursal'];
+        }
+        if(!in_array($id_sucursal, $array_sucursales)) {
+            header("Location: includes/seleccionar_sucursal.php");
+        }
+    }
+
 }
 
-$id_persona = isset($_SESSION['id_persona']) ? $_SESSION['id_persona'] : header("Location: " . BASE_URL . "index2.php");
-$esEmpleado = esEmpleadoDeLaSucursal($id_persona, $id_sucursal, $conexion);
 
-if(!$esEmpleado) {header("Location: " . BASE_URL ."index2.php");}
 
 
 $consulta_reservas = 
@@ -52,7 +65,7 @@ $consulta_reservas =
         WHERE 
             s.id_sucursal = {$id_sucursal}
 ";
-
+echo $id_sucursal;
 $reservas_hechas = $conexion->query($consulta_reservas);
 ?>
 <html lang="es">
@@ -62,8 +75,15 @@ $reservas_hechas = $conexion->query($consulta_reservas);
     <title>Lista de Reservas</title>
     <link rel="stylesheet" href="css/listado_reservas.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL. "css/header.css" ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL. "css/aside.css" ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
+
+<?php include(RUTA."includes/header.php"); ?>
+<?php include(RUTA."includes/menu_aside.php"); ?>
 
 <div class="contenedor-listado">
     <h1 class="titulo-listado">Listado de Reservas</h1>
@@ -84,6 +104,8 @@ $reservas_hechas = $conexion->query($consulta_reservas);
 
 <script src="<?php echo BASE_URL. "libs/sweetalert2.all.min.js" ?>"></script>
 <script src="<?php echo BASE_URL. "libs/jquery-3.7.1.min.js" ?>"></script>
+<script src="<?php echo BASE_URL. "js/header.js" ?>"></script>
+<script src="<?php echo BASE_URL. "js/aside.js" ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <?php if(isset($_GET['no_hay_entrada'])) { ?>
     <script>Swal.fire("Error","Primero debe marcar una llegada", "warning");</script>
@@ -99,7 +121,10 @@ $reservas_hechas = $conexion->query($consulta_reservas);
         });
     }
 </script>
-<script>var pagina_actual = <?php echo $_GET['pagina_actual'] ?? 1; ?></script>
+<script>
+    var pagina_actual = <?php echo $_GET['pagina_actual'] ?? 1; ?>;
+    var id_sucursal = <?php echo $id_sucursal; ?>;
+</script>
 <script src="js/habilitaciones_botones.js"></script>
 <script src="js/tablaYPaginado.js"></script>
 </body>
