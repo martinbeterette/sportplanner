@@ -1,3 +1,4 @@
+<?php require_once("../../config/root_path.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,12 +76,12 @@
 </head>
 <body>
     <div class="container">
-        <h2>Ingrese su correo electrónico para la recuperación</h2>
+        <h2>Ingrese su nombre de usuario para la recuperaci&oacute;n</h2>
         <form action="recuperacion.php" method="POST">
-            <input type="text" name="email" placeholder="Correo Electrónico">
+            <input type="text" name="username" placeholder="Nombre de Usuario">
             <input type="submit" value="Enviar">
         </form>
-        <a href="../../index_tincho.php" class="back-link">Volver al inicio</a>
+        <a href="<?php echo BASE_URL. "index.php"; ?>" class="back-link">Volver al inicio</a>
     </div>
 </body>
 </html>

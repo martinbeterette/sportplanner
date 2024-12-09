@@ -5,7 +5,7 @@
 	    $pdo->beginTransaction(); // Inicia la transacción
 
 	    // Hashear la contraseña
-	    $contrasena_hasheada = password_hash($password, PASSWORD_DEFAULT);
+	    $contrasena_hasheada = password_hash($contrasena, PASSWORD_DEFAULT);
 
 	    // Insertar en la tabla `persona`
 	    $stmt = $pdo->prepare("INSERT INTO persona (nombre, apellido, rela_sexo, fecha_alta) VALUES (?, ?, ?, CURRENT_DATE())");

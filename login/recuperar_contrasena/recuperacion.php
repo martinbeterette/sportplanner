@@ -1,40 +1,36 @@
 <?php
+require_once("../../config/root_path.php");
+require_once(RUTA . "config/database/conexion.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
-// Configurar conexión a la base de datos
-$dsn = 'mysql:host=localhost;dbname=proyecto_pp2';
-$usuario = 'root';
-$contrasena = '';
-
 try {
-    $pdo = new PDO($dsn, $usuario, $contrasena);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //asignacion variables necesarias
-        $email      = $_POST['email'];
+        $username      = $_POST['username'];
         $token = bin2hex(random_bytes(16)); // Genera un token único
         $expiry = date('Y-m-d H:i:s', strtotime('+30 seconds'));
 
         // buscar coincidencia con correo
-        $stmt = $pdo->prepare("SELECT id_usuario, username FROM usuarios JOIN contacto ON usuarios.rela_contacto = contacto.id_contacto WHERE descripcion_contacto LIKE ?");
-        $stmt->execute([$email]);
+        $stmt = $pdo->prepare("SELECT id_usuario, username, descripcion_contacto FROM usuarios JOIN contacto ON usuarios.rela_contacto = contacto.id_contacto WHERE username LIKE ?");
+        $stmt->execute([$username]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario){
             $id_usuario = $usuario['id_usuario'];
             $username = $usuario['username'];
+            $email      = $usuario['descripcion_contacto'];
             //actualizamos el token y el expiro del token del usuario
-            $stmt = $pdo->prepare("UPDATE usuarios SET token = ?, expiry = NOW() + INTERVAL 1 minute WHERE id_usuario = ?");
+            $stmt = $pdo->prepare("UPDATE usuarios SET token = ?, expiry = NOW() + INTERVAL 5 minute WHERE id_usuario = ?");
             $stmt->execute([$token, $id_usuario]);
 
             // Enviar correo de verificación
-            $verification_link = "http://localhost/proyecto_pp2_2024/login/recuperar_contrasena/verify.php?email=$email&token=$token";
-            $subject = '<h1>Verificación de Correo Electr&oacute;nico<h1>';
+            $verification_link = BASE_URL . "login/recuperar_contrasena/verify.php?email=$email&token=$token";
+            $subject = 'Verificacion de correo electronico';
             $message = "<h2>Hola $username, haz clic en el siguiente enlace para verificar tu correo electr&oacute;nico: $verification_link"."</h2>";
 
             $mail = new PHPMailer(true);

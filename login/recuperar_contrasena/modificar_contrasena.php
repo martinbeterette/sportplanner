@@ -14,7 +14,7 @@
 		$stmt->bind_param("si", $contrasena_hasheada, $id_usuario);
 		if ($stmt->execute()) {
 			session_unset();
-			header("Location: ../../index_tincho.php");
+			header("Location: ".BASE_URL);
 			exit();
 		}
 		else {
