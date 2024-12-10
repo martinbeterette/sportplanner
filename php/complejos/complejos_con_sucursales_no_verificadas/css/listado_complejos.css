@@ -114,3 +114,30 @@ button:hover, .btn-verificar:hover {
 #filtro:focus {
     border-color: #0066cc;
 }
+
+
+.btn-eliminar {
+    background-color: #FF5A00; /* Azul claro */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-eliminar:hover {background-color: #F14400}
+
+.btn-invalidar {
+    background-color: #ECB700; /* Azul claro */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-invalidar:hover {background-color: #db9f00}

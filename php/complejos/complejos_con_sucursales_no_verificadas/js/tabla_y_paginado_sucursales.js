@@ -1,10 +1,9 @@
 $(document).ready(function() {
-
-    function cargarTabla(filtro = '', pagina = 1) {
+    function cargarTabla(id_complejo, filtro = '', pagina = 1) {
         $.ajax({
-            url: 'ajax/obtenerComplejosNoVerificados.php',
+            url: '../ajax/obtenerSucursalesNoVerificadas.php',
             type: 'GET',
-            data: { filtro: filtro, pagina: pagina},
+            data: { id_complejo: id_complejo, filtro: filtro, pagina: pagina},
             dataType: 'json',
             success: function(data) {
                 // Actualizar el contenedor de la tabla con el HTML generado
@@ -35,19 +34,19 @@ $(document).ready(function() {
     }
 
     // Cargar la tabla inicialmente sin filtro
-    cargarTabla();
+    cargarTabla(id_complejo);
 
     // Evento de búsqueda
     $('#filtro').on('keyup', function() {
         var filtro = $(this).val();
-        cargarTabla(filtro); //llamar a la funcion con el termino de busqueda
+        cargarTabla(id_complejo, filtro); //llamar a la funcion con el termino de busqueda
     });
 
     // Evento para cambiar de página
     $(document).on('click', '.pagina-boton', function() {
         var filtro = $('#buscador').val();
         var page = $(this).data('page');
-        cargarTabla(filtro, page);
+        cargarTabla(id_complejo, filtro, page);
     });
 
 }); // Cierre del DOCUMENT READY
