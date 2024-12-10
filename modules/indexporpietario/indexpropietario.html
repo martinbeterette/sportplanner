@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reservas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.6/main.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Dashboard de Reservas</h1>
+        <button class="new-reservation-btn">Nueva Reserva</button>
+    </header>
+    <main>
+        <section class="summary">
+            <div class="card">
+                <h2>Reservas del Día</h2>
+                <p><strong>Horas reservadas:</strong> 8</p>
+                <p><strong>Ingresos:</strong> $1200</p>
+                <p><strong>Canchas ocupadas:</strong> 5</p>
+            </div>
+            <div class="card">
+                <h2>Estado General</h2>
+                <p><strong>Canchas disponibles:</strong> 3</p>
+                <p><strong>Reservas este mes:</strong> 120</p>
+                <p><strong>Ocupación:</strong> 75%</p>
+            </div>
+        </section>
+        <section class="filters">
+            <h2>Filtrar Reservas</h2>
+            <select id="filter-sport">
+                <option value="all">Todos los Deportes</option>
+                <option value="futbol">Fútbol</option>
+                <option value="padel">Pádel</option>
+                <option value="tenis">Tenis</option>
+            </select>
+            <select id="filter-court">
+                <option value="all">Todas las Canchas</option>
+                <option value="1">Cancha 1</option>
+                <option value="2">Cancha 2</option>
+                <option value="3">Cancha 3</option>
+            </select>
+        </section>
+        <section class="charts">
+            <canvas id="reservationsChart"></canvas>
+            <canvas id="weeklyTrendsChart"></canvas>
+        </section>
+        <section class="calendar">
+            <h2>Calendario de Reservas</h2>
+            <div id="calendar"></div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Configuración de Chart.js - Reservas por deporte
+            const ctx1 = document.getElementById('reservationsChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Fútbol', 'Pádel', 'Tenis'],
+                    datasets: [{
+                        label: 'Reservas',
+                        data: [10, 5, 7],
+                        backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                }
+            });
+
+            // Configuración de Chart.js - Tendencias semanales
+            const ctx2 = document.getElementById('weeklyTrendsChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+                    datasets: [{
+                        label: 'Reservas Semanales',
+                        data: [12, 15, 10, 20, 25, 30, 18],
+                        borderColor: '#36a2eb',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        tension: 0.4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                }
+            });
+
+            // Configuración de FullCalendar
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                events: [
+                    { title: 'Fútbol - Cancha 1', start: '2024-12-05T12:00:00' },
+                    { title: 'Pádel - Cancha 2', start: '2024-12-05T14:00:00' },
+                    { title: 'Tenis - Cancha 3', start: '2024-12-05T16:00:00' },
+                ],
+                eventClick: function (info) {
+                    alert(`Reserva: ${info.event.title}`);
+                },
+            });
+            calendar.render();
+
+            // Filtros dinámicos
+            document.getElementById('filter-sport').addEventListener('change', (e) => {
+                const sport = e.target.value;
+                // Filtrar eventos según el deporte seleccionado
+                calendar.refetchEvents();
+            });
+        });
+    </script>
+</body>
+
+</html>

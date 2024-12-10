@@ -1,13 +1,15 @@
 <?php
 require_once("../../config/root_path.php");
 require_once("../../config/database/conexion.php");
+require_once("../../config/database/db_functions.php");
 session_start();
 
 $sql = "SELECT
     			persona.nombre,
     			persona.apellido,
     			documento.descripcion_documento,
-    			sexo.descripcion_sexo
+    			sexo.descripcion_sexo,
+				sexo.id_sexo
     		FROM
     			persona 
     		JOIN 
@@ -32,15 +34,6 @@ $stmt->execute();
 $resultado = $stmt->get_result();
 $datos_personales = $resultado->fetch_assoc();
 
-/*if($datos_personales) {
-
-    	$nombre 	= $datos_personales['nombre'];
-    	$apellido 	= $datos_personales['apellido'];
-    	$documento 	= $datos_personales['descripcion_documento'];
-    	$sexo 		= $datos_personales['descripcion_sexo'];
-
-    }*/
-
 $nombre = $datos_personales['nombre'];
 $apellido = $datos_personales['apellido'];
 $documento = $datos_personales['descripcion_documento'];
@@ -48,8 +41,9 @@ $sexo = $datos_personales['descripcion_sexo'];
 unset($_SESSION['datos_personales']);
 $_SESSION['datos_personales'] = $datos_personales;
 
-?>
+$registros_sexo = obtenerSexos();
 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -81,7 +75,7 @@ $_SESSION['datos_personales'] = $datos_personales;
 			<legend align="center">Informacion Personal</legend>
 
 			<div class="modificar">
-				<button onclick="location.href='modificar_mis_datos.php?datos_personales'">
+				<button id="modificarpersonales">
 					<i class="fa-solid fa-user-pen fa-2xl" style="color: #28a745;"></i>
 				</button>
 				<br>
@@ -105,7 +99,7 @@ $_SESSION['datos_personales'] = $datos_personales;
 			<legend align="center">Datos del Usuario</legend>
 
 			<div class="modificar">
-				<button onclick="location.href='modificar_mis_datos.php?datos_de_usuario'">
+				<button id="modificarusuario" onclick="location.href='modificar_mis_datos.php?datos_de_usuario'">
 					<i class="fa-solid fa-user-pen fa-2xl" style="color: #28a745;"></i>
 				</button>
 				<br>
@@ -135,6 +129,76 @@ $_SESSION['datos_personales'] = $datos_personales;
 	<script src="../../js/aside.js"></script>
 	<script src="../../js/header.js"></script>
 	<script src="../../js/terminoscondiciones.js"></script>
+
+	<script>
+		document.getElementById('modificarpersonales').addEventListener('click', function(e) {
+			e.preventDefault(); // Evita la redirección por defecto del botón.
+
+			// Obtén los datos actuales desde PHP (ya están cargados en las variables de PHP).
+			const nombre = "<?php echo $nombre; ?>";
+			const apellido = "<?php echo $apellido; ?>";
+			const dni = "<?php echo $documento; ?>";
+			const sexoActual = "<?php echo $sexo; ?>";
+
+			// Crea el formulario dentro del modal.
+			Swal.fire({
+				title: 'Modificar Datos Personales',
+				html: `
+                <form id="formModificarPersonales">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" class="swal2-input" value="${nombre}" required>
+                    
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" class="swal2-input" value="${apellido}" required>
+                    
+                    <label for="dni">DNI:</label>
+                    <input type="text" id="dni" name="dni" class="swal2-input" value="${dni}" required>
+                    
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo" class="swal2-select" required>
+                        <?php foreach ($registros_sexo as $reg) { ?>
+						<option value="<?php echo $reg['id_sexo']; ?>" <?php if ($reg['descripcion_sexo'] == $_SESSION['datos_personales']['descripcion_sexo']) {
+																			echo 'selected';
+																		} ?>> <?php echo $reg['descripcion_sexo']; ?></option>
+						<?php } ?>
+                    </select>
+                </form>
+            `,
+				showCancelButton: true,
+				confirmButtonText: 'Guardar',
+				preConfirm: () => {
+					// Obtén los valores del formulario.
+					const form = document.getElementById('formModificarPersonales');
+					const formData = new FormData(form);
+					return {
+						nombre: formData.get('nombre'),
+						apellido: formData.get('apellido'),
+						dni: formData.get('dni'),
+						sexo: formData.get('sexo')
+					};
+				}
+			}).then((result) => {
+				if (result.isConfirmed) {
+					const datos = result.value;
+
+					// Enviar los datos al servidor mediante AJAX para guardarlos.
+					$.ajax({
+						url: 'aplicar_modificar_datos_personales.php', // Cambia por la URL de tu endpoint.
+						method: 'POST',
+						data: datos,
+						success: function(response) {
+							Swal.fire('¡Guardado!', 'Tus datos han sido actualizados.', 'success').then(() => {
+								location.reload(); // Recarga la página para reflejar los cambios.
+							});
+						},
+						error: function() {
+							Swal.fire('Error', 'Ocurrió un problema al guardar los datos.', 'error');
+						}
+					});
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>

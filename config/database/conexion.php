@@ -1,7 +1,7 @@
 <?php
 $host 		= "localhost";
 $user 		= "root";
-$password 	= "";
+$password 	= "root";
 $database	= "proyecto_pp2";
 $dsn = "mysql:host=$host;dbname=$database";
 

@@ -5,11 +5,9 @@ session_start();
 
 $nombre 	= $_POST['nombre'];
 $apellido 	= $_POST['apellido'];
-$documento 	= $_POST['documento'];
+$documento 	= $_POST['dni'];
 $sexo 		= (int)$_POST['sexo'];
 $email      = $_SESSION['email'];
-
-// echo $nombre."<br>".$apellido."<br>".$documento."<br>".$sexo."<br>".$email."<br>";die;
 
 $sql_persona = "UPDATE 
 								persona

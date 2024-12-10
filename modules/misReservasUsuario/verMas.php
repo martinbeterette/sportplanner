@@ -12,6 +12,8 @@ if (isset($_POST['id_reserva'])) {
               JOIN horario h ON r.rela_horario = h.id_horario
               JOIN zona z ON r.rela_zona = z.id_zona
               JOIN sucursal s ON z.rela_sucursal = s.id_sucursal
+              JOIN complejo c ON s.rela_complejo = c.id_complejo
+              JOIN asignacion_sucursal_domicilio asd ON asd.rela_sucursal = s.id_sucursal
               JOIN formato_deporte fd ON z.rela_formato_deporte = fd.id_formato_deporte
               JOIN estado_reserva er ON r.rela_estado_reserva = er.id_estado_reserva
               JOIN control co ON co.rela_reserva = r.id_reserva

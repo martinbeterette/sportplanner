@@ -4,36 +4,63 @@ require_once("../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
 require_once(RUTA . "config/database/db_functions/personas.php");
 
+// Verificar sesión
+if (!isset($_SESSION['id_persona']) || !isset($_SESSION['id_usuario'])) {
+    die("Acceso denegado. Por favor inicie sesión.");
+}
+
 $idPersona = $_SESSION['id_persona'];
 $idUsuario = $_SESSION['id_usuario'];
+
+// Obtener persona asociada al usuario
 $registrosPersona = ObtenerPersonaPorUsuario($idUsuario);
+if (!$registrosPersona) {
+    die("Error al obtener datos de la persona.");
+}
 $objetoPersona = $registrosPersona->fetch_assoc();
 $relaPersonas = $objetoPersona['id_persona'];
 
-// Parámetros de ordenación
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'fecha_reserva'; // Columna predeterminada
-$order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Orden predeterminado
-
-// Validar los valores de sort y order para evitar inyección de SQL
+// Validar y sanitizar parámetros de entrada
 $validColumns = ['sucursal', 'zona', 'formato', 'fecha_reserva', 'horario_inicio', 'monto_base', 'estado'];
-if (!in_array($sort, $validColumns)) {
-    $sort = 'fecha_reserva';
+$sort = isset($_GET['sort']) && in_array($_GET['sort'], $validColumns) ? $_GET['sort'] : 'fecha_reserva';
+$order = (isset($_GET['order']) && strtolower($_GET['order']) === 'desc') ? 'desc' : 'asc';
+$limit = isset($_GET['limit']) ? max(1, (int)$_GET['limit']) : 10;
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$offset = ($page - 1) * $limit;
+$start_date = isset($_GET['start_date']) ? mysqli_real_escape_string($conexion, $_GET['start_date']) : null;
+$end_date = isset($_GET['end_date']) ? mysqli_real_escape_string($conexion, $_GET['end_date']) : null;
+
+// Construir cláusula WHERE
+$whereClause = "WHERE r.rela_persona = $relaPersonas";
+if ($start_date) {
+    $whereClause .= " AND r.fecha_reserva >= '$start_date'";
 }
-$order = ($order === 'desc') ? 'desc' : 'asc';
+if ($end_date) {
+    $whereClause .= " AND r.fecha_reserva <= '$end_date'";
+}
 
-// Parámetros de paginación
-$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10; // Número de registros por página
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Página actual
-$offset = ($page - 1) * $limit; // Desplazamiento para la consulta
+// Obtener el número total de registros (con filtros aplicados)
+$countQuery = "SELECT COUNT(*) AS total
+               FROM reserva r
+               JOIN persona p ON r.rela_persona = p.id_persona
+               JOIN horario h ON r.rela_horario = h.id_horario
+               JOIN zona z ON r.rela_zona = z.id_zona
+               JOIN sucursal s ON z.rela_sucursal = s.id_sucursal
+               JOIN formato_deporte fd ON z.rela_formato_deporte = fd.id_formato_deporte
+               JOIN tipo_terreno tt ON z.rela_tipo_terreno = tt.id_tipo_terreno
+               JOIN control co ON co.rela_reserva = r.id_reserva
+               JOIN estado_reserva er ON r.rela_estado_reserva = er.id_estado_reserva
+               $whereClause";
 
-// Obtener el número total de registros
-$countQuery = "SELECT COUNT(*) AS total FROM reserva r WHERE r.rela_persona = 13";
 $totalResult = mysqli_query($conexion, $countQuery);
+if (!$totalResult) {
+    die("Error en la consulta de conteo: " . mysqli_error($conexion));
+}
 $totalRow = mysqli_fetch_assoc($totalResult);
 $totalRecords = $totalRow['total'];
-$totalPages = ceil($totalRecords / $limit); // Calcular el número total de páginas
+$totalPages = ceil($totalRecords / $limit);
 
-// Consulta con paginación
+// Consulta principal (con paginación y filtros)
 $query = "SELECT r.id_reserva, p.nombre, 
             r.fecha_reserva, 
             h.horario_inicio,
@@ -51,14 +78,13 @@ $query = "SELECT r.id_reserva, p.nombre,
           JOIN tipo_terreno tt ON z.rela_tipo_terreno = tt.id_tipo_terreno
           JOIN control co ON co.rela_reserva = r.id_reserva
           JOIN estado_reserva er ON r.rela_estado_reserva = er.id_estado_reserva
-          WHERE r.rela_persona = 13
+          $whereClause
           ORDER BY $sort $order
           LIMIT $limit OFFSET $offset";
 
 $misReservas = mysqli_query($conexion, $query);
-
 if (!$misReservas) {
-    die("Error en la consulta: " . mysqli_error($conexion));
+    die("Error en la consulta principal: " . mysqli_error($conexion));
 }
 ?>
 
@@ -97,19 +123,33 @@ if (!$misReservas) {
             <h1>Mis Reservas</h1>
 
             <div class="accionencabezado">
-                <button id="exportarpdf" onclick="window.location.href='exportar_pdf.php';">
-                    <i class="fa-regular fa-file-pdf"></i>
-                </button>
+                <div class="export">
+                    <button id="exportarpdf" onclick="window.location.href='exportar_pdf.php';">
+                        <i class="fa-regular fa-file-pdf"></i>
+                    </button>
+                </div>
 
                 <!-- Selector para limitar registros -->
                 <form method="GET" action="">
-                    <label for="limit">Mostrar</label>
-                    <select id="limit" name="limit" onchange="this.form.submit()">
-                        <option value="5" <?php if ($limit == 5) echo 'selected'; ?>>5</option>
-                        <option value="10" <?php if ($limit == 10) echo 'selected'; ?>>10</option>
-                        <option value="20" <?php if ($limit == 20) echo 'selected'; ?>>20</option>
-                    </select>
-                    <label for="limit"> registros por página</label>
+                    <div class="parte1">
+                        <label for="limit">Mostrar</label>
+                        <select id="limit" name="limit" onchange="this.form.submit()">
+                            <option value="5" <?php if ($limit == 5) echo 'selected'; ?>>5</option>
+                            <option value="10" <?php if ($limit == 10) echo 'selected'; ?>>10</option>
+                            <option value="20" <?php if ($limit == 20) echo 'selected'; ?>>20</option>
+                        </select>
+                        <label for="limit"> registros por página.</label>
+                    </div>
+
+                    <!-- Selector de rango de fechas -->
+                    <div class="parte2">
+                        <label for="start_date">Desde:</label>
+                        <input type="date" id="start_date" name="start_date" value="<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : ''; ?>">
+                        <label for="end_date">Hasta:</label>
+                        <input type="date" id="end_date" name="end_date" value="<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : ''; ?>">
+
+                        <button type="submit">Filtrar por fecha</button>
+                    </div>
                 </form>
             </div>
 
@@ -238,13 +278,15 @@ if (!$misReservas) {
                     } else {
                         // Crear el contenido del modal
                         const contenido = `
+                    <strong>Complejo:</strong> ${reserva.descripcion_complejo}<br>
                     <strong>Sucursal:</strong> ${reserva.descripcion_sucursal}<br>
+                    <strong>Direccion:</strong> ${reserva.direccion}<br>
                     <strong>Zona:</strong> ${reserva.descripcion_zona}<br>
                     <strong>Formato:</strong> ${reserva.descripcion_formato_deporte}<br>
                     <strong>Fecha Reserva:</strong> ${reserva.fecha_reserva}<br>
-                    <strong>Hora Inicio:</strong> ${reserva.horario_inicio}<br>
-                    <strong>Monto Base:</strong> $${reserva.monto_base}<br>
-                    <strong>Estado:</strong> ${reserva.estado}
+                    <strong>Horario:</strong> ${reserva.horario_inicio} - ${reserva.horario_fin}<br>
+                    <strong>Monto Reserva:</strong> $${reserva.monto_final}<br>
+                    <strong>Estado:</strong> ${reserva.descripcion_estado_reserva}
                 `;
 
                         // Abrir el modal con los datos obtenidos

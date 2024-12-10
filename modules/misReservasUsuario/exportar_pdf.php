@@ -1,7 +1,11 @@
 <?php
 require_once("../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
+session_start();
 require('../../libs/fpdf/fpdf.php');
+
+$id_persona = $_SESSION['id_persona'];
+$id_usuario = $_SESSION['id_usuario'];
 
 // Consulta con paginación
 $query = "SELECT r.id_reserva, p.nombre, 
@@ -21,13 +25,9 @@ $query = "SELECT r.id_reserva, p.nombre,
           JOIN tipo_terreno tt ON z.rela_tipo_terreno = tt.id_tipo_terreno
           JOIN control co ON co.rela_reserva = r.id_reserva
           JOIN estado_reserva er ON r.rela_estado_reserva = er.id_estado_reserva
-          WHERE r.rela_persona = 13";
+          WHERE r.rela_persona = $id_persona";
 
 $misReservas = mysqli_query($conexion, $query);
-
-// Datos del usuario (puede sustituir por datos reales obtenidos del sistema)
-$nombreUsuario = "John Doe"; // Ejemplo de nombre de usuario
-$fechaHoraActual = date("Y-m-d H:i:s");
 
 // Crear la clase personalizada para el PDF
 class PDF extends FPDF
@@ -66,7 +66,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', '', 10);
 
 // Información del usuario
-$nombreUsuario = "Juan Perez"; // Reemplazar con el usuario real
+$nombreUsuario = $_SESSION['usuario']; // Reemplazar con el usuario real
 $fechaHoraActual = date('d/m/Y H:i'); // Formato de fecha y hora
 $pdf->Cell(0, 10, "Usuario: " . $nombreUsuario, 0, 1, 'C');
 $pdf->Cell(0, 10, "Fecha y Hora: " . $fechaHoraActual, 0, 1, 'C');
