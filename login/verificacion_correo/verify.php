@@ -27,7 +27,7 @@ try {
                                     WHERE u.username = ?");
             $stmt->execute([$username]);
 
-            header("Location: ../inicio_sesion.php?correo_verificado");
+            header("Location: ".BASE_URL."login/inicio_sesion/inicio_sesion.php?correo_verificado");
             exit();
         } else {
             $stmt = $pdo->prepare("SELECT username FROM usuarios u
@@ -38,7 +38,7 @@ try {
 
             if($reg) {
                 $username = $reg['username'];
-                header("Location: ../inicio_sesion/inicio_sesion.php?verificacion_expirada&email={$email}&username={$username}");
+                header("Location: ".BASE_URL."login/inicio_sesion/inicio_sesion.php?verificacion_expirada&email={$email}&username={$username}");
             }
         }
     } else {

@@ -14,7 +14,7 @@ try {
 
     function enviarVerificacion($email, $username, $token) {
          // Enviar correo de verificación
-        $verification_link = htmlSpecialchars("{$base_url}login/verificacion_correo/verify.php?email=" . $email . "&token=" . $token . "&username=" . $username);
+        $verification_link = htmlSpecialchars(BASE_URL . "login/verificacion_correo/verify.php?email=" . $email . "&token=" . $token . "&username=" . $username);
 
         
         $subject = 'Verificación de Correo Electrónico';
@@ -42,7 +42,7 @@ try {
         // }
 
         if ($mail->send()) {
-            header("Location: ../inicio_sesion/inicio_sesion.php?correo_enviado");
+            header("Location: ".BASE_URL."login/inicio_sesion/inicio_sesion.php?correo_enviado");
             exit();
         } else {
             echo "ha ocurrido un error al enviar el correo". $mail->errorInfo;
@@ -133,7 +133,7 @@ try {
 
             $stmt = $pdo->prepare($sql);
             if($stmt->execute([$token, $expiry, $username])) {
-                echo enviarVerificacion($email, $username, $token);
+                enviarVerificacion($email, $username, $token);
             } else {
                 die("Ocurrio un error durante la creacion de credenciales");
             }
