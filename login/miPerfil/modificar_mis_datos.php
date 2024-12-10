@@ -9,7 +9,6 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['id_perfil'])) {
 	exit();
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +81,7 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['id_perfil'])) {
 				<br>
 
 				<button type="submit">Enviar</button>
-			</form>
+			</form> b
 		<?php } ?>
 
 		<?php if (isset($_GET["error"])) { ?>
