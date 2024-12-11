@@ -41,6 +41,7 @@ if (isset($_REQUEST['id_sucursal']) && isset($_REQUEST['id_reserva'])) {
     $pagina_actual = $_REQUEST['pagina_actual'] ?? 1;
     $id_sucursal = $_REQUEST['id_sucursal'];
     $id_reserva = $_REQUEST['id_reserva'];
+    $metodo_pago = $_REQUEST['metodo_pago'] ?? 1;
 
     // Aquí podrías añadir una función de control de acceso usando el $id_sucursal
 

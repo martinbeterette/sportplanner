@@ -162,8 +162,25 @@ $reservas_hechas = $conexion->query($consulta_reservas);
 
     function marcarLlegada(id) {
         console.log("Marcar llegada para ID: " + id);
-        window.location.href = `includes/marcar_llegada.php?id_reserva=${id}&id_sucursal=
-        ${id_sucursal}&pagina_actual=${pagina_actual}`;
+
+        Swal.fire({
+            title: 'Elegir un metodo de pago',
+            html: `
+                <p><strong>Precio: </strong>2000</p>
+                <select name="metodo_pago" id="">
+                    <option value="">Seleccione un metodo de pago</option>
+                    <option value="">efectivo</option>
+                    <option value="">transferencia</option>
+                    <option value="">tarjeta</option>
+                </select>
+            `,
+        }).then(function(result){
+            if(result.isConfirmed) {
+                window.location.href = `includes/marcar_llegada.php?id_reserva=${id}&id_sucursal=${id_sucursal}&pagina_actual=${pagina_actual}`;
+
+            }
+        });
+
     }
 
     function marcarSalida(id) {
@@ -187,11 +204,13 @@ $reservas_hechas = $conexion->query($consulta_reservas);
                 <input type='text' placeholder='motivo de salida'>`,
             showConfirmButton: false,
 
+        }).then(function(input) {
+            if (input.isConfirmed) {
+                window.location.href = `includes/marcar_salida_anticipada.php?id_reserva=${id}&id_sucursal=
+            ${id_sucursal}&pagina_actual=${pagina_actual}`;
+            }
+
         });
-        if (input is confirmed) {
-            window.location.href = `includes/marcar_salida_anticipada.php?id_reserva=${id}&id_sucursal=
-        ${id_sucursal}&pagina_actual=${pagina_actual}`;
-        }
     }
 </script>
 </body>
