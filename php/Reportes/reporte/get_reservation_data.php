@@ -4,7 +4,7 @@ require_once(RUTA . "config/database/conexion.php");
 
 header('Content-Type: application/json');
 
-$idSucursal = 1;
+$idSucursal = $_GET['id_Sucursal'];
 $period = isset($_GET['period']) ? $_GET['period'] : 'week';
 $startDate = isset($_GET['startDate']) ? $_GET['startDate'] : null;
 $endDate = isset($_GET['endDate']) ? $_GET['endDate'] : null;
@@ -87,16 +87,18 @@ $queryTarifas = "
     FROM control c 
     JOIN tarifa t ON c.rela_tarifa = t.id_tarifa
     JOIN reserva r ON c.rela_reserva = r.id_reserva
-    WHERE 1=1 $timeFilter AND t.rela_sucursal = $idSucursal AND t.estado = 1
-    GROUP BY t.id_tarifa
+    WHERE 1=1 $timeFilter AND r.rela_zona IN (
+        SELECT id_zona FROM zona WHERE rela_sucursal = $idSucursal
+    )
+    GROUP BY t.descripcion_tarifa
 ";
 
 $resultTarifas = $conexion->query($queryTarifas);
-$data['tarifas'] = ['labels' => [], 'total_reserva' => [], 'recaudacion_total' => []];
+$data['tarifas'] = ['labels' => [], 'total_reserva' => []];
 while ($row = $resultTarifas->fetch_assoc()) {
     $data['tarifas']['labels'][] = $row['descripcion_tarifa'];
     $data['tarifas']['total_reserva'][] = $row['total_reserva'];
-    $data['tarifas']['recaudacion_total'][] = $row['recaudacion_total'];
 }
+
 
 echo json_encode($data);

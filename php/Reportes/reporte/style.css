@@ -1,75 +1,216 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f6f8;
-  margin: 0;
-  padding: 0;
-}
-
+/* Estilo general del dashboard */
 .dashboard {
+  background-color: #f4f4f4;
+  padding: 30px;
   max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
 h1 {
   text-align: center;
+  color: #2d2d2d;
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
+/* Estilos para los filtros */
 .filters {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
+  background-color: #007bff;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .filters label {
-  margin-right: 8px;
+  color: white;
+  font-size: 16px;
+  margin-right: 10px;
 }
 
+#filter-period {
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+  outline: none;
+}
+
+#custom-date-range {
+  margin-top: 10px;
+}
+
+#custom-date-range input {
+  padding: 8px;
+  margin-right: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #007bff;
+}
+
+#apply-custom-range {
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#apply-custom-range:hover {
+  background-color: #218838;
+}
+
+#exportarpdf {
+  padding: 10px 20px;
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+#exportarpdf:hover {
+  background-color: #e0a800;
+}
+
+/* Estilos para los gráficos */
 .charts {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 
 .chart-container {
   width: 48%;
-  margin-bottom: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.chart-container canvas {
-  width: 100% !important;
-  height: 300px !important;
+.chart-container h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
 }
 
-.reservations-table {
-  margin-top: 20px;
+/* Tabla de datos */
+.reservations-table,
+.registrosTurnos {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
-table,
-th,
-td {
+table th,
+table td {
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
   border: 1px solid #ddd;
 }
 
-th,
-td {
-  padding: 8px;
-  text-align: left;
-}
-
-thead {
+table th {
   background-color: #007bff;
-  color: #fff;
+  color: white;
+  font-weight: bold;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+table td {
+  background-color: #f9f9f9;
+}
+
+table tr:nth-child(even) td {
+  background-color: #f1f1f1;
+}
+
+table tr:hover td {
+  background-color: #f1c40f;
+  cursor: pointer;
+}
+
+/* Comparativa Día vs Noche */
+.chart-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+/* Estilo general de las tablas */
+.registrosTurnos table th {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Ajustes en la tabla de tarifas */
+#tarifasTable {
+  margin-top: 20px;
+}
+
+#tarifasTable th {
+  background-color: #007bff;
+}
+
+#tarifasTable td {
+  font-size: 16px;
+}
+
+/* Efectos hover para botones */
+button:hover {
+  opacity: 0.9;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .charts {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-container {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .filters {
+    text-align: center;
+  }
+
+  #filter-period {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #custom-date-range input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #apply-custom-range {
+    width: 100%;
+  }
+
+  #exportarpdf {
+    width: 100%;
+  }
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+form img {
+  height: 30px;
+  width: 30px;
 }

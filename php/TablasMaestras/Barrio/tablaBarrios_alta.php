@@ -1,85 +1,57 @@
-<?php 
-    require_once("../../../config/database/conexion.php");
-    session_start();
+<?php
+require_once('../../../config/root_path.php');
+require_once("../../../config/database/conexion.php");
+session_start();
 
-    
-    require_once("../../../config/database/db_functions.php");
-    $registrosLocalidad = obtenerLocalidades();
+
+require_once("../../../config/database/db_functions.php");
+$registrosLocalidad = obtenerLocalidades();
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta barrio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/header.css">
+    <link rel="stylesheet" href="../../../css/aside.css">
+    <link rel="stylesheet" href="../../../css/footer.css">
+    <link rel="stylesheet" href="../css/index.css">
     <style>
-       body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #F0F4F8;
+        * {
+            padding: 0;
             margin: 0;
-            padding: 20px;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        center {
+            margin: 12px auto;
+        }
+
+        table {
+            width: 90%;
+            margin: 0 auto;
         }
 
         form {
-            background-color: #FFFFFF;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 450px;
-            margin: 0 auto;
-            font-size: 16px;
+            margin-bottom: 6px;
         }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-            border: 1px solid #D1D5DB;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        input:focus, select:focus {
-            border-color: #4A90E2;
-            box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
-            outline: none;
-        }
-
-        button {
-            background-color: #4A90E2;
-            color: #FFFFFF;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        button:hover {
-            background-color: #357ABD;
-            transform: scale(1.05);
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
     </style>
 </head>
-<body>
 
-    <h1 style="text-align: center; margin-top: 25px; margin-bottom: 20px; color: white;">Modulo Alta de barrios</h1>
+<body>
+    <?php include(RUTA . "includes/header.php"); ?>
+    <?php include(RUTA . "includes/menu_aside.php") ?>
+
+    <h1 style="text-align: center; margin-top: 25px; margin-bottom: 20px; color: black;">Modulo Alta de barrios</h1>
+
     <form action="tablabarrios_aplicar_alta.php" method="post">
 
         <label for="descripcion">Descripción:</label>
@@ -90,7 +62,7 @@
             <option value="" disabled selected>Seleccione una localidad...</option>
             <?php foreach ($registrosLocalidad as $reg) : ?>
                 <option value="<?php echo $reg['id_localidad']; ?>">
-                    <?php echo $reg['descripcion_localidad'];?>
+                    <?php echo $reg['descripcion_localidad']; ?>
                 </option>
             <?php endforeach; ?>
         </select>
@@ -99,5 +71,13 @@
         <button type="submit">Enviar</button>
     </form>
 
+    <?php include(RUTA . "includes/footer.php") ?>
+
+    <script src="../../../libs/jquery-3.7.1.min.js"></script>
+    <script src="../../../libs/sweetalert2.all.min.js"></script>
+    <script src="../../../js/header.js"></script>
+    <script src="../../../js/aside.js"></script>
+    <script src="../../../js/terminoscondiciones.js"></script>
 </body>
+
 </html>

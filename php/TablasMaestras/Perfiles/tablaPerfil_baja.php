@@ -1,21 +1,18 @@
-<?php 
+<?php
 require_once('../../../config/database/conexion.php');
-    session_start();
+session_start();
 
-    
-
-$id = $_GET['id_sexo'];
+$id = $_GET['id_perfil'];
 
 //eliminar el producto
-$sql = "UPDATE sexo 
+$sql = "UPDATE perfil 
         	SET
         		estado = 0
-        	WHERE id_sexo = $id;";
+        	WHERE id_perfil = $id";
 
 //ejecutar la consulta o error
 if ($conexion->query($sql)) {
-    header("Location: tablasexos.php"); 
+    header("Location: tablaPerfil.php");
 } else {
     echo "error al actualizar el registro: " . $conexion->error;
 }
-?>

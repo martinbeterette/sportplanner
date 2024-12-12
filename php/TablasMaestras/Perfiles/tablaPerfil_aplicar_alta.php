@@ -1,18 +1,14 @@
-<?php 
+<?php
 require_once("../../../config/database/conexion.php");
-    session_start();
-
-   
+session_start();
 
 $descripcion 		= $_POST['descripcion'];
 
 $sql = "INSERT INTO 
-					sexo(descripcion_sexo)
+					perfil(descripcion_perfil)
 		VALUES
 			('$descripcion')";
 
 if ($conexion->query($sql)) {
-	header("Location: tablasexos.php");
+	header("Location: tablaPerfil.php");
 }
-
-?>

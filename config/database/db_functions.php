@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-	require_once('conexion.php');
+require_once('conexion.php');
 /*
 	function obtenerMembresias($registros_por_pagina=null, $offset=null) {
 		global $conexion;
@@ -28,47 +28,49 @@
 	}
 */
 
-	function obtenerModulos() {
+function obtenerModulos()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_modulo,
 						descripcion_modulo
 					FROM
 						modulo";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerPerfiles() {
+function obtenerPerfiles()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_perfil,
 						descripcion_perfil
 					FROM
-						perfil";
+						perfil
+						WHERE estado = 1";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerPerfilesModulos() {
+function obtenerPerfilesModulos()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_asignacion_perfil_modulo,
 						descripcion_modulo,
 						descripcion_perfil
@@ -83,19 +85,19 @@
 					ON
 						apm.rela_perfil = p.id_perfil";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerEstadoReservas() {
+function obtenerEstadoReservas()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_estado_reserva,
 						descripcion_estado_reserva
 					FROM
@@ -103,19 +105,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerControles() {
+function obtenerControles()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_estado_control,
 						descripcion_estado_control
 					FROM
@@ -123,19 +125,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerBarrios($offset=null, $registros_por_pagina=null) {
+function obtenerBarrios($offset = null, $registros_por_pagina = null)
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_barrio,
 						descripcion_barrio,
 						descripcion_localidad
@@ -150,19 +152,19 @@
 					LIMIT
 					$offset, $registros_por_pagina";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerFormatoDeportes() {
+function obtenerFormatoDeportes()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_formato_deporte,
 						descripcion_formato_deporte,
 						descripcion_deporte
@@ -175,19 +177,19 @@
 					WHERE
 						formato_deporte.estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerLocalidades() {
+function obtenerLocalidades()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_localidad,
 						descripcion_localidad,
 						descripcion_provincia
@@ -200,19 +202,19 @@
 					WHERE
 						localidad.estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerProvincias() {
+function obtenerProvincias()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_provincia,
 						descripcion_provincia
 					FROM
@@ -220,19 +222,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerServicios() {
+function obtenerServicios()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_servicio,
 						descripcion_servicio
 					FROM
@@ -240,19 +242,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerSexos() {
+function obtenerSexos()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_sexo,
 						descripcion_sexo
 					FROM
@@ -260,19 +262,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerTipoContactos() {
+function obtenerTipoContactos()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_tipo_contacto,
 						descripcion_tipo_contacto
 					FROM
@@ -280,19 +282,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerTipoDocumentos() {
+function obtenerTipoDocumentos()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_tipo_documento,
 						descripcion_tipo_documento
 					FROM
@@ -300,19 +302,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerDeportes() {
+function obtenerDeportes()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_deporte,
 						descripcion_deporte
 					FROM
@@ -320,19 +322,19 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerTipoTerrenos() {
+function obtenerTipoTerrenos()
+{
 
-		global $conexion;
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_tipo_terreno,
 						descripcion_tipo_terreno
 					FROM
@@ -340,18 +342,18 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerPersonas() {
-		global $conexion;
+function obtenerPersonas()
+{
+	global $conexion;
 
-		$sql = "SELECT 	nombre,
+	$sql = "SELECT 	nombre,
 						apellido,
 						dni,	
 						fecha_nacimiento
@@ -360,34 +362,36 @@
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerComplejos() {
-		global $conexion;
-		
-		$sql = "SELECT 	descripcion_complejo,
+function obtenerComplejos()
+{
+	global $conexion;
+
+	$sql = "SELECT 	descripcion_complejo,
 						direccion						
 					FROM
 						complejo
 					WHERE
 						estado IN(1)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerZonasFutbol($id_sucursal) {
-		global $conexion;
+function obtenerZonasFutbol($id_sucursal)
+{
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						id_zona,
 						descripcion_zona,
 						descripcion_tipo_terreno,
@@ -419,17 +423,18 @@
 						zona.estado IN(1)
 					ORDER BY (zona.id_zona)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerInsumos() {
-		global $conexion;
+function obtenerInsumos()
+{
+	global $conexion;
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						insumo.id_insumo,
 						insumo.descripcion_insumo,
 						insumo.cantidad,
@@ -446,22 +451,22 @@
 						insumo.estado IN(1)
 					ORDER BY (id_insumo)";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
+}
 
-	function obtenerEmpleados($id_sucursal = '') {
-		global $conexion;
+function obtenerEmpleados($id_sucursal = '')
+{
+	global $conexion;
 
 
-		$orden = " ORDER BY (empleado.id_empleado)";
+	$orden = " ORDER BY (empleado.id_empleado)";
 
 
-		$sql = "SELECT 	
+	$sql = "SELECT 	
 						empleado.id_empleado,
 						persona.nombre,
 						persona.apellido,
@@ -487,24 +492,24 @@
 					WHERE
 						empleado.estado IN(1)";
 
-		if ($id_sucursal) {
-			$sql .= " AND empleado.rela_sucursal = $id_sucursal";
-		}
-
-		$sql .= " $orden";
-
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($id_sucursal) {
+		$sql .= " AND empleado.rela_sucursal = $id_sucursal";
 	}
 
-	function obtenerMembresias($registros_por_pagina=null, $offset=null) {
-		global $conexion;
+	$sql .= " $orden";
 
-		$sql = "SELECT 	
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
+	}
+}
+
+function obtenerMembresias($registros_por_pagina = null, $offset = null)
+{
+	global $conexion;
+
+	$sql = "SELECT 	
 						id_membresia,
 						beneficio_membresia,
 						descripcion_membresia,
@@ -518,11 +523,9 @@
 					OFFSET 
 						$offset";
 
-		if ($registros = $conexion->query($sql)) {
-			return $registros;
-		} else {
-			return false;
-		}
-
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
 	}
- ?>
+}
