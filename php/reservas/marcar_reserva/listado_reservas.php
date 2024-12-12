@@ -130,11 +130,13 @@ $reservas_hechas = $conexion->query($consulta_reservas);
 <script src="js/habilitaciones_botones.js"></script>
 <script src="js/tablaYPaginado.js"></script>
 <script>
+    let monto;
     $(document).ready(function() {
         $(document).on("click",".acciones", function(){
             let id_reserva      = $(this).data('id-reserva');
             let pagina_actual   = $(this).data('pagina');
             let id_sucursal     = $(this).data('id_sucursal');
+            monto           = $(this).data('monto');
             abrirModal(id_reserva);
         });
 
@@ -166,17 +168,28 @@ $reservas_hechas = $conexion->query($consulta_reservas);
         Swal.fire({
             title: 'Elegir un metodo de pago',
             html: `
-                <p><strong>Precio: </strong>2000</p>
-                <select name="metodo_pago" id="">
-                    <option value="">Seleccione un metodo de pago</option>
-                    <option value="">efectivo</option>
-                    <option value="">transferencia</option>
-                    <option value="">tarjeta</option>
+                <p><strong>Precio: </strong>${monto}</p>
+                <select name="metodo_pago" id="metodo_pago">
+                    <option value="" disabled selected>Seleccione un metodo de pago</option>
+                    <option value="efectivo">efectivo</option>
+                    <option value="trasferencia">transferencia</option>
+                    <option value="tarjeta">tarjeta</option>
                 </select>
             `,
+
+            preConfirm:() => {
+                const pago = document.getElementById('metodo_pago').value;
+                if (!pago) {
+                    Swal.showValidationMessage('Por favor, selecciona un método de pago.');
+                    return false; // Evita que cierre el modal
+                }
+                return pago; // Retorna el valor seleccionado
+            }
+
         }).then(function(result){
             if(result.isConfirmed) {
-                window.location.href = `includes/marcar_llegada.php?id_reserva=${id}&id_sucursal=${id_sucursal}&pagina_actual=${pagina_actual}`;
+                const metodoPagoSeleccionado = result.value;
+                window.location.href = `includes/marcar_llegada.php?id_reserva=${id}&id_sucursal=${id_sucursal}&pagina_actual=${pagina_actual}&metodo_pago=${metodoPagoSeleccionado}`;
 
             }
         });

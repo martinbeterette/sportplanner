@@ -5,29 +5,33 @@
 
     // Procesar formulario
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $idPerfil = $_POST['perfil'];
+        $idPerfil = $_POST['perfil'] ?? null;
         $modulosSeleccionados = isset($_POST['modulos']) ? $_POST['modulos'] : [];
 
-        // Borrar las profesiones anteriores de la persona seleccionada
-        $sqlDelete = "DELETE FROM asignacion_perfil_modulo WHERE rela_perfil = ?";
-        $stmtDelete = $conexion->prepare($sqlDelete);
-        $stmtDelete->bind_param("i", $idPerfil);
-        $stmtDelete->execute();
+        if($idPerfil && !empty($modulosSeleccionados)) {
+            // Borrar las profesiones anteriores de la persona seleccionada
+            $sqlDelete = "DELETE FROM modulo_por_perfil WHERE rela_perfil = ?";
+            $stmtDelete = $conexion->prepare($sqlDelete);
+            $stmtDelete->bind_param("i", $idPerfil);
+            $stmtDelete->execute();
 
-        // Insertar las nuevas profesiones seleccionadas
-        $sqlInsert = "INSERT INTO asignacion_perfil_modulo (rela_perfil, rela_modulo) VALUES (?, ?)";
-        $stmtInsert = $conexion->prepare($sqlInsert);
-        $stmtInsert->bind_param("ii", $idPerfil, $idModulo);
+            // Insertar las nuevas profesiones seleccionadas
+            $sqlInsert = "INSERT INTO modulo_por_perfil (rela_perfil, rela_modulo) VALUES (?, ?)";
+            $stmtInsert = $conexion->prepare($sqlInsert);
+            $stmtInsert->bind_param("ii", $idPerfil, $idModulo);
 
-        foreach ($modulosSeleccionados as $idModulo) {
-            $stmtInsert->execute();
+            foreach ($modulosSeleccionados as $idModulo) {
+                $stmtInsert->execute();
+            }
+            
         }
+
 
     }
 
 
 
-    $sql = "SELECT id_modulo,descripcion_modulo FROM modulo";
+    $sql = "SELECT id_modulo,nombre FROM modulo_prueba ORDER BY nombre";
     $resultado = $conexion->query($sql);
 ?>
 
@@ -105,7 +109,7 @@
 </head>
 
 <body>
-    <a href="<?php echo BASE_URL. 'index_tincho.php'; ?>" class="volver">Volver al inicio</a>
+    <a href="<?php echo BASE_URL. 'index.php'; ?>" class="volver">Volver al inicio</a>
     <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
         <h2>Formulario de Inserci&oacute;n</h2>
         <!-- Otros campos del formulario -->
@@ -117,12 +121,12 @@
         </div>
 
         <label for="modulos">modulos:</label>
-        <div id="modulos">
+        <div id="modulos" style="max-height: 200px; overflow: scroll;">
             <!-- Aquí se agregarán los checkboxes de modulos -->
             <?php foreach ($resultado as $reg) :?>
                 <div>
                     <input type="checkbox" name="modulos[]" value="<?php echo $reg['id_modulo']; ?>">
-                    <?php echo $reg['descripcion_modulo'];?>
+                    <?php echo $reg['nombre'];?>
                 </div>
             <?php endforeach; ?>
         </div>

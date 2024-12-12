@@ -54,7 +54,7 @@
 						id_perfil,
 						descripcion_perfil
 					FROM
-						perfil";
+						perfil WHERE estado = 1";
 
 		if ($registros = $conexion->query($sql)) {
 			return $registros;

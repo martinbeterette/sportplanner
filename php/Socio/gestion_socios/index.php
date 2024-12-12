@@ -14,7 +14,7 @@ if ($_SESSION['id_perfil'] == 3) {
     $id_sucursal = obtenerSucursalPorPersona($id_persona, $id_usuario);
 
     if (!$id_sucursal) {
-        header("Location: " . BASE_URL . "index2.php");
+        header("Location: " . BASE_URL . "index.php");
     }
     //obtenemos el complejo del empleado
     $id_complejo = obtenerIdComplejoDelEmpleado($id_persona,$id_usuario); //de la persona en realidad
