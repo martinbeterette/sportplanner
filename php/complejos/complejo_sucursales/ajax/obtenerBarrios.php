@@ -1,6 +1,6 @@
 <?php  
 
-require_once("../../config/root_path.php");
+require_once("../../../../config/root_path.php");
 require_once(RUTA. "config/database/conexion.php");
 // Obtención y validación del ID de provincia
 $id_localidad = isset($_REQUEST['id_localidad']) ? filter_var($_REQUEST['id_localidad'], FILTER_VALIDATE_INT) : null;

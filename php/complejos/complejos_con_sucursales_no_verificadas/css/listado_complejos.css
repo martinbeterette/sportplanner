@@ -1,0 +1,143 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9fafe; /* Fondo blanco con un leve azul */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h2 {
+    font-size: 24px;
+    text-align: center;
+    color: #4a90e2; /* Azul claro */
+    margin-bottom: 20px;
+}
+
+/* Buscador */
+#buscador {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #dce4ec;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #4a90e2; /* Azul claro */
+    color: #fff;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e9f0;
+}
+
+
+/* Botones de acción */
+.btn-verificar {
+    background-color: #4a90e2; /* Azul claro */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn-verificar:hover {
+    background-color: #3a78c1; /* Azul más oscuro al pasar el mouse */
+}
+
+#paginacion-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagina-boton, .pagina-activa {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #333;
+    background-color: #e0e0e0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagina-boton:hover {
+    background-color: #0066cc;
+    color: white;
+}
+
+.pagina-activa {
+    background-color: #0066cc;
+    color: white;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+#filtro {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#filtro:focus {
+    border-color: #0066cc;
+}
+
+
+.btn-eliminar {
+    background-color: #FF5A00; /* Azul claro */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-eliminar:hover {background-color: #F14400}
+
+.btn-invalidar {
+    background-color: #ECB700; /* Azul claro */
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-invalidar:hover {background-color: #db9f00}

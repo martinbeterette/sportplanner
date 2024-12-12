@@ -105,7 +105,7 @@ while ($row = $result->fetch_assoc()) {
 }
 $tabla .= '<tr>
                 <td colspan="9" class="añadir">
-                    <a href="agregar.php?id='. $id_sucursal .'">
+                    <a href="tablaZonas_alta.php?id_sucursal='. $id_sucursal .'">
                     <img src="'. BASE_URL. 'assets/icons/icons8-añadir.png' .'">
                 </td>
             </tr>';

@@ -55,8 +55,13 @@ function obtenerPerfiles()
 						id_perfil,
 						descripcion_perfil
 					FROM
-						perfil
-						WHERE estado = 1";
+						perfil WHERE estado = 1";
+
+	if ($registros = $conexion->query($sql)) {
+		return $registros;
+	} else {
+		return false;
+	}
 
 	if ($registros = $conexion->query($sql)) {
 		return $registros;

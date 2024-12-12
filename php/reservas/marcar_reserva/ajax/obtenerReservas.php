@@ -23,7 +23,8 @@ $sql = "SELECT
             c.monto_base,
             c.monto_final,
             c.entrada,
-            c.salida
+            c.salida,
+            c.metodo_pago
         FROM 
             reserva r
         JOIN 
@@ -56,8 +57,8 @@ $tabla = '<table class="tabla-reservas">
                     <th>Apellido</th>
                     <th>Cancha</th>
                     <th>Estado</th>
-                    <th>Monto Base</th>
-                    <th>Monto Final</th>
+                    <th>Monto</th>
+                    <th>Metodo de pago</th>
                     <th>Entrada</th>
                     <th>Salida</th>
                     <th>Acciones</th>
@@ -71,8 +72,8 @@ while ($row = $result->fetch_assoc()) {
                     <td>{$row['apellido']}</td>
                     <td>{$row['descripcion_zona']}</td>
                     <td>{$row['descripcion_estado_control']}</td>
-                    <td>{$row['monto_base']}</td>
                     <td>{$row['monto_final']}</td>
+                    <td>{$row['metodo_pago']}</td>
                     <td>{$row['entrada']}</td>
                     <td>{$row['salida']}</td>";
     // Botón que llama al modal
@@ -81,6 +82,7 @@ while ($row = $result->fetch_assoc()) {
             data-pagina="'. $pagina_actual .'"
             data-id-sucursal="'. $id_sucursal .'"
             data-id-reserva="'. $row['id_reserva'] .'"
+            data-monto="'. $row['monto_final'] .'"
             class="acciones"
             style="background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer;">
             Acciones

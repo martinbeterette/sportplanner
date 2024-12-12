@@ -87,9 +87,9 @@ $canchas = $stmt_canchas->get_result();
 	        <p><strong>Fecha de Creación:</strong> <?php echo htmlspecialchars($sucursal['fecha_de_creacion']); ?></p>
 	    </div>
 	    <div class="gestion-buttons">
-	        <a href="#" class="btn btn-gestion">Gestión de tarifas</a>
-	        <a href="#" class="btn btn-gestion">Gestión de socios</a>
-	        <a href="#" class="btn btn-gestion">Gestión de empleados</a>
+	        <a href="http://localhost/sportplanner/php/Tarifas/includes/seleccionar_sucursal.php" class="btn btn-gestion">Gestión de tarifas</a>
+	        <a href="http://localhost/sportplanner/php/Socio/gestion_socios/index.php" class="btn btn-gestion">Gestión de socios</a>
+	        <a href="http://localhost/sportplanner/php/tablaEmpleados/seleccionar_sucursal.php" class="btn btn-gestion">Gestión de empleados</a>
 	    </div>
 	</div>
 

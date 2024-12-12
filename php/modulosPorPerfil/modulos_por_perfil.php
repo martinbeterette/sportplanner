@@ -4,7 +4,7 @@ require_once(RUTA . "config/database/conexion.php");
 
 function obtenerModulosPorPerfil($id_perfil) {
 	global $conexion;
-	$sql = "SELECT rela_modulo FROM asignacion_perfil_modulo JOIN perfil ON asignacion_perfil_modulo.rela_perfil = perfil.id_perfil WHERE perfil.id_perfil = {$id_perfil}";
+	$sql = "SELECT rela_modulo FROM modulo_por_perfil JOIN perfil ON modulo_por_perfil.rela_perfil = perfil.id_perfil WHERE perfil.id_perfil = {$id_perfil}";
 	$modulosPorPerfil = [];
 	$resultado = $conexion->query($sql);
 	foreach ($resultado as $reg){

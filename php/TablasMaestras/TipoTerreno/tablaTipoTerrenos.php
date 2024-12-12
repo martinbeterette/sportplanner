@@ -4,6 +4,7 @@ require_once("../../../config/root_path.php");
 require_once("../../../config/database/conexion.php");
 session_start();
 
+
 require_once('../../../config/database/db_functions.php');
 
 $registros = obtenerTipoTerrenos();

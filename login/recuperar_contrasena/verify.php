@@ -1,15 +1,10 @@
 <?php
-
+require_once("../../config/root_path.php");
+require_once(RUTA . "config/database/conexion.php");
 require 'vendor/autoload.php';
 
-// Configurar conexión a la base de datos
-$dsn = 'mysql:host=localhost;dbname=proyecto_pp2';
-$usuario = 'root';
-$contrasena = '';
 
 try {
-    $pdo = new PDO($dsn, $usuario, $contrasena);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if (isset($_GET['email']) && isset($_GET['token'])) {
         $email = $_GET['email'];
@@ -26,7 +21,7 @@ try {
             header("Location: formulario_reestablecimiento.php?id_usuario=$id_usuario");
             
         } else {
-            echo 'Token inválido, expirado o correo electrónico no encontrado. <br> <a href="../inicio_sesion.php">Volver al login</a>';
+            echo 'Token inválido, expirado o correo electrónico no encontrado. <br> <a href="'. BASE_URL .'login/inicio_sesion/inicio_sesion.php">Volver al login</a>';
         }
     } else {
         echo 'Parámetros insuficientes para la verificación.';

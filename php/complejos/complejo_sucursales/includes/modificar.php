@@ -112,9 +112,9 @@ $conexion->close();
         </div>
     </div>
     <script>
-        let provincia_seleccionada = <?php echo $provincia; ?>;
-        let localidad_seleccionada = <?php echo $localidad; ?>;
-        let barrio_seleccionado = <?php echo $barrio ?>;
+        let provincia_seleccionada  = <?php echo $provincia; ?>;
+        let localidad_seleccionada  = <?php echo $localidad; ?>;
+        let barrio_seleccionado     = <?php echo $barrio ?>;
     </script>
     <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js"; ?>"></script>
     <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js"; ?>"></script>
