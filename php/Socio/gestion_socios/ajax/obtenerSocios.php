@@ -76,7 +76,6 @@ while ($row = $result->fetch_assoc()) {
     $tabla .= '<td>' . htmlspecialchars($row['descripcion_membresia']) . '</td>';
     $tabla .= '<td>' . htmlspecialchars($row['fecha_expiracion']) . '</td>';
     $tabla .= '<td>
-                <button class="btn-ver-detalles" data-socio=\'' . htmlspecialchars(json_encode($row)) . '\'>Ver detalles</button>
                 <button class="btn btn-modificar" onclick="location.href=`includes/modificar.php?id_socio=' . $row['id_socio'] . '&id_complejo=' . $id_complejo .'`">Modificar</button>
                 <button class="btn btn-eliminar" onclick="location.href=`includes/eliminar.php?id_socio=' . $row['id_socio'] . '&id_complejo=' . $id_complejo .'`">Eliminar</button>
                </td>';
