@@ -1,135 +1,133 @@
 /* Reset de márgenes y estilos base */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
 }
 
 /* Navegación superior */
 .navigation {
-    margin: auto;
-    width: 95%;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    background-color: #007bff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+  margin: auto;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.navigation a, a.volver {
-    padding: 10px 20px;
-    background-color: white;
-    color: #007bff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
+.navigation a,
+a.volver {
+  padding: 10px 20px;
+  background-color: white;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.navigation a:hover, a.volver:hover {
-    background-color: #0056b3;
-    color: white;
+.navigation a:hover,
+a.volver:hover {
+  background-color: #0056b3;
+  color: white;
 }
 
 /* Tabla de horarios */
 table.horarios {
-    margin: 20px auto;
-    width: 80%;
-    border-collapse: collapse;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
+  margin: 20px auto;
+  width: 80%;
+  border-collapse: collapse;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 table.horarios tr {
-    height: 60px;
+  height: 60px;
 }
 
 table.horarios td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    font-size: 16px;
-    transition: transform 0.3s, background-color 0.3s;
-    cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 16px;
+  transition: transform 0.3s, background-color 0.3s;
+  cursor: pointer;
 }
 
 /* Estilo para títulos */
 h1 {
-    text-align: center;
-    color: #007bff;
-    margin-top: 20px;
-    font-size: 28px;
+  text-align: center;
+  color: #007bff;
+  margin-top: 20px;
+  font-size: 28px;
 }
 
 /* Estado disponible */
 .disponible {
-    background-color: #28a745; /* Verde claro */
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    border: 2px solid #218838;
-    border-radius: 8px;
-    transition: transform 0.3s, background-color 0.3s;
-    cursor: pointer;
+  background-color: #28a745; /* Verde claro */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid #218838;
+  border-radius: 8px;
+  transition: transform 0.3s, background-color 0.3s;
+  cursor: pointer;
 }
 
 .disponible a {
-	text-decoration: none; /* Elimina el subrayado */
-	color:white;
-
+  text-decoration: none; /* Elimina el subrayado */
+  color: white;
 }
 
 .disponible:hover {
-    background-color: #218838; /* Verde oscuro */
-    transform: scale(1.1);
+  background-color: #218838; /* Verde oscuro */
+  transform: scale(1.1);
 }
 
 /* Estado no disponible */
 .no-disponible {
-    background-color: #dc3545; /* Rojo */
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    border: 2px solid #c82333;
-    border-radius: 8px;
-    cursor: not-allowed;
+  background-color: #dc3545; /* Rojo */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid #c82333;
+  border-radius: 8px;
+  cursor: not-allowed;
 }
 
 /* Hover para no disponible (sin animación) */
 .no-disponible:hover {
-    background-color: #c82333; /* Rojo más oscuro */
-    transform: none;
+  background-color: #c82333; /* Rojo más oscuro */
+  transform: none;
 }
 
 /* Estilo para la flechita de breadcrumb */
 .breadcrumb {
-    margin: 20px 0;
-    padding-left: 20px; /* Ajusta según necesites */
+  margin: 20px 0;
+  padding-left: 20px; /* Ajusta según necesites */
 }
 
 .back-arrow {
-    font-size: 20px;
-    color: #007bff; /* Color azul para la flecha */
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+  font-size: 20px;
+  color: #007bff; /* Color azul para la flecha */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .back-arrow:hover {
-    color: #0056b3; /* Color más oscuro al pasar el mouse */
+  color: #0056b3; /* Color más oscuro al pasar el mouse */
 }
 
 /* Estilo opcional para la flecha */
 .back-arrow::before {
-    content: "\2190"; /* Código Unicode para la flecha hacia la izquierda */
-    margin-right: 5px;
-    font-size: 24px; /* Tamaño de la flecha */
+  content: "\2190"; /* Código Unicode para la flecha hacia la izquierda */
+  margin-right: 5px;
+  font-size: 24px; /* Tamaño de la flecha */
 }
-
-
-

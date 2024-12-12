@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require_once("../../../config/root_path.php");
 require_once("includes/functions.php");
@@ -10,7 +10,7 @@ if ($_SESSION['id_perfil'] == 3) {
     $id_persona = $_SESSION['id_persona'];
     $id_usuario = $_SESSION['id_usuario'];
     $id_sucursal = obtenerComplejoPorPersona($id_persona, $id_usuario);
-} 
+}
 
 if (!$id_sucursal) {
     header("Location: " . BASE_URL . "errors/error403.php?no_tiene_acceso");
@@ -48,29 +48,30 @@ $registros = obtenerRegistros($tabla, $campos, $join, $condicion);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $titulo_pagina; ?></title>
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'css/aside.css'; ?>">
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'css/header.css'; ?>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/header.css" ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css" ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
     <link rel="stylesheet" href="css/style.css">
-
-
-
 </head>
 
 <body>
-    <?php include(RUTA. "includes/header.php"); ?>
-    <?php include(RUTA."includes/menu_aside.php") ?>
+    <?php include(RUTA . "includes/header.php"); ?>
+    <?php include(RUTA . "includes/menu_aside.php") ?>
 
     <div id="contenido">
-        
+
         <!-- Formulario -->
         <div class="formulario">
             <form action="<?php echo "includes/agregar.php" ?>" method="POST">
                 <div class="form-input">
                     <label for="descripcion_tarifa">Turno:</label>
-                    <input type="text" name="descripcion_tarifa" id="" placeholder="Ej: día o noche" required>   
+                    <input type="text" name="descripcion_tarifa" id="" placeholder="Ej: día o noche" required>
                 </div>
 
                 <div class="form-input">
@@ -137,12 +138,16 @@ $registros = obtenerRegistros($tabla, $campos, $join, $condicion);
 
     </div> <!-- Contenido -->
 
-    <script src="<?php echo BASE_URL. 'libs/jquery-3.7.1.min.js'; ?>"></script>
-    <script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
-    <script src="<?php echo BASE_URL . "js/aside.js"; ?>"></script>
-    <script src="<?php echo BASE_URL. 'libs/sweetalert2.all.min.js'; ?>"></script>
+    <?php include(RUTA . "includes/footer.php"); ?>
+
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js" ?>"></script>
+
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             <?php if (isset($_GET['tarifa_solapada'])) : ?>
                 swal.fire({

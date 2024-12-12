@@ -25,8 +25,6 @@ $sqlSucursal = "SELECT
                     sucursal
                 WHERE estado IN (1)";
 
-
-
 $registrosEstado    = $conexion->query($sqlEstado);
 $registrosComplejo    = $conexion->query($sqlSucursal);
 $registrosTerreno  = $conexion->query($sqlTerreno);
@@ -108,17 +106,19 @@ if (isset($_POST['modificacion'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MODIFICACION ZONA</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'css/aside/menu_aside_beterette.css'; ?>">
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'css/header.css' ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/header.css"; ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css"; ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css"; ?>">
     <style>
-
-        @import url(/../../../css/header.css);
-        @import url(/../../../css/aside.css);
-
         body {
-            background: #161616;
-            font-family: Arial, Helvetica, sans-serif;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
         }
 
         /* Formulario Empleado/////////////////////////////////////77 */
@@ -219,11 +219,9 @@ if (isset($_POST['modificacion'])) {
 </head>
 
 <body>
-    <?php include(RUTA. "includes/header.php"); ?>
+    <?php include(RUTA . "includes/header.php"); ?>
+    <?php include(RUTA . "includes/menu_aside.php") ?>
 
-    <?php include(RUTA."includes/menu_aside.php") ?>
-
-    <script src="js/jquery-3.7.1.min.js"></script>
     <div class="containerEmpleado">
         <h1>Modulo de Modificacion de Zona</h1>
         <form action="<?php echo $_SERVER['PHP_SELF'] . '?id_zona=' . $id . '&id_sucursal=' . $id_sucursal; ?>" method="post" onsubmit="return confirmModification();">
@@ -273,17 +271,23 @@ if (isset($_POST['modificacion'])) {
             <button type="submit" name="modificacion">Enviar</button>
         </form>
     </div>
+
+    <?php include(RUTA . "includes/header.php"); ?>
+
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js"; ?>"></script>
+    <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js"; ?>"></script>
+    <script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js"; ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js"; ?>"></script>
     <script src="../../js/validarNomCancha.js"></script>
+
     <script>
         function confirmModification() {
             var respuesta = confirm("¿Estás seguro de que deseas aplicar las modificaciones?");
             return respuesta;
         }
     </script>
-    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js"; ?>"></script>
 
-    <script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
-    <script src="<?php echo BASE_URL . "js/aside.js"; ?>"></script>
 
 </body>
 

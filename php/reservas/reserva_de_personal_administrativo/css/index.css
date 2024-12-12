@@ -1,150 +1,161 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
 }
 
 .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
 }
 
-.table-container, .list-container {
-    width: 48%;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.table-container,
+.list-container {
+  width: 48%;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
-table th, table td {
-    border: 1px solid #ddd;
-    padding: 8px 8px;
-    text-align: left;
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px 8px;
+  text-align: left;
 }
 
 table th {
-    background-color: #007BFF;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
 .search-bar {
-    margin-bottom: 10px;
-    display: flex;
-    gap: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .search-bar input {
-    flex: 1;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .search-bar button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 ul li {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-    text-align: center;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  text-align: center;
 }
 
 #datepicker {
-    margin-top: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
 }
 
 #reservar {
-    padding: 5px 10px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 6px;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 15px;
 }
 
 .pagina-boton {
-    padding: 8px 12px;
-    border: 1px solid #007BFF;
-    background-color: white;
-    color: #007BFF;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  background-color: white;
+  color: #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .pagina-boton:hover {
-    background-color: #007BFF;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
 .pagina-activa {
-    padding: 8px 12px;
-    border: 1px solid #0056b3;
-    background-color: #0056b3;
-    color: white;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: default;
+  padding: 8px 12px;
+  border: 1px solid #0056b3;
+  background-color: #0056b3;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: default;
 }
 
 .seleccionar-cancha {
-    position: absolute;
-    border-style: none;
-    right: 5%;
-    border-radius: 5px;
-    padding: 5px;
-    color:gray;
+  position: absolute;
+  border-style: none;
+  right: 5%;
+  border-radius: 5px;
+  padding: 5px;
+  color: gray;
 }
 
 .seleccionar-cancha:hover {
-    cursor:pointer;
+  cursor: pointer;
 }
 
 .seleccionar-persona {
-    padding: 5px 10px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#pagination {
+  padding: 6px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }

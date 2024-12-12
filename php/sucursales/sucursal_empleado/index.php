@@ -15,7 +15,7 @@ if ($_SESSION['id_perfil'] == 3) {
     $id_sucursal = obtenerComplejoPorPersona($id_persona, $id_usuario);
 }
 
-if(!$id_sucursal) {
+if (!$id_sucursal) {
     header("Location: " . BASE_URL . "errors/error403.php?no_tiene_acceso");
 }
 
@@ -37,7 +37,7 @@ $stmt->execute();
 $sucursal = $stmt->get_result()->fetch_assoc();
 
 if (!$sucursal) {
-    echo "No se encontró la sucursal."; 
+    echo "No se encontró la sucursal.";
     die;
 }
 
@@ -59,36 +59,41 @@ $canchas = $stmt_canchas->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sucursal: <?php echo htmlspecialchars($sucursal['descripcion_sucursal']); ?></title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/header.css" ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css" ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
+    <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
-    <?php include(RUTA."includes/header.php"); ?>
-    <?php include(RUTA."includes/menu_aside.php"); ?>
+    <?php include(RUTA . "includes/header.php"); ?>
+    <?php include(RUTA . "includes/menu_aside.php"); ?>
 
     <div class="header">
-	    <h1>Sucursal: <?php echo htmlspecialchars($sucursal['descripcion_sucursal']); ?></h1>
-	</div>
-
-    
+        <h1>Sucursal: <?php echo htmlspecialchars($sucursal['descripcion_sucursal']); ?></h1>
+    </div>
 
     <div class="sucursal-info">
-	    <div class="info-left">
-	        <p><strong>Dirección:</strong> <?php echo htmlspecialchars($sucursal['direccion']); ?></p>
-	        <p><strong>Barrio:</strong> <?php echo htmlspecialchars($sucursal['descripcion_barrio']); ?></p>
-	        <p><strong>Fecha de Creación:</strong> <?php echo htmlspecialchars($sucursal['fecha_de_creacion']); ?></p>
-	    </div>
-	    <div class="gestion-buttons">
-	        <a href="<?php echo BASE_URL."php/tarifas/tarifa_empleado/tabla_tarifa.php"; ?>" class="btn btn-gestion">Gestión de tarifas</a>
-	        <a href="<?php echo BASE_URL . "php/socio/gestion_socios/index.php" ?>" class="btn btn-gestion">Gestión de socios</a>
-	        <a href="<?php echo BASE_URL . "php/tablaEmpleados/gestion_empleado/tablaEmpleados.php" ?>" class="btn btn-gestion">Gestión de empleados</a>
-	    </div>
-	</div>
+        <div class="info-left">
+            <p><strong>Dirección:</strong> <?php echo htmlspecialchars($sucursal['direccion']); ?></p>
+            <p><strong>Barrio:</strong> <?php echo htmlspecialchars($sucursal['descripcion_barrio']); ?></p>
+            <p><strong>Fecha de Creación:</strong> <?php echo htmlspecialchars($sucursal['fecha_de_creacion']); ?></p>
+        </div>
+        <div class="gestion-buttons">
+            <a href="<?php echo BASE_URL . "php/tarifas/tarifa_empleado/tabla_tarifa.php"; ?>" class="btn btn-gestion">Gestión de tarifas</a>
+            <a href="<?php echo BASE_URL . "php/socio/gestion_socios/index.php" ?>" class="btn btn-gestion">Gestión de socios</a>
+            <a href="<?php echo BASE_URL . "php/tablaEmpleados/gestion_empleado/tablaEmpleados.php" ?>" class="btn btn-gestion">Gestión de empleados</a>
+        </div>
+    </div>
 
     <div class="canchas-container">
         <h2>Listado de canchas</h2>
@@ -99,18 +104,18 @@ $canchas = $stmt_canchas->get_result();
                         <h3><?php echo htmlspecialchars($cancha['descripcion_zona']); ?></h3>
                         <p><strong>Tipo:</strong> <?php echo htmlspecialchars($cancha['descripcion_formato_deporte']); ?></p>
                         <p><strong>Estado:</strong> <?php echo $cancha['descripcion_estado_zona']; ?></p>
-                        <button 
-                            class="btn btn-reservar" 
+                        <button
+                            class="btn btn-reservar"
                             onclick="location.href='modulo_reservas.php?id_zona=<?php echo $cancha['id_zona']; ?>&fecha=<?php echo date('Y-m-d'); ?>'">
                             Reservar
                         </button>
-                        <button 
-                            class="btn btn-modificar" 
+                        <button
+                            class="btn btn-modificar"
                             onclick="location.href='modificar_cancha.php?id_zona=<?php echo $cancha['id_zona']; ?>'">
                             Modificar
                         </button>
-                        <button 
-                            class="btn btn-eliminar" 
+                        <button
+                            class="btn btn-eliminar"
                             onclick="if(confirm('¿Desea eliminar esta cancha?')) location.href='eliminar_cancha.php?id_zona=<?php echo $cancha['id_zona']; ?>';">
                             Eliminar
                         </button>
@@ -126,6 +131,14 @@ $canchas = $stmt_canchas->get_result();
             <button class="btn btn-agregar" onclick="location.href='agregar_cancha.php?id_sucursal=<?php echo $id_sucursal; ?>'">Agregar Cancha</button>
         </div>
     </div>
-</body>
-</html>
 
+    <?php include(RUTA . "includes/footer.php"); ?>
+
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js" ?>"></script>
+</body>
+
+</html>

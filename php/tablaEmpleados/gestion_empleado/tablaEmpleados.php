@@ -11,12 +11,11 @@ if ($_SESSION['id_perfil'] == 3) {
     $id_persona = $_SESSION['id_persona'];
     $id_usuario = $_SESSION['id_usuario'];
     $id_sucursal = obtenerSucursalPorPersona($id_persona, $id_usuario);
-} 
+}
 
 if (!$id_sucursal) {
     header("Location: " . BASE_URL . "index2.php");
 }
-
 
 ?>
 
@@ -24,32 +23,36 @@ if (!$id_sucursal) {
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>TABLA EMPLEADOS</title>
-	<link rel="stylesheet" href="<?php echo BASE_URL . 'css/aside.css'; ?>">
-	<link rel="stylesheet" href="<?php echo BASE_URL . 'css/header.css' ?>">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TABLA EMPLEADOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo BASE_URL . 'css/aside.css'; ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . 'css/header.css' ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL . 'css/footer.css' ?>">
     <link rel="stylesheet" href="css/index.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-	<?php include(RUTA. "includes/header.php"); ?>
+    <?php include(RUTA . "includes/header.php"); ?>
+    <?php include(RUTA . "includes/menu_aside.php") ?>
 
-	<?php include(RUTA."includes/menu_aside.php") ?>
+    <div class="containerEmpleado">
+        <h1 align="center">Modulo de Empleados de Complejos Deportivos</h1>
+        <input type="text" id="buscador" placeholder="Buscar...">
+        <div id="tabla-container"></div>
+        <div id="paginacion-container"></div>
+    </div>
 
-	<div class="containerEmpleado">
-		<h1 align="center">Modulo de Empleados de Complejos Deportivos</h1>
-		<input type="text" id="buscador" placeholder="Buscar...">
-	    <div id="tabla-container"></div>
-	    <div id="paginacion-container"></div>
-	</div>
+    <?php include(RUTA . "includes/footer.php"); ?>
 
-	<script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js"; ?>"></script>
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js"; ?>"></script>
     <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js"; ?>"></script>
 
-	<script>
-		
+    <script>
         $(document).on('click', '.eliminar', function() {
             let valor = $(this).attr('valor');
             let complejo = $(this).attr('complejo');
@@ -77,18 +80,25 @@ if (!$id_sucursal) {
         function eliminar(id_empleado, id_sucursal) {
             window.location.href = "tablaEmpleados_baja.php?id_empleado=" + id_empleado + "&id_sucursal=" + id_sucursal;
         }
-	</script>
-	<script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
-	<script src="<?php echo BASE_URL . "js/aside.js"; ?>"></script>
-	<script>
-        $(document).ready(function() {
-        	let id_sucursal = <?php echo json_encode($id_sucursal); ?>;
+    </script>
 
-            function cargarTabla(id_sucursal,filtro = '', pagina = 1) {
+    <script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js"; ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js"; ?>"></script>
+
+    <script>
+        $(document).ready(function() {
+            let id_sucursal = <?php echo json_encode($id_sucursal); ?>;
+
+            function cargarTabla(id_sucursal, filtro = '', pagina = 1) {
                 $.ajax({
                     url: 'ajax/obtenerEmpleados.php',
                     type: 'GET',
-                    data: { filtro: filtro, pagina: pagina , id_sucursal: id_sucursal},
+                    data: {
+                        filtro: filtro,
+                        pagina: pagina,
+                        id_sucursal: id_sucursal
+                    },
                     dataType: 'json',
                     success: function(data) {
                         // Actualizar el contenedor de la tabla con el HTML generado
@@ -124,14 +134,14 @@ if (!$id_sucursal) {
             // Evento de búsqueda
             $('#buscador').on('keyup', function() {
                 var filtro = $(this).val();
-                cargarTabla(id_sucursal ,filtro); //llamar a la funcion con el termino de busqueda
+                cargarTabla(id_sucursal, filtro); //llamar a la funcion con el termino de busqueda
             });
 
             // Evento para cambiar de página
             $(document).on('click', '.pagina-boton', function() {
                 var filtro = $('#buscador').val();
                 var page = $(this).data('page');
-                cargarTabla(id_sucursal,filtro, page);
+                cargarTabla(id_sucursal, filtro, page);
             });
 
         }); // Cierre del DOCUMENT READY
