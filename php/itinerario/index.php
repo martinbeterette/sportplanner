@@ -79,7 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 $sql = "SELECT id_dia,descripcion_dia FROM dia";
-$resultado = $conexion->query($sql);
+$dias = $conexion->query($sql);
+
 $dias_español = [
     'Monday' => 'Lunes',
     'Tuesday' => 'Martes',
@@ -106,6 +107,13 @@ $dias_español = [
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css" ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
     <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
         body {
             /*display: flex;*/
             justify-content: center;
@@ -118,7 +126,7 @@ $dias_español = [
 
         form {
             margin: auto;
-            margin-top: 15vh;
+            margin-bottom: 10px;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
@@ -175,6 +183,7 @@ $dias_español = [
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
         }
 
         button:hover {
@@ -191,7 +200,7 @@ $dias_español = [
         <label for="dia-select">Selecciona un día:</label>
         <select id="dia-select" name="dia">
             <option value="" disabled selected>Selecciona un día</option>
-            <?php foreach ($resultado as $reg): ?>
+            <?php foreach ($dias as $reg): ?>
                 <option value="<?php echo $reg['id_dia']; ?>">
                     <?php echo $dias_español[$reg['descripcion_dia']]; ?>
                 </option>
@@ -199,13 +208,12 @@ $dias_español = [
         </select>
 
         <label for="horario-desde">Horario Desde:</label>
-        <input type="time" id="horario-desde" name="horario_desde" value="" disabled>
+        <input type="time" id="horario-desde" name="horario_desde" value="">
 
         <label for="horario-hasta">Horario Hasta:</label>
-        <input type="time" id="horario-hasta" name="horario_hasta" value="" disabled>
+        <input type="time" id="horario-hasta" name="horario_hasta" value="">
         <div>
             <button type="submit" id="boton-submit" name="boton-submit">Guardar</button>
-
         </div>
     </form>
 
