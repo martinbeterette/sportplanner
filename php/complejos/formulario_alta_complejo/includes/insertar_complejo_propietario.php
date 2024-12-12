@@ -59,13 +59,7 @@ try {
     $conexion->rollback();
     echo "Error en la transacción: " . $e->getMessage();
 } finally {
-    // Cerrar los prepared statements
-    $stmt_complejo->close();
-    $stmt_asignacion_pc->close();
-    $stmt_sucursal->close();
-    $stmt_asignacion_sd->close();
-    $stmt_usuario->close();
-    $conexion->close();
+
     header("Location: ". BASE_URL ."login/verificacion_correo/register.php?username={$username}&email={$email}&verificar_propietario");
 }
 
