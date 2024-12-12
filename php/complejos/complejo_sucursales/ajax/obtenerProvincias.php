@@ -1,6 +1,6 @@
 <?php  
 
-require_once("../../config/root_path.php");
+require_once("../../../../config/root_path.php");
 require_once(RUTA. "config/database/conexion.php");
 
 $registros = obtenerProvincias();

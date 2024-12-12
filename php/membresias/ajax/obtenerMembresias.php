@@ -34,6 +34,7 @@ $sql = "SELECT
                 membresia.rela_complejo = complejo.id_complejo
             WHERE (descripcion_membresia LIKE ? OR descuento LIKE ?)
             AND membresia.rela_complejo = ?
+            AND membresia.estado = 1
             ORDER BY membresia.id_membresia
             LIMIT ? OFFSET ?";
 
@@ -65,7 +66,7 @@ while ($row = $result->fetch_assoc()) {
     
     // Botón para modificar
     $tabla .= '<td class="acciones">
-                <a href="formulario_modificar_membresia.php?id_membresia=' . $row['id_membresia'] . '&id_complejo='. $id_complejo .'" class="editar">
+                <a href="includes/modificar_membresia.php?id_membresia=' . $row['id_membresia'] . '&id_complejo='. $id_complejo .'" class="editar">
                 Modificar</a>
                 </td>';
 
@@ -84,7 +85,8 @@ $tabla .= '</table>';
 $sql_count = "SELECT COUNT(id_membresia) as total 
               FROM membresia
               WHERE (descripcion_membresia LIKE ? OR descuento LIKE ?)
-              AND rela_complejo = ?";
+              AND rela_complejo = ?
+              AND membresia.estado = 1";
 
 $stmt_count = $conexion->prepare($sql_count);
 $stmt_count->bind_param("ssi", 
