@@ -127,8 +127,149 @@ $canchas = $stmt_canchas->get_result();
 
         <!-- Botón para agregar nueva cancha -->
         <div class="add-cancha">
-            <button class="btn btn-agregar" onclick="location.href='agregar_cancha.php?id_sucursal=<?php echo $id_sucursal; ?>'">Agregar Cancha</button>
+            <button class="btn btn-agregar" onclick="location.href='../tablaZonasCanchas/tablaZonas.php?id_sucursal=<?php echo $id_sucursal; ?>'">Agregar Cancha</button>
         </div>
+
+            <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Botón Eliminar
+            document.querySelectorAll(".btn-eliminar").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const idZona = this.getAttribute("data-id");
+                    const idSucursal = this.getAttribute("data-sucursal");
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "Esta acción no se puede deshacer.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = `includes/eliminar.php?id_zona=${idZona}&id_sucursal=${idSucursal}`;
+                        }
+                    });
+                });
+            });
+
+            // Botón Modificar
+            document.querySelectorAll(".btn-modificar").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const idZona = this.getAttribute("data-id");
+                    const descripcion = this.getAttribute("data-descripcion");
+
+                    // Cargar datos dinámicos para los selects
+                    $.ajax({
+                        url: './includes/obtener_datos_cancha.php',
+                        method: 'GET',
+                        success: function(data) {
+                            const {
+                                terrenos,
+                                formatos,
+                                estados
+                            } = data;
+
+                            // Construir las opciones de los selects
+                            const terrenoOptions = terrenos.map(terreno => `<option value="${terreno.id_tipo_terreno}">${terreno.descripcion_tipo_terreno}</option>`).join('');
+                            const formatoOptions = formatos.map(formato => `<option value="${formato.id_formato_deporte}">${formato.descripcion_formato_deporte}</option>`).join('');
+                            const estadoOptions = estados.map(estado => `<option value="${estado.id_estado_zona}">${estado.descripcion_estado_zona}</option>`).join('');
+
+                            Swal.fire({
+                                title: 'Modificar Cancha',
+                                html: `
+                        <form id="form-modificar" style="text-align: left;">
+                            <div style="margin-bottom: 1rem;">
+                                <label for="descripcion" style="display: block; margin-bottom: 0.5rem;">Descripción</label>
+                                <input type="text" id="descripcion" class="swal2-input" style="padding: 0.5rem;">
+                            </div>
+                            
+                            <div style="margin-bottom: 1rem;">
+                                <label for="tipo-terreno" style="display: block; margin-bottom: 0.5rem;">Tipo de Terreno</label>
+                                <select id="tipo-terreno" class="swal2-select" style="padding: 0.5rem;">
+                                    ${terrenoOptions}
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label for="formato-deporte" style="display: block; margin-bottom: 0.5rem;">Formato de Deporte</label>
+                                <select id="formato-deporte" class="swal2-select" style="padding: 0.5rem;">
+                                    ${formatoOptions}
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label for="estado" style="display: block; margin-bottom: 0.5rem;">Estado</label>
+                                <select id="estado" class="swal2-select" style="padding: 0.5rem;">
+                                    ${estadoOptions}
+                                </select>
+                            </div>
+                        </form>
+                    `,
+                                focusConfirm: false,
+                                showCancelButton: true,
+                                confirmButtonText: 'Guardar',
+                                cancelButtonText: 'Cancelar',
+                                preConfirm: () => {
+                                    const descripcion = Swal.getPopup().querySelector('#descripcion').value;
+                                    const tipoTerreno = Swal.getPopup().querySelector('#tipo-terreno').value;
+                                    const formatoDeporte = Swal.getPopup().querySelector('#formato-deporte').value;
+                                    const estado = Swal.getPopup().querySelector('#estado').value;
+
+                                    if (!descripcion || !tipoTerreno || !formatoDeporte || !estado) {
+                                        Swal.showValidationMessage(`Todos los campos son obligatorios`);
+                                    }
+
+                                    return {
+                                        idZona,
+                                        descripcion,
+                                        tipoTerreno,
+                                        formatoDeporte,
+                                        estado
+                                    };
+                                }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    const {
+                                        idZona,
+                                        descripcion,
+                                        tipoTerreno,
+                                        formatoDeporte,
+                                        estado
+                                    } = result.value;
+
+                                    // Realizar la petición AJAX para actualizar los datos
+                                    $.ajax({
+                                        url: './includes/modificar.php',
+                                        method: 'POST',
+                                        data: {
+                                            id_zona: idZona,
+                                            descripcion,
+                                            tipo_terreno: tipoTerreno,
+                                            formato_deporte: formatoDeporte,
+                                            estado
+                                        },
+                                        success: function(response) {
+                                            Swal.fire('¡Modificado!', 'Los datos se han actualizado correctamente.', 'success')
+                                                .then(() => location.reload());
+                                        },
+                                        error: function() {
+                                            Swal.fire('Error', 'Hubo un problema al modificar la cancha.', 'error');
+                                        }
+                                    });
+                                }
+                            });
+                        },
+                        error: function() {
+                            Swal.fire('Error', 'No se pudieron cargar los datos dinámicos.', 'error');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
     </div>
 </body>
 </html>
