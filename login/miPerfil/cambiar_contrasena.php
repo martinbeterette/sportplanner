@@ -12,8 +12,14 @@ $id_usuario = $_SESSION['id_usuario'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro usuario</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="../../css/aside.css">
+    <link rel="stylesheet" href="../../css/footer.css">
     <link rel="stylesheet" href="cambiarContrasena.css">
 </head>
 
@@ -50,9 +56,14 @@ $id_usuario = $_SESSION['id_usuario'];
 
     </form>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <?php include(RUTA . "includes/footer.php") ?>
+
+    <script src="../../libs/jquery-3.7.1.min.js"></script>
+    <script src="../../libs/sweetalert2.all.min.js"></script>
     <script src="../../js/aside.js"></script>
     <script src="../../js/header.js"></script>
+    <script src="../../js/terminoscondiciones.js"></script>
+
     <script>
         $(document).ready(function() {
 
@@ -63,10 +74,6 @@ $id_usuario = $_SESSION['id_usuario'];
 
             $('form').on('submit', function(event) {
                 //obtenemos variables para operar la validacion
-
-
-
-
 
                 var contrasenaInput = $('#password');
                 var contrasenaInput2 = $('#password2');

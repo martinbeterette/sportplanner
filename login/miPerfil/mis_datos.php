@@ -99,7 +99,7 @@ $registros_sexo = obtenerSexos();
 			<legend align="center">Datos del Usuario</legend>
 
 			<div class="modificar">
-				<button id="modificarusuario" onclick="location.href='modificar_mis_datos.php?datos_de_usuario'">
+				<button id="modificarusuario">
 					<i class="fa-solid fa-user-pen fa-2xl" style="color: #28a745;"></i>
 				</button>
 				<br>
@@ -115,7 +115,7 @@ $registros_sexo = obtenerSexos();
 			<h3 name="perfil"><?php echo $_SESSION['perfil']; ?></h3>
 
 			<div class="modificarcontrasena">
-				<button onclick="location.href='cambiar_contrasena.php'">
+				<button type="button" onclick="location.href='cambiar_contrasena.php'">
 					Cambiar contraseña
 				</button>
 			</div>
@@ -184,6 +184,65 @@ $registros_sexo = obtenerSexos();
 					// Enviar los datos al servidor mediante AJAX para guardarlos.
 					$.ajax({
 						url: 'aplicar_modificar_datos_personales.php', // Cambia por la URL de tu endpoint.
+						method: 'POST',
+						data: datos,
+						success: function(response) {
+							Swal.fire('¡Guardado!', 'Tus datos han sido actualizados.', 'success').then(() => {
+								location.reload(); // Recarga la página para reflejar los cambios.
+							});
+						},
+						error: function() {
+							Swal.fire('Error', 'Ocurrió un problema al guardar los datos.', 'error');
+						}
+					});
+				}
+			});
+		});
+	</script>
+
+	<script>
+		document.getElementById('modificarusuario').addEventListener('click', function(e) {
+			e.preventDefault(); // Evita la redirección por defecto del botón.
+
+			// Obtén los datos actuales desde PHP (ya están cargados en las variables de PHP).
+			const email = "<?php echo $_SESSION['email']; ?>";
+			const usuario = "<?php echo $_SESSION['usuario']; ?>";
+			const perfil = "<?php echo $_SESSION['perfil']; ?>";
+
+			// Crea el formulario dentro del modal.
+			Swal.fire({
+				title: 'Modificar Datos Personales',
+				html: `
+                <form id="formmodificarusuario">
+                    <label for="email">Email:</label>
+                    <h3 name="email">${email}</h3>
+                    
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" class="swal2-input" value="${usuario}" required style="margin-top: 0">
+                    
+                    <label for="perfil">Perfil:</label>
+                    <h3 name="perfil">${perfil}</h3>
+                </form>
+            `,
+				showCancelButton: true,
+				confirmButtonText: 'Guardar',
+				preConfirm: () => {
+					// Obtén los valores del formulario.
+					const form = document.getElementById('formmodificarusuario');
+					const formData = new FormData(form);
+					return {
+						email: formData.get('email'),
+						usuario: formData.get('usuario'),
+						perfil: formData.get('perfil')
+					};
+				}
+			}).then((result) => {
+				if (result.isConfirmed) {
+					const datos = result.value;
+
+					// Enviar los datos al servidor mediante AJAX para guardarlos.
+					$.ajax({
+						url: 'aplicar_modificar_datos_de_usuario.php', // Cambia por la URL de tu endpoint.
 						method: 'POST',
 						data: datos,
 						success: function(response) {

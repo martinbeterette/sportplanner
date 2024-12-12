@@ -1,7 +1,7 @@
 <?php
 require_once("../../config/database/conexion.php");
 session_start();
-$usuario	= $_POST['username'];
+$usuario	= $_POST['usuario'];
 $id_usuario = $_SESSION['id_usuario'];
 
 $sql_usuario = "UPDATE usuarios SET 
