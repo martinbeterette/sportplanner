@@ -100,7 +100,7 @@ if($id_complejo){
         <?php endif; ?>
     </div>
     <?php if($id_complejo) { ?>
-        <a href="agregar_sucursal.php?id_complejo=<?= $complejo ?>" class="btn btn-agregar">Agregar Nueva Sucursal</a>
+        <a href="includes/agregar_sucursal.php?id_complejo=<?= $complejo ?>" class="btn btn-agregar">Agregar Nueva Sucursal</a>
     <?php } ?>
 </div>
 
