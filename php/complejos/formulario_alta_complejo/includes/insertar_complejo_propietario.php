@@ -25,11 +25,13 @@ try {
     $rela_usuario = $conexion->insert_id;
 
 
+
+    $rela_usuario = $_SESSION['id_usuario'];
     // Insertar en la tabla Asignacion_persona_complejo
-    $sql_asignacion_pc = "INSERT INTO Asignacion_persona_complejo (fecha_alta,rela_persona, rela_complejo) 
-                          VALUES (?, ?, ?)";
+    $sql_asignacion_pc = "INSERT INTO Asignacion_persona_complejo (fecha_alta,rela_persona, rela_complejo,rela_usuario) 
+                          VALUES (?, ?, ?,?)";
     $stmt_asignacion_pc = $conexion->prepare($sql_asignacion_pc);
-    $stmt_asignacion_pc->bind_param('sii', $fecha_alta, $rela_persona, $rela_complejo);
+    $stmt_asignacion_pc->bind_param('siii', $fecha_alta, $rela_persona, $rela_complejo,$rela_usuario);
     $stmt_asignacion_pc->execute();
 
     // Insertar en la tabla Sucursal

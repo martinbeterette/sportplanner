@@ -10,8 +10,7 @@ $deporte = $conexion->query("SELECT id_deporte, descripcion_deporte FROM deporte
 $superficie = $conexion->query("SELECT id_tipo_terreno, descripcion_tipo_terreno FROM tipo_terreno");
 
 $horario = $conexion->query("SELECT id_horario, horario_inicio, horario_fin FROM horario");
-
-
+print_r($_SESSION);
 //probandooooooooooooo
 // $resetear_credenciales = $conexion->query("SELECT resertear_credenciales FROM usuarios WHERE id_usuario = {$_SESSION['id_usuario']}")->fetch_assoc()['resertear_credenciales'];
 ?>

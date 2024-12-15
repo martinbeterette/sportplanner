@@ -2,9 +2,9 @@
 // Conexión a la base de datos
 session_start();
 print_r($_SESSION);
-require_once('includes/functions.php');
 require_once("../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
+require_once('includes/functions.php');
 require_once("includes/obtener_notificaciones.php");
 ?>
 
@@ -19,7 +19,6 @@ require_once("includes/obtener_notificaciones.php");
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/header.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>css/aside.css">
     <link rel="stylesheet" href="css/notificacion.css">
-
 </head>
 
 <body>
@@ -31,13 +30,11 @@ require_once("includes/obtener_notificaciones.php");
         <p>Notificaciones no leídas: <?php echo $unread_count; ?></p>
         <div class="container">
             <div class="sidebar">
-                <?php if(!is_null($Notificaciones)): ?>
+                <?php if (!is_null($Notificaciones)): ?>
                     <?php if ($Notificaciones->num_rows > 0): ?>
                         <?php while ($row = $Notificaciones->fetch_assoc()): ?>
                             <div class="notification-item <?php echo $row['leido'] == 'no leido' ? 'unread' : ''; ?>" row="<?php echo htmlspecialchars(json_encode($row)); ?>"
-                                onclick=" showDetails('<?php echo htmlspecialchars($row['mensaje']); ?>', '<?php echo $row['titulo']; ?>' , <?php echo $row['id_notificacion']; ?>)"
-                                id-notificacion="<?php echo $row['id_notificacion'] ?>"
-                            >
+                                id-notificacion="<?php echo $row['id_notificacion'] ?>">
                                 <div class="notification-title">
                                     <div class="imgNotificacion">
                                         <?php if ($row['leido'] == 'no leido') { ?>
@@ -80,8 +77,8 @@ require_once("includes/obtener_notificaciones.php");
     <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
     <script src="<?php echo BASE_URL . 'libs/sweetalert2.all.min.js' ?>"></script>
 
-    <script >
-        const notificacion_seleccionada = <?php echo $notificacion_seleccionada ?? 'null'?>;
+    <script>
+        const notificacion_seleccionada = <?php echo $notificacion_seleccionada ?? 'null' ?>;
         let reserva = '';
     </script>
 

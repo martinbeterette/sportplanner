@@ -15,6 +15,7 @@
         exit; // Asegura que el resto del script no se ejecute
     }
 
+    error_log('hola');
     // Calcula las fechas anteriores y siguientes
     $fecha_anterior = date('Y-m-d', strtotime($fecha . ' -1 day'));
     $fecha_siguiente = date('Y-m-d', strtotime($fecha . ' +1 day'));
@@ -45,10 +46,15 @@
             END AS estado_reserva,
             -- Estado basado en itinerario
             CASE 
-                WHEN itinerario.horario_desde IS NULL THEN 'fuera-itinerario'
-                WHEN horario.horario_inicio < itinerario.horario_desde 
-                  OR horario.horario_fin > itinerario.horario_hasta THEN 'fuera-itinerario'
-                ELSE 'dentro-itinerario'
+            WHEN itinerario.horario_desde IS NULL THEN 'fuera-itinerario'
+            WHEN (
+                (itinerario.horario_desde < itinerario.horario_hasta AND horario.horario_inicio BETWEEN itinerario.horario_desde AND itinerario.horario_hasta)
+                OR 
+                (itinerario.horario_desde > itinerario.horario_hasta AND 
+                    (horario.horario_inicio >= itinerario.horario_desde OR horario.horario_inicio <= itinerario.horario_hasta)
+                )
+            ) THEN 'dentro-itinerario'
+            ELSE 'fuera-itinerario'
             END AS estado_itinerario
         FROM 
             horario
@@ -59,7 +65,8 @@
             horario.id_horario = reserva.rela_horario 
         AND 
             reserva.fecha_reserva = '$fecha'
-        -- Join con zona
+        AND 
+            reserva.rela_zona = $cancha
         LEFT JOIN 
             zona 
         ON 
@@ -81,12 +88,11 @@
             itinerario.rela_sucursal = sucursal.id_sucursal 
         AND 
             itinerario.rela_dia = DAYOFWEEK('$fecha') - 1
-        GROUP BY(horario.horario_inicio)
+        GROUP BY(horario.id_horario)
         ORDER BY 
             horario.horario_inicio;
 
     ";
-
     $registros = $conexion->query($sql);
 ?>
 

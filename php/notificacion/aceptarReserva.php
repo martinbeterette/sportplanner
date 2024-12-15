@@ -4,10 +4,19 @@ require_once(RUTA . "config/database/conexion.php");
 
 if (isset($_REQUEST['id_reserva'])) {
     $idReserva = $_REQUEST['id_reserva'];
+    $id_usuario = $_REQUEST['id_usuario'];
     $sql = "UPDATE reserva SET rela_estado_reserva = 1 WHERE id_reserva = $idReserva";
 
     if ($conexion->query($sql)) {
-        echo 'todo correcto';
+        $sql = "INSERT INTO notificacion(titulo, mensaje, rela_usuario, estado, rela_reserva, categoria) 
+        VALUES ('confirmacion', 'se confirmo la reserva', $id_usuario, 'no leido', $idReserva, 'confirmacion')";
+        if ($conexion->query($sql)) {
+            echo 'todo correcto';
+        } else {
+            echo $conexion->error;
+        }
+    } else {
+        echo $conexion->error;
     }
 }
 

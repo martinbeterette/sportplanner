@@ -1,5 +1,8 @@
-$(document).on('click', '#aceptar', function() {
-    let idReserva = reserva.id_reserva;
+$(document).on('click', '#aceptar', function () {
+    let id_reserva      = reserva.id_reserva;
+    let id_usuario      = reserva.rela_usuario;
+    let fecha_reserva   = reserva.fecha_reserva;
+    let id_horario      = reserva.id_horario;
 
     Swal.fire({
         title: '¿Estás seguro?',
@@ -15,9 +18,12 @@ $(document).on('click', '#aceptar', function() {
                 url: 'aceptarReserva.php', // Cambia esto por el archivo que recibirá el id_reserva
                 method: 'POST',
                 data: {
-                    id_reserva: idReserva
+                    id_reserva:     id_reserva,
+                    id_usuario:     id_usuario,
+                    id_horario:     id_horario,
+                    fecha_reserva:  fecha_reserva
                 },
-                success: function(response) {
+                success: function (response) {
                     // Aquí puedes hacer algo con la respuesta
                     if (
                         response == 'todo correcto'
@@ -27,10 +33,12 @@ $(document).on('click', '#aceptar', function() {
                             'La reserva ha sido Aceptada se le notificara al usuario.',
                             'success'
                         );
+                    } else {
+                        console.log(response);
                     }
 
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     // Manejo de error
                     console.log('Error en el Ajax');
                 }
