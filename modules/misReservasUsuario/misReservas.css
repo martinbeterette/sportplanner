@@ -1,70 +1,216 @@
-.containerRegistros {
-  min-height: 100%;
+/* Estilos dentro de .container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Estilos para el título de la sección */
+.containerRegistros h1 {
+  font-size: 2rem;
+  color: #2ecc71;
   text-align: center;
-  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-.tableRegistros {
-  background: #212121;
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgb(128, 128, 128, 0.7);
-}
-
-.tableRegistros input {
-  margin-top: 8px;
+/* Estilos para el campo de búsqueda */
+.tableRegistros input[type="text"] {
+  width: 50%;
   padding: 10px;
-  width: 60%;
-  font-size: 15px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
-/* Tabla Registro ////////////////////////////////////////// */
-table {
+.tableRegistros input[type="text"]:focus {
+  border-color: #2ecc71;
+}
+
+/* Estilos para la tabla */
+.tableRegistros table {
+  width: 100%;
   border-collapse: collapse;
-  width: 100%;
-  margin: auto;
-  margin-top: 1%;
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: bold;
-  font-size: 16px;
-  border: none;
+  margin-top: 20px;
 }
 
-th,
-td {
+.tableRegistros th,
+.tableRegistros td {
+  padding: 12px;
+  border: 1px solid #ccc;
   text-align: center;
-  padding: 10px;
+}
+
+.tableRegistros th {
+  background-color: #2ecc71;
   color: white;
+  font-weight: bold;
 }
 
-/* ESTILOS ESPECIALES A LOS THEAD */
+.tableRegistros td {
+  background-color: #fff;
+  font-size: 1rem;
+}
 
-body table thead tr {
-  background-color: #161616;
-  color: rgba(255, 255, 255, 0.9);
+.tableRegistros tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tableRegistros tr:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Estilos para los enlaces de acción (Cancelar) */
+.tableRegistros a {
+  text-decoration: none;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.tableRegistros a:hover {
+  background-color: #2980b9;
+}
+
+/* Estilo para el mensaje de éxito */
+.mensaje {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 400px;
   text-align: center;
-  padding: 8px;
 }
 
-/* RENGLONES DE COLORES DIFERENTES */
-table tbody tr:nth-child(odd) {
-  background-color: #2c2c2c;
+.btn-cancelar {
+  background-color: #e63946; /* Rojo llamativo */
+  color: #fff; /* Texto blanco */
+  border: none; /* Sin bordes */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 8px 16px; /* Espaciado interno */
+  font-size: 14px; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita */
+  cursor: pointer; /* Cambiar el cursor al pasar el mouse */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
 }
 
-table tbody tr:nth-child(even) {
-  background-color: #161616;
+.btn-cancelar:hover {
+  background-color: #d62828; /* Rojo más oscuro al pasar el ratón */
+  transform: scale(1.05); /* Ligeramente más grande */
 }
 
-.alta {
+.btn-cancelar:active {
+  background-color: #ba1b1d; /* Aún más oscuro al hacer clic */
+  transform: scale(1); /* Volver al tamaño original */
+}
+
+.btn-cancelar:focus {
+  outline: 2px solid #e63946; /* Resaltar cuando está enfocado */
+  outline-offset: 2px; /* Separar el borde */
+}
+
+.paginador {
   text-align: center;
-  color: #161616;
+  margin: 20px 0;
 }
 
-table tbody img {
-  height: 30px;
+.paginador a {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #007bff;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-table tbody a:hover {
-  cursor: pointer;
+.paginador a.active {
+  background-color: #007bff;
+  color: #fff;
+  pointer-events: none;
+}
+
+.paginador a:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+label {
+  font-size: 14px;
+  color: #333;
+}
+
+select {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:hover {
+  border-color: #888;
+}
+
+select:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 3px rgba(0, 86, 179, 0.5);
+}
+
+option {
+  padding: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Estilos para responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .tableRegistros table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .tableRegistros th,
+  .tableRegistros td {
+    padding: 8px;
+  }
+
+  .tableRegistros input[type="text"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .containerRegistros h1 {
+    font-size: 1.5rem;
+  }
+
+  .tableRegistros input[type="text"] {
+    font-size: 0.9rem;
+  }
 }
