@@ -15,7 +15,6 @@
         exit; // Asegura que el resto del script no se ejecute
     }
 
-    error_log('hola');
     // Calcula las fechas anteriores y siguientes
     $fecha_anterior = date('Y-m-d', strtotime($fecha . ' -1 day'));
     $fecha_siguiente = date('Y-m-d', strtotime($fecha . ' +1 day'));
@@ -34,39 +33,36 @@
             horario.id_horario,
             horario.horario_inicio,
             horario.horario_fin,
-            reserva.id_reserva,
-            reserva.rela_estado_reserva,
             zona.descripcion_zona,
             sucursal.descripcion_sucursal,
             complejo.descripcion_complejo,
             -- Estado basado en reservas
             CASE 
-                WHEN reserva.id_reserva IS NOT NULL AND reserva.rela_estado_reserva = 1 THEN 'no-reservable'
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM reserva r
+                    WHERE r.rela_horario = horario.id_horario
+                      AND r.fecha_reserva = '$fecha'
+                      AND r.rela_zona = $cancha
+                      AND r.rela_estado_reserva = 1
+                ) THEN 'no-reservable'
                 ELSE 'reservable'
             END AS estado_reserva,
             -- Estado basado en itinerario
             CASE 
-            WHEN itinerario.horario_desde IS NULL THEN 'fuera-itinerario'
-            WHEN (
-                (itinerario.horario_desde < itinerario.horario_hasta AND horario.horario_inicio BETWEEN itinerario.horario_desde AND itinerario.horario_hasta)
-                OR 
-                (itinerario.horario_desde > itinerario.horario_hasta AND 
-                    (horario.horario_inicio >= itinerario.horario_desde OR horario.horario_inicio <= itinerario.horario_hasta)
-                )
-            ) THEN 'dentro-itinerario'
-            ELSE 'fuera-itinerario'
+                WHEN itinerario.horario_desde IS NULL THEN 'fuera-itinerario'
+                WHEN (
+                    (itinerario.horario_desde < itinerario.horario_hasta AND horario.horario_inicio BETWEEN itinerario.horario_desde AND itinerario.horario_hasta)
+                    OR 
+                    (itinerario.horario_desde > itinerario.horario_hasta AND 
+                        (horario.horario_inicio >= itinerario.horario_desde OR horario.horario_inicio <= itinerario.horario_hasta)
+                    )
+                ) THEN 'dentro-itinerario'
+                ELSE 'fuera-itinerario'
             END AS estado_itinerario
         FROM 
             horario
-        -- Join con reservas
-        LEFT JOIN 
-            reserva 
-        ON 
-            horario.id_horario = reserva.rela_horario 
-        AND 
-            reserva.fecha_reserva = '$fecha'
-        AND 
-            reserva.rela_zona = $cancha
+        -- Join con zona
         LEFT JOIN 
             zona 
         ON 
@@ -86,9 +82,7 @@
             itinerario 
         ON 
             itinerario.rela_sucursal = sucursal.id_sucursal 
-        AND 
-            itinerario.rela_dia = DAYOFWEEK('$fecha') - 1
-        GROUP BY(horario.id_horario)
+            AND itinerario.rela_dia = DAYOFWEEK('$fecha') - 1
         ORDER BY 
             horario.horario_inicio;
 

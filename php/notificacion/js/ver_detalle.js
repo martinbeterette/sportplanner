@@ -4,14 +4,14 @@ $(document).on('click', '.ver_detalle', function () {
         <div class="detalleModal">
             <div class="datos"><strong>Nombre:</strong> <p>${reserva.nombre}</p></div>
             <div class="datos"><strong>Apellido:</strong> <p>${reserva.apellido}</p></div>
-            <div class="datos"><strong>documento:</strong> <p>${reserva.descripcion_documento}</p></div>
-            <div class="datos"><strong>id horario:</strong> <p>${reserva.id_horario}</p></div>
+            <div class="datos"><strong>dni:</strong> <p>${reserva.descripcion_documento}</p></div>
             <div class="datos"><strong>Horario:</strong> <p>${reserva.horario_inicio} - ${reserva.horario_fin}</p></div>
             <div class="datos"><strong>Fecha de Reserva:</strong> <p>${reserva.fecha_reserva}</p></div>
-            <div class="datos"><strong>Fecha de Alta:</strong> <p>${reserva.fecha_alta}</p></div>  
+            <div class="datos"><strong>Fecha de Alta:</strong> <p>${reserva.fecha_alta}</p></div>
+            <div class="datos"><strong>zona:</strong> <p>${reserva.descripcion_zona}</p></div>
+            <div class="datos"><strong>estado reserva:</strong> <p>${reserva.rela_estado_reserva}</p></div>
             <div class="datos"><strong>id reserva:</strong> <p>${reserva.id_reserva}</p></div>
-            <div class="datos"><strong>descripcion zona:</strong> <p>${reserva.descripcion_zona}</p></div>
-            <div class="datos"><strong>estado zona:</strong> <p>${reserva.rela_estado_zona}</p></div>
+            <div class="datos"><strong>id horario:</strong> <p>${reserva.id_horario}</p></div>
         </div>`;
 
     Swal.fire({

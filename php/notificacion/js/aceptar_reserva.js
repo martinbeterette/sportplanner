@@ -1,8 +1,8 @@
 $(document).on('click', '#aceptar', function () {
-    let id_reserva      = reserva.id_reserva;
-    let id_usuario      = reserva.rela_usuario;
-    let fecha_reserva   = reserva.fecha_reserva;
-    let id_horario      = reserva.id_horario;
+    let id_reserva = reserva.id_reserva;
+    let id_usuario = reserva.rela_usuario;
+    let fecha_reserva = reserva.fecha_reserva;
+    let id_horario = reserva.id_horario;
 
     Swal.fire({
         title: '¿Estás seguro?',
@@ -18,10 +18,10 @@ $(document).on('click', '#aceptar', function () {
                 url: 'aceptarReserva.php', // Cambia esto por el archivo que recibirá el id_reserva
                 method: 'POST',
                 data: {
-                    id_reserva:     id_reserva,
-                    id_usuario:     id_usuario,
-                    id_horario:     id_horario,
-                    fecha_reserva:  fecha_reserva
+                    id_reserva: id_reserva,
+                    id_usuario: id_usuario,
+                    fecha_reserva: fecha_reserva,
+                    id_horario: id_horario
                 },
                 success: function (response) {
                     // Aquí puedes hacer algo con la respuesta
@@ -32,6 +32,12 @@ $(document).on('click', '#aceptar', function () {
                             '¡Reserva a sido Aceptada!',
                             'La reserva ha sido Aceptada se le notificara al usuario.',
                             'success'
+                        );
+                    } else if (response == 'horario ocupado') {
+                        Swal.fire(
+                            'Horario Ocupado!',
+                            'La reserva no se realizo.',
+                            'warning'
                         );
                     } else {
                         console.log(response);

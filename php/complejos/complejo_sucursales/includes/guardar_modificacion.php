@@ -33,7 +33,7 @@ try {
     header("Location: ../complejo.php?id_complejo=$id_complejo");
     exit();
 } catch (Exception $e) {
-    $conexion->rollBack();
+    $conexion->rollback();
     echo "error: ". $e->getMessage();
 }
 ?>
