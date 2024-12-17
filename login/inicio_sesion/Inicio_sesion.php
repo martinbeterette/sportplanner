@@ -66,7 +66,7 @@
 
 <script src="<?php echo BASE_URL; ?>libs/jquery-3.7.1.min.js"></script>
 <script src="<?php echo BASE_URL; ?>libs/sweetalert2.all.min.js"></script>
-<script src="js/validaciones.js"></script>
+<!-- <script src="js/validaciones.js"></script> -->
 <script>
     $(document).ready(function() {
         //Mensajes de errores php

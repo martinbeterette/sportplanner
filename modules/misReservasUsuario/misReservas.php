@@ -61,14 +61,16 @@ $totalRecords = $totalRow['total'];
 $totalPages = ceil($totalRecords / $limit);
 
 // Consulta principal (con paginación y filtros)
-$query = "SELECT r.id_reserva, p.nombre, 
-            r.fecha_reserva, 
-            h.horario_inicio,
-            s.descripcion_sucursal AS sucursal, 
-            z.descripcion_zona AS zona, 
-            fd.descripcion_formato_deporte AS formato,
-            er.descripcion_estado_reserva AS estado,
-            co.monto_base
+$query = "SELECT r.id_reserva, 
+                    p.nombre, 
+                    r.comprobante,
+                    r.fecha_reserva, 
+                    h.horario_inicio,
+                    s.descripcion_sucursal AS sucursal, 
+                    z.descripcion_zona AS zona, 
+                    fd.descripcion_formato_deporte AS formato,
+                    er.descripcion_estado_reserva AS estado,
+                    co.monto_base
           FROM reserva r
           JOIN persona p ON r.rela_persona = p.id_persona
           JOIN horario h ON r.rela_horario = h.id_horario
@@ -214,6 +216,17 @@ if (!$misReservas) {
                                     <button class="btn-vermas" onclick="vermas(<?php echo $row['id_reserva']; ?>)">
                                         Ver Mas
                                     </button>
+                                    <button
+                                        class="ver-comprobante
+                                        <?php echo !empty($row['comprobante']) ? 'con-comprobante' : 'sin-comprobante' ?>
+                                    "
+                                        <?php
+                                        if (!empty($row['comprobante'])) {
+                                            echo "data-ruta=" . htmlspecialchars($row['comprobante']);
+                                        }
+                                        ?>
+                                        data-id>Ver Comprobante</button>
+                                    <button class="btn-comprobante" data-id="<?php echo $row['id_reserva'] ?>">Adjuntar comprobante</button>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -366,6 +379,75 @@ if (!$misReservas) {
                         }
                     });
                 }
+            });
+        }
+    </script>
+
+    <script>
+        $(() => {
+            //AÑADIR COMPROBANTE
+            $(document).on("click", ".btn-comprobante", function() {
+                let idReserva = $(this).data('id');
+                adjuntarComprobante(idReserva);
+            });
+
+            // NO TIENE COMPROBANTE (CLICK VER COMPROBANTE)
+            $(document).on("click", ".sin-comprobante", function() {
+                alert();
+            });
+
+            // SI TIENE COMPROBANTE (CLICK VER COMPROBANTE)
+            $(document).on("click", ".con-comprobante", function() {
+                rutaComprobante = $(this).data('ruta');
+                verComprobante(rutaComprobante);
+            });
+        });
+
+        function adjuntarComprobante(idReserva) {
+            Swal.fire({
+                title: 'Subir Comprobante',
+                html: `
+                    <h3>Subir comprobante para la reserva ${idReserva}</h3>
+                    <form id="form-comprobante" enctype="multipart/form-data">
+                        <input type="hidden" name="id_reserva" value="${idReserva}">
+                        <input type="file" name="comprobante" accept=".pdf" class="swal2-input">
+                    </form>
+                `,
+                confirmButtonText: 'Subir',
+                showCancelButton: true,
+                preConfirm: () => {
+                    const form = document.getElementById('form-comprobante');
+                    const formData = new FormData(form);
+                    return fetch('subir_comprobante.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .catch(error => {
+                            console.error('Error en la respuesta:', error);
+                            Swal.showValidationMessage(`Error: No se pudo procesar la respuesta del servidor.`);
+                        });
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Comprobante Subido',
+                        text: 'El comprobante fue subido con éxito.'
+                    });
+                }
+            });
+        }
+
+        function verComprobante(rutaComprobante) {
+            Swal.fire({
+                title: 'Comprobante',
+                html: `
+                    <embed src="${rutaComprobante}" type="application/pdf" width="100%" height="500px">
+                `,
+                showCloseButton: true,
+                showConfirmButton: false,
+                width: '800px'
             });
         }
     </script>

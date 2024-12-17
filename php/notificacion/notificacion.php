@@ -1,6 +1,7 @@
 <?php
 // Conexión a la base de datos
 session_start();
+print_r($_SESSION);
 require_once("../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
 require_once('includes/functions.php');

@@ -79,7 +79,7 @@ if ($_SESSION['id_perfil'] == 23) {
 
 if ($_SESSION['id_perfil'] == 1) {
     $id_usuario = $_SESSION['id_usuario'];
-    $sql = "SELECT id_notificacion, titulo, mensaje, n.estado AS leido, n.rela_sucursal, rela_usuario, fecha_creacion, 
+    $sql = "SELECT id_notificacion, titulo, mensaje, n.estado AS leido, n.rela_sucursal, rela_usuario, fecha_creacion,  n.categoria,
             TIMESTAMPDIFF(DAY, fecha_creacion, NOW()) AS dias, 
             TIMESTAMPDIFF(HOUR, fecha_creacion, NOW()) % 24 AS horas, r.*, p.*, h.*, d.*, z.*, n.categoria
             FROM notificacion n 

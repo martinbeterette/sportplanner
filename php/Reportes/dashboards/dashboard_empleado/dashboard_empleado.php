@@ -1,0 +1,180 @@
+<?php  
+session_start();
+require_once("../../../../config/root_path.php");
+require_once(RUTA."config/database/conexion.php");
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Empleado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="<?php echo BASE_URL. "css/header.css" ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL. "css/aside.css" ?>">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <?php include(RUTA. "includes/header.php") ?>
+    <?php include(RUTA. "includes/menu_aside.php") ?>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Dashboard Empleado</h1>
+
+        <!-- Estadísticas -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Reservas Hoy</h5>
+                        <p class="card-text fs-1">15</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Socios Activos</h5>
+                        <p class="card-text fs-1">120</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">Canchas Disponibles</h5>
+                        <p class="card-text fs-1">5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Reservas por Día</h5>
+                        <canvas id="reservasChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Socios Nuevos (Últimos 7 días)</h5>
+                        <canvas id="sociosChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Gestión -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestión de Reservas</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Socio</th>
+                                    <th>Cancha</th>
+                                    <th>Hora</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Juan Pérez</td>
+                                    <td>Cancha 3</td>
+                                    <td>18:00</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm">Editar</button>
+                                        <button class="btn btn-danger btn-sm">Cancelar</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>María López</td>
+                                    <td>Cancha 1</td>
+                                    <td>19:00</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm">Editar</button>
+                                        <button class="btn btn-danger btn-sm">Cancelar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gráfico de Reservas por Día
+        const reservasCtx = document.getElementById('reservasChart').getContext('2d');
+        new Chart(reservasCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                datasets: [{
+                    label: 'Reservas',
+                    data: [10, 12, 8, 14, 16, 20, 18],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Socios Nuevos
+        const sociosCtx = document.getElementById('sociosChart').getContext('2d');
+        new Chart(sociosCtx, {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                datasets: [{
+                    label: 'Socios Nuevos',
+                    data: [2, 4, 1, 3, 5, 6, 4],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminos_y_condiciones.js" ?>"></script>
+
+</body>
+</html>

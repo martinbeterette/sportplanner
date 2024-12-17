@@ -35,7 +35,7 @@ if($id_complejo){
     $stmt->execute(['id_complejo' => $id_complejo['rela_complejo']]);
     $sucursales = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    header("Location: ". BASE_URL . "index2.php");
+    header("Location: ". BASE_URL);
 }
 ?>
 
@@ -64,7 +64,7 @@ if($id_complejo){
     <div class="complejo-info">
         <?php if($id_complejo){ ?>
             <h2>Información del Complejo Deportivo</h2>
-            <p>Nombre del Complejo: <?php echo $id_complejo['descripcion_complejo']; ?>F</p>
+            <p>Nombre del Complejo: <?php echo $id_complejo['descripcion_complejo']; ?></p>
             <p>Fecha de Creación: <?php echo $id_complejo['fecha_fundacion']; ?></p>
         <?php } else { ?>
             <h2>No posee un complejo</h2>
@@ -100,7 +100,7 @@ if($id_complejo){
         <?php endif; ?>
     </div>
     <?php if($id_complejo) { ?>
-        <a href="agregar_sucursal.php?id_complejo=<?= $complejo ?>" class="btn btn-agregar">Agregar Nueva Sucursal</a>
+        <a href="includes/agregar_sucursal.php?id_complejo=<?= $complejo ?>" class="btn btn-agregar">Agregar Nueva Sucursal</a>
     <?php } ?>
 </div>
 
@@ -110,10 +110,11 @@ if($id_complejo){
 <script src="<?php echo BASE_URL. "libs/jquery-3.7.1.min.js" ?>"></script>
 <script src="<?php echo BASE_URL. "libs/sweetalert2.all.min.js" ?>"></script>
 <script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
-<script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
+<script src="<?php echo BASE_URL . "js/aside.js"; ?>"></script>
 <script src="js/eliminar.js"></script>
 <script src="js/ver_mas.js"></script>
 <script src="js/modificar.js"></script>
+
 </body>
 </html>
 

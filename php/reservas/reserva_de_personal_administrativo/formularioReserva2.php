@@ -43,9 +43,14 @@ $sql = "
             -- Estado basado en itinerario
             CASE 
                 WHEN itinerario.horario_desde IS NULL THEN 'fuera-itinerario'
-                WHEN horario.horario_inicio < itinerario.horario_desde 
-                  OR horario.horario_fin > itinerario.horario_hasta THEN 'fuera-itinerario'
-                ELSE 'dentro-itinerario'
+                WHEN (
+                    (itinerario.horario_desde < itinerario.horario_hasta AND horario.horario_inicio BETWEEN itinerario.horario_desde AND itinerario.horario_hasta)
+                    OR 
+                    (itinerario.horario_desde > itinerario.horario_hasta AND 
+                        (horario.horario_inicio >= itinerario.horario_desde OR horario.horario_inicio <= itinerario.horario_hasta)
+                    )
+                ) THEN 'dentro-itinerario'
+                ELSE 'fuera-itinerario'
             END AS estado_itinerario
         FROM 
             horario

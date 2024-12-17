@@ -37,54 +37,56 @@ $sql = "SELECT
             sucursal.descripcion_sucursal,
             complejo.descripcion_complejo,
             -- Estado basado en reservas
-        CASE 
-            WHEN EXISTS (
-                SELECT 1
-                FROM reserva r
-                WHERE r.rela_horario = horario.id_horario
-                AND r.fecha_reserva = '$fecha'
-                AND r.rela_zona = $cancha
-                AND r.rela_estado_reserva = 1
-            ) THEN 'no-reservable'
-            ELSE 'reservable'
-        END AS estado_reserva,
-        -- Estado basado en itinerario
-        CASE 
-            WHEN itinerario.horario_desde IS NULL THEN 'fuera-itinerario'
-            WHEN (
-                (itinerario.horario_desde < itinerario.horario_hasta AND horario.horario_inicio BETWEEN itinerario.horario_desde AND itinerario.horario_hasta)
-                OR 
-                (itinerario.horario_desde > itinerario.horario_hasta AND 
-                    (horario.horario_inicio >= itinerario.horario_desde OR horario.horario_inicio <= itinerario.horario_hasta)
-                )
-            ) THEN 'dentro-itinerario'
-            ELSE 'fuera-itinerario'
-        END AS estado_itinerario
-    FROM 
-        horario
-    -- Join con zona
-    LEFT JOIN 
-        zona 
-    ON 
-        zona.id_zona = $cancha
-    -- Join con sucursal
-    LEFT JOIN 
-        sucursal 
-    ON 
-        zona.rela_sucursal = sucursal.id_sucursal
-    -- Join con complejo
-    LEFT JOIN 
-        complejo 
-    ON 
-        sucursal.rela_complejo = complejo.id_complejo
-    -- Join con itinerario
-    LEFT JOIN 
-        itinerario 
-    ON 
-        itinerario.rela_sucursal = sucursal.id_sucursal 
-        AND itinerario.rela_dia = DAYOFWEEK('$fecha') - 1
-    ORDER BY 
-        horario.horario_inicio";
+            CASE 
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM reserva r
+                    WHERE r.rela_horario = horario.id_horario
+                      AND r.fecha_reserva = '$fecha'
+                      AND r.rela_zona = $cancha
+                      AND r.rela_estado_reserva = 1
+                ) THEN 'no-reservable'
+                ELSE 'reservable'
+            END AS estado_reserva,
+            -- Estado basado en itinerario
+            CASE 
+                WHEN itinerario.horario_desde IS NULL THEN 'fuera-itinerario'
+                WHEN (
+                    (itinerario.horario_desde < itinerario.horario_hasta AND horario.horario_inicio BETWEEN itinerario.horario_desde AND itinerario.horario_hasta)
+                    OR 
+                    (itinerario.horario_desde > itinerario.horario_hasta AND 
+                        (horario.horario_inicio >= itinerario.horario_desde OR horario.horario_inicio <= itinerario.horario_hasta)
+                    )
+                ) THEN 'dentro-itinerario'
+                ELSE 'fuera-itinerario'
+            END AS estado_itinerario
+        FROM 
+            horario
+        -- Join con zona
+        LEFT JOIN 
+            zona 
+        ON 
+            zona.id_zona = $cancha
+        -- Join con sucursal
+        LEFT JOIN 
+            sucursal 
+        ON 
+            zona.rela_sucursal = sucursal.id_sucursal
+        -- Join con complejo
+        LEFT JOIN 
+            complejo 
+        ON 
+            sucursal.rela_complejo = complejo.id_complejo
+        -- Join con itinerario
+        LEFT JOIN 
+            itinerario 
+        ON 
+            itinerario.rela_sucursal = sucursal.id_sucursal 
+            AND itinerario.rela_dia = DAYOFWEEK('$fecha') - 1
+        ORDER BY 
+            horario.horario_inicio;
+
+    ";
 $registros = $conexion->query($sql);
 ?>
 

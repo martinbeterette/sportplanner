@@ -7,7 +7,15 @@ require_once(RUTA . "config/database/conexion.php");
 $id_persona = $_SESSION['id_persona'] ?? 0;
 $id_usuario = $_SESSION['id_usuario'] ?? 0;
 
-$id_complejo = obtenerIdComplejoDelEmpleado($id_persona,$id_usuario);
+if ($_SESSION['id_perfil'] == 3) {
+    $id_complejo = obtenerIdComplejoDelEmpleado($id_persona,$id_usuario);
+}
+
+if ($_SESSION['id_perfil'] == 23) {
+    $id_complejo = obtenerComplejo($id_usuario);
+    $id_complejo = $id_complejo->fetch_assoc()['rela_complejo'];
+}
+
 $membresias_resultado = $conexion->query("SELECT * FROM membresia WHERE rela_complejo = $id_complejo");
 
 $tipo_documento_resultado = $conexion->query("SELECT * FROM tipo_documento");
@@ -30,7 +38,7 @@ foreach ($membresias_resultado as $reg) {
 }
 
 if(!$id_complejo) {
-    header("Location: " . BASE_URL . "errors/error403.php?no_tiene_acceso");
+    header("Location: " . BASE_URL . "?no_hay_complejo");
 }
 echo $id_complejo;
 
@@ -123,3 +131,24 @@ echo $id_complejo;
 <script src="../js/insertarPersonaYSocio.js"></script>
 </body>
 </html>
+
+<?php 
+    
+    function obtenerComplejo($id_usuario) {
+        global $conexion;
+        $sql = "
+            SELECT rela_complejo
+            FROM asignacion_persona_complejo apc 
+            WHERE apc.rela_usuario = ?
+        ";
+
+        $stmt_complejo_del_propietario = $conexion->prepare($sql);
+        $stmt_complejo_del_propietario->bind_param("i",$id_usuario);
+        if($stmt_complejo_del_propietario->execute()){
+            $registros = $stmt_complejo_del_propietario->get_result();
+            return $registros;
+        }
+        return false;
+    }
+
+?>

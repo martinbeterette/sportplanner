@@ -5,6 +5,15 @@ require_once(RUTA . "config/database/conexion.php");
 
 $errores = isset($_GET['errores']) ? $_GET['errores'] : [];
 
+// PERSISTENCIA DE DATOS
+    $descripcion_complejo = $_GET['descripcion_complejo'] ?? '';
+    $fecha_fundacion_complejo = $_GET['fecha_fundacion_complejo'] ?? '';
+    $descripcion_sucursal = $_GET['descripcion_sucursal'] ?? '';
+    $fecha_fundacion_sucursal = $_GET['fecha_fundacion_sucursal'] ?? '';
+    $rela_barrio = $_GET['barrio'] ?? '';
+    $direccion = $_GET['direccion'] ?? '';
+    $email = $_GET['email'] ?? '';
+    $username = $_GET['username'] ?? '';
 ?>
 
 <html lang="en">
@@ -28,16 +37,17 @@ $errores = isset($_GET['errores']) ? $_GET['errores'] : [];
 				<h3>Datos del Complejo</h3>
 
 				<label for="descripcion_complejo">Nombre del complejo:</label>
-				<input type="text" name="descripcion_complejo" id="descripcion_complejo">
+				<input type="text" name="descripcion_complejo" id="descripcion_complejo"
+				<?php echo "value='$descripcion_complejo'" ?>
+				>
 				<span id="error_descripcion_complejo"></span>
 
 				<label for="fecha_fundacion_complejo">Fecha de Fundaci&oacute;n</label>
-				<input type="date" name="fecha_fundacion_complejo" id="fecha_fundacion_complejo">
+				<input type="date" name="fecha_fundacion_complejo" id="fecha_fundacion_complejo"
+				<?php echo "value='$fecha_fundacion_complejo'"; ?>
+				>
 				<span id="error_fecha_fundacion_complejo"></span>
 
-				<label for="logo">Logo:</label>
-				<input type="file" name="logo">
-				<span id="error_logo"></span>
 
 				<div class="botones">
 					<button type="button" class="siguiente" paso="1">Siguiente</button>
@@ -49,7 +59,9 @@ $errores = isset($_GET['errores']) ? $_GET['errores'] : [];
 				<h3>Datos de la Sucursal</h3>
 
 				<label for="descripcion_sucursal">Nombre de la sucursal:</label>
-				<input type="text" name="descripcion_sucursal" id="descripcion_sucursal">
+				<input type="text" name="descripcion_sucursal" id="descripcion_sucursal"
+				<?php echo "value='$descripcion_sucursal'"; ?>
+				>
 				<span id="error_descripcion_sucursal"></span>
 
 				<label for="provincia">Provincia</label>
@@ -71,14 +83,16 @@ $errores = isset($_GET['errores']) ? $_GET['errores'] : [];
 				</select>
 
 				<label for="direccion">Direccion:</label>
-				<input type="text" name="direccion" id="direccion">
+				<input type="text" name="direccion" id="direccion"
+				<?php echo "value='$direccion'" ?>
+				>
 				<span id="direccion_error"></span>
 
-				<label for="Imagenes_sucursal">Imagenes de la sucursal:</label>
-				<input type="file" name="Imagenes_sucursal">
 
 				<label for="fecha_fundacion_sucursal">Fecha de Fundaci&oacute;n</label>
-				<input type="date" name="fecha_fundacion_sucursal" id="fecha_fundacion_sucursal">
+				<input type="date" name="fecha_fundacion_sucursal" id="fecha_fundacion_sucursal"
+				<?php echo "value='$fecha_fundacion_sucursal'" ?>
+				>
 				<span id="error_fecha_fundacion_sucursal"></span>
 				<div class="botones">
 					<button type="button" class="anterior" paso="2">Anterior</button>
@@ -91,12 +105,14 @@ $errores = isset($_GET['errores']) ? $_GET['errores'] : [];
 			<div class="paso" id="paso3">
 			    <h3>Crear Cuenta de Administrador</h3>
 
-			    <label for="email">Correo Electrónico:</label>
+<!-- 			    <label for="email">Correo Electrónico:</label>
 			    <input type="email" name="email" id="email">
-			    <span id="error_email"></span>
+			    <span id="error_email"></span> -->
 
 			    <label for="username">Nombre de Usuario:</label>
-			    <input type="text" name="username" id="username">
+			    <input type="text" name="username" id="username"
+			    <?php echo "value='$username'"; ?>
+			    >
 			    <span id="username-feedback" class="error"></span><br>
 			    <span id="error_username"></span>
 

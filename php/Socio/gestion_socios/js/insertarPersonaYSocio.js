@@ -10,8 +10,8 @@ $(document).ready(function(e) {
 		let id_membresia = $('#membresia').val();
 		let id_sexo = $('#sexo').val();
 		let correo = $('#correo').val();
-		alert(`nombre:${nombre}, apellido:${apellido}, documento:${documento}, tipo documento:${id_tipo_documento}, fechanac:${fecha_nacimiento}, cantidad meses: ${cantidad_meses},id membresia:${id_membresia}, idsexo:${id_sexo}, idcomplejo:${id_complejo}, correo: ${correo}`)
-		// insertarPersonaYsocio(nombre,apellido,documento,id_tipo_documento, id_sexo, fecha_nacimiento, cantidad_meses,id_membresia, id_complejo, correo);
+		// alert(`nombre:${nombre}, apellido:${apellido}, documento:${documento}, tipo documento:${id_tipo_documento}, fechanac:${fecha_nacimiento}, cantidad meses: ${cantidad_meses},id membresia:${id_membresia}, idsexo:${id_sexo}, idcomplejo:${id_complejo}, correo: ${correo}`)
+		insertarPersonaYsocio(nombre,apellido,documento,id_tipo_documento, id_sexo, fecha_nacimiento, cantidad_meses,id_membresia, id_complejo, correo);
 	});
 });
 function insertarPersonaYsocio
