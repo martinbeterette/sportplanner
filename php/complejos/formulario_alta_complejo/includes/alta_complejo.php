@@ -16,7 +16,7 @@ $direccion                  = $_POST['direccion'];
 
 
 //paso 3
-$email = $_POST['email'];
+$email = $_SESSION['email'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 $confirm_password = $_POST['confirm_password'];

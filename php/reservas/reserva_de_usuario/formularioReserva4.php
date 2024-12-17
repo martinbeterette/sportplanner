@@ -40,6 +40,7 @@ if(insertarReserva($rela_horario, $fecha, $rela_zona, $rela_persona)) {
 	$conexion->query($queryNotificacion);
 
 	header("Location: formularioReserva1.php");
+	// header("Location: " . BASE_URL . "modules/misReservasUsuario/misReservas.php");
 } else {
 	echo "error en la reserva";
 	echo "<a href='formularioReserva1.php'>Volver</a>";

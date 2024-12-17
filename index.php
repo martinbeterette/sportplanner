@@ -17,7 +17,7 @@ if($_SESSION['id_perfil'] == 23) {
     header("Location: php\Reportes\dashboards\dashboard_propietario/dashboard_propietario.php");
     exit();
 }
-
+print_r($_SESSION);
 
 
 $deporte = $conexion->query("SELECT id_deporte, descripcion_deporte FROM deporte");
@@ -27,6 +27,18 @@ $superficie = $conexion->query("SELECT id_tipo_terreno, descripcion_tipo_terreno
 $horario = $conexion->query("SELECT id_horario, horario_inicio, horario_fin FROM horario");
 //probandooooooooooooo
 // $resetear_credenciales = $conexion->query("SELECT resertear_credenciales FROM usuarios WHERE id_usuario = {$_SESSION['id_usuario']}")->fetch_assoc()['resertear_credenciales'];
+
+if(isset($_GET['errores'])) {
+    $descripcion_complejo = $_GET['descripcion_complejo'] ?? '';
+    $fecha_fundacion_complejo = $_GET['fecha_fundacion_complejo'] ?? '';
+    $descripcion_sucursal = $_GET['descripcion_sucursal'] ?? '';
+    $fecha_fundacion_sucursal = $_GET['fecha_fundacion_sucursal'] ?? '';
+    $rela_barrio = $_GET['barrio'] ?? '';
+    $direccion = $_GET['direccion'] ?? '';
+    $email = $_GET['email'] ?? '';
+    $username = $_GET['username'] ?? '';
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
