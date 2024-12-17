@@ -27,12 +27,16 @@ if(insertarReserva($rela_horario, $fecha, $rela_zona, $rela_persona)) {
 	$id_sucursal = $reg->fetch_assoc()['id_sucursal'];
 	$cancha = $conexion->query("SELECT * FROM zona WHERE id_zona = $rela_zona")->fetch_assoc();
 	$queryNotificacion = "
-		INSERT INTO notificacion(titulo,mensaje,rela_sucursal,estado,rela_reserva) 
-		VALUES('Reserva',
-				'El usuario {$_SESSION['usuario']} quiere reservar la cancha de Descripcion: {$cancha['descripcion_zona']}',
-				$id_sucursal,'no leido',
-				$id_reserva
-			)";
+		INSERT INTO notificacion(titulo,mensaje,rela_sucursal,estado,rela_reserva,rela_usuario,categoria) 
+		VALUES(
+			'Reserva',
+			'El usuario {$_SESSION['usuario']} quiere reservar la cancha de Descripcion: {$cancha['descripcion_zona']}',
+			$id_sucursal,
+			'no leido',
+			$id_reserva,
+			{$_SESSION['id_usuario']},
+			'reserva'
+		)";
 	$conexion->query($queryNotificacion);
 
 	header("Location: formularioReserva1.php");

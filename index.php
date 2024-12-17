@@ -39,7 +39,7 @@ $horario = $conexion->query("SELECT id_horario, horario_inicio, horario_fin FROM
 
             <?php include(RUTA . "includes/menu_aside.php") ?>
 
-            <section class="hero">
+            <!-- <section class="hero">
                 <form action="<?php echo BASE_URL . "php/reservas/reserva_formulario/listado_canchas_disponibles.php" ?>">
 
                     <div class="search-container">
@@ -66,16 +66,14 @@ $horario = $conexion->query("SELECT id_horario, horario_inicio, horario_fin FROM
                     </div>
 
                 </form>
-            </section>
+            </section> -->
         </section>
     </div>
 
     <section class="info-section">
         <h2>Registra tu complejo deportivo para ser parte de nuestro sistema</h2>
-        <button 
-            onclick=
-            "location.href='<?php echo BASE_URL . "php/complejos/formulario_alta_complejo/Formulario_alta.php" ?>'" class="register-btn"
-        >Registrar complejo</button>
+        <button
+            onclick="location.href='<?php echo BASE_URL . "php/complejos/formulario_alta_complejo/Formulario_alta.php" ?>'" class="register-btn">Registrar complejo</button>
     </section>
 
     <section class="features-section">

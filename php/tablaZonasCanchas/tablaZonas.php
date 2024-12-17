@@ -61,7 +61,7 @@ $registros = obtenerZonasFutbol($id_sucursal);
     <?php include(RUTA . "includes/header.php"); ?>
     <?php include(RUTA . "includes/menu_aside.php") ?>
 
-    <div class="containerEmpleado">
+    <div class="containerTablaEmpleado">
         <h1>Modulo Zonas de Complejos Deportivos</h1>
         <div id="tabla-container"></div>
         <div id="paginacion-container"></div>

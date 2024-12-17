@@ -1,5 +1,6 @@
-$(document).on('click', '#rechazar', function() {
-    let idReserva = reserva.id_reserva;
+$(document).on('click', '#rechazar', function () {
+    let id_reserva = reserva.id_reserva;
+    let id_usuario = reserva.rela_usuario;
 
     Swal.fire({
         title: '¿Estás seguro?',
@@ -15,9 +16,10 @@ $(document).on('click', '#rechazar', function() {
                 url: 'rechazarReserva.php', // Cambia esto por el archivo que recibirá el id_reserva
                 method: 'POST',
                 data: {
-                    id_reserva: idReserva
+                    id_reserva: id_reserva,
+                    id_usuario: id_usuario
                 },
-                success: function(response) {
+                success: function (response) {
                     // Aquí puedes hacer algo con la respuesta
                     if (
                         response == 'todo correcto'
@@ -27,10 +29,12 @@ $(document).on('click', '#rechazar', function() {
                             'La reserva ha sido Rechazada se le notificara al usuario.',
                             'success'
                         );
+                    } else {
+                        console.log(response)
                     }
 
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     // Manejo de error
                     console.log('Error en el Ajax');
                 }

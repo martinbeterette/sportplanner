@@ -18,6 +18,7 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="../../../css/header.css">
     <link rel="stylesheet" href="../../../css/aside.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -84,9 +85,13 @@ session_start();
         </div>
     </div>
 
-    <script src="../../../libs/jquery-3.7.1.min.js"></script>
-    <script src="../../../js/header.js"></script>
-    <script src="../../../js/aside.js"></script>
+    <?php include(RUTA . "includes/footer.php") ?>
+
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js" ?>"></script>
 
     <script>
         function fetchDatosDashboard() {

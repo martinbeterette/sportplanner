@@ -62,12 +62,6 @@ function obtenerPerfiles()
 	} else {
 		return false;
 	}
-
-	if ($registros = $conexion->query($sql)) {
-		return $registros;
-	} else {
-		return false;
-	}
 }
 
 function obtenerPerfilesModulos()

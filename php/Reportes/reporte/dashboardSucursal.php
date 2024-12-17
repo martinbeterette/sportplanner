@@ -27,6 +27,7 @@ foreach ($registros_sucursal as $reg) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="../../../css/header.css">
     <link rel="stylesheet" href="../../../css/aside.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -92,12 +93,13 @@ foreach ($registros_sucursal as $reg) {
         </div>
 
 
-        <div class="chart-container" style="margin: 0 auto;">
+        <div class="chart-container" style="margin: 0 auto; margin-bottom: 10px;">
             <h2>Turnos mas Reservados</h2>
             <canvas id="dayNightComparisonChart"></canvas>
         </div>
 
         <div class="registrosTurnos">
+            <h2>Turnos m&aacute;s solicitados</h2>
             <table id="tarifasTable" class="table">
                 <thead>
                     <tr>
@@ -113,8 +115,14 @@ foreach ($registros_sucursal as $reg) {
         </div>
     </div>
 
-    <script src="../../../js/header.js"></script>
-    <script src="../../../js/aside.js"></script>
+    <?php include(RUTA . "includes/footer.php") ?>
+
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js" ?>"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const filterPeriod = document.getElementById("filter-period");

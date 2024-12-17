@@ -42,7 +42,7 @@
                         </form>
                     </div>
 
-                    <div class="filtroBusqueda">
+                    <!-- <div class="filtroBusqueda">
                         <form>
                             <div class="search-container">
                                 <select name="deporte" id="deporte">
@@ -62,7 +62,7 @@
                                 <button class="search-btn" type="submit">Buscar</button>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
