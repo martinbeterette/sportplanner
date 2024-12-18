@@ -36,7 +36,7 @@ if (!isset($_SESSION['id_usuario'])) {
         $tablas_maestras = [
             ["nombre" => "Reporte de complejo", "ruta" => "../Reportes/propietario/dashboard.php"],
             ["nombre" => "Reporte Socio",                    "ruta" => "../Reportes/socio/index.php"],
-            ["nombre" => "Estado Reserva",      "ruta" => "../Reportes/reporte/dashboardSucursal.php?id_sucursal=1"],
+            ["nombre" => "Estado Reserva",      "ruta" => "../Reportes/reporte/dashboardSucursal.php"],
 
         ];
 

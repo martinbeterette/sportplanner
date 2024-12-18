@@ -54,6 +54,35 @@ $registros = obtenerZonasFutbol($id_sucursal);
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css"; ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css"; ?>">
     <link rel="stylesheet" href="css/tablaZonas.css">
+    <style>
+        .export {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export button {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export button i {
+            font-size: 35px;
+            color: #333;
+        }
+
+        .export button:hover i {
+            color: #ff0000;
+        }
+    </style>
 </head>
 
 <body>
@@ -62,7 +91,12 @@ $registros = obtenerZonasFutbol($id_sucursal);
     <?php include(RUTA . "includes/menu_aside.php") ?>
 
     <div class="containerTablaEmpleado">
-        <h1>Modulo Zonas de Complejos Deportivos</h1>
+        <h1 style="text-align:center;">Modulo Zonas de Complejos Deportivos</h1>
+        <div class="export">
+            <button id="exportarpdf">
+                <i class="fa-regular fa-file-pdf"></i>
+            </button>
+        </div>
         <div id="tabla-container"></div>
         <div id="paginacion-container"></div>
     </div>
@@ -167,6 +201,16 @@ $registros = obtenerZonasFutbol($id_sucursal);
         }); // Cierre del DOCUMENT READY
     </script>
 
+    <script>
+        // Supongamos que tienes el id_sucursal en una variable
+        let id_sucursal = <?php echo $id_sucursal; ?>; // Reemplaza con el valor dinámico que tengas
+
+        // Agregamos un listener al botón
+        document.getElementById("exportarpdf").addEventListener("click", function() {
+            // Redirige a la URL con el parámetro id_sucursal
+            window.location.href = `exportar_pdf.php?id_sucursal=${id_sucursal}`;
+        });
+    </script>
 </body>
 
 </html>

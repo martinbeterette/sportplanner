@@ -51,6 +51,38 @@ $registros_socios = obtenerSocios($id_complejo);
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css" ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
     <link rel="stylesheet" type="text/css" href="css/prueba.css">
+    <style>
+        .export {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .export button {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export button i {
+            font-size: 35px;
+            color: #333;
+        }
+
+        .export button:hover i {
+            color: #ff0000;
+        }
+
+        #buscador {
+            width: 30%;
+        }
+    </style>
 </head>
 
 <body>
@@ -59,7 +91,12 @@ $registros_socios = obtenerSocios($id_complejo);
 
     <div class="container">
         <h1 align="center">Listado de Socios</h1>
-        <input type="text" id="buscador" placeholder="Nombre, Apellido, Documento">
+        <div class="export">
+            <input type="text" id="buscador" placeholder="Nombre, Apellido, Documento">
+            <button id="exportarpdf">
+                <i class="fa-regular fa-file-pdf"></i>
+            </button>
+        </div>
         <div id="tabla-container"></div>
         <div id="paginacion-container"></div>
 
@@ -77,6 +114,7 @@ $registros_socios = obtenerSocios($id_complejo);
 
     <script>
         let id_complejo = <?php echo $id_complejo; ?>;
+        let id_sucursal = <?php echo $id_sucursal; ?>;
     </script>
 
     <script>
@@ -107,6 +145,16 @@ $registros_socios = obtenerSocios($id_complejo);
                 });
             });
 
+        });
+    </script>
+
+    <script>
+        // Supongamos que tienes el id_sucursal en una variable
+
+        // Agregamos un listener al botón
+        document.getElementById("exportarpdf").addEventListener("click", function() {
+            // Redirige a la URL con el parámetro id_sucursal
+            window.location.href = `../exportar_pdf.php?id_sucursal=${id_sucursal}&id_complejo=${id_complejo}`;
         });
     </script>
 

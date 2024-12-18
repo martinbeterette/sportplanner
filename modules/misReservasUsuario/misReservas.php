@@ -329,6 +329,76 @@ if (!$misReservas) {
                 title: '¿Estás seguro?',
                 text: "Esta acción no se puede deshacer.",
                 icon: 'warning',
+                input: 'text', // Agregar input de texto
+                inputPlaceholder: 'Escribe el motivo de la cancelación',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Debes escribir un motivo para la cancelación.';
+                    }
+                },
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cancelar reserva',
+                cancelButtonText: 'No, mantener reserva'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const motivoCancelacion = result.value;
+
+                    // Mostrar cargando
+                    Swal.fire({
+                        title: 'Cancelando reserva...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Realizar la solicitud AJAX
+                    $.ajax({
+                        url: 'cancelar.php',
+                        type: 'POST',
+                        data: {
+                            id_reserva: idReserva,
+                            motivo_cancelacion: motivoCancelacion
+                        },
+                        success: function(response) {
+                            Swal.close(); // Cerrar el modal de carga
+
+                            // Mostrar confirmación
+                            Swal.fire({
+                                title: 'Reserva cancelada',
+                                text: 'Tu reserva ha sido cancelada exitosamente.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                // Actualizar la fila correspondiente
+                                $(`#estado-${idReserva}`).text('Cancelado');
+                                $(`#row-${idReserva}`).fadeOut(500, function() {
+                                    $(this).remove();
+                                });
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'No se pudo cancelar la reserva. Intenta nuevamente.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
+    <!-- <script>
+        function cancelarReserva(idReserva) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción no se puede deshacer.",
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -381,7 +451,7 @@ if (!$misReservas) {
                 }
             });
         }
-    </script>
+    </script> -->
 
     <script>
         $(() => {

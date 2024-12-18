@@ -56,10 +56,10 @@ $orden = '';
 </head>
 
 <body>
-    
-    <?php include(RUTA. "includes/header.php"); ?>
 
-    <?php include(RUTA."includes/menu_aside.php"); ?>
+    <?php include(RUTA . "includes/header.php"); ?>
+
+    <?php include(RUTA . "includes/menu_aside.php"); ?>
 
     <div class="containerEmpleado">
         <h1>Socios</h1>
@@ -70,6 +70,7 @@ $orden = '';
 
     <script src="../../libs/jquery-3.7.1.min.js"></script>
     <script src="../../libs/sweetalert2.all.min.js"></script>
+
     <script>
         $(document).on('click', '.eliminar', function() {
             let valor = $(this).attr('valor');
@@ -99,17 +100,23 @@ $orden = '';
             window.location.href = "eliminar.php?id=" + id + "&id_complejo=" + complejo;
         }
     </script>
+
     <script src="<?php echo BASE_URL . "js/header.js"; ?>"></script>
     <script src="<?php echo BASE_URL . "js/aside.js"; ?>"></script>
+
     <script>
         $(document).ready(function() {
             let id_complejo = <?php echo $id_complejo; ?>;
 
-            function cargarTabla(id_complejo,filtro = '', pagina = 1) {
+            function cargarTabla(id_complejo, filtro = '', pagina = 1) {
                 $.ajax({
                     url: 'ajax/obtenerSocios.php',
                     type: 'GET',
-                    data: { filtro: filtro, pagina: pagina , id_complejo: id_complejo},
+                    data: {
+                        filtro: filtro,
+                        pagina: pagina,
+                        id_complejo: id_complejo
+                    },
                     dataType: 'json',
                     success: function(data) {
                         // Actualizar el contenedor de la tabla con el HTML generado
@@ -145,14 +152,14 @@ $orden = '';
             // Evento de búsqueda
             $('#buscador').on('keyup', function() {
                 var filtro = $(this).val();
-                cargarTabla(id_complejo ,filtro); //llamar a la funcion con el termino de busqueda
+                cargarTabla(id_complejo, filtro); //llamar a la funcion con el termino de busqueda
             });
 
             // Evento para cambiar de página
             $(document).on('click', '.pagina-boton', function() {
                 var filtro = $('#buscador').val();
                 var page = $(this).data('page');
-                cargarTabla(id_complejo,filtro, page);
+                cargarTabla(id_complejo, filtro, page);
             });
 
         }); // Cierre del DOCUMENT READY

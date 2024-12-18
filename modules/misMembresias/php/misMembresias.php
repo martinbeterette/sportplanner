@@ -18,8 +18,7 @@ if (!$registrosPersona) {
     die("Error al obtener datos de la persona.");
 }
 $objetoPersona = $registrosPersona->fetch_assoc();
-// $relaPersonas = $objetoPersona['id_persona'];
-$relaPersonas = 24;
+$relaPersonas = $objetoPersona['id_persona'];
 
 // Validar y sanitizar parámetros de entrada
 $validColumns = ['descripcion_complejo', 'descripcion_membresia', 'descuento', 'precio_membresia', 'fecha_expiracion'];

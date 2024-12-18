@@ -1,52 +1,50 @@
 <?php
-session_start();
+
 require_once("../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
 
-header('Content-Type: application/json');
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_reserva = $_POST['id_reserva'];
+    $motivo_cancelacion = $_POST['motivo_cancelacion'];
 
-if (!isset($_POST['id_reserva'])) {
-    echo json_encode(['error' => 'ID de reserva no proporcionado.']);
-    exit;
-}
+    $id_sucursal = "SELECT rela_sucursal FROM zona JOIN reserva ON rela_zona = id_zona WHERE id_reserva = $id_reserva";
+    $id_sucursal = $conexion->query($id_sucursal)->fetch_assoc()['rela_sucursal'];
 
-$idReserva = intval($_POST['id_reserva']); // Validar como entero
-$username = $_SESSION['usuario'];
+    // Iniciar la transacción
+    $conexion->begin_transaction();
 
-// Obtener la sucursal asociada a la reserva
-$sucursalQuery = "SELECT s.id_sucursal FROM sucursal s 
-                  JOIN zona z ON z.rela_sucursal = s.id_sucursal 
-                  JOIN reserva r ON r.rela_zona = z.id_zona 
-                  WHERE r.id_reserva = ?";
-$stmt = $conexion->prepare($sucursalQuery);
-$stmt->bind_param("i", $idReserva);
-$stmt->execute();
-$result = $stmt->get_result();
+    try {
+        // Actualizar la descripción de la reserva
+        $queryUpdateReserva = "UPDATE reserva SET descripcion_reserva = ?, rela_estado_reserva = 5 WHERE id_reserva = ?";
+        $stmtReserva = $conexion->prepare($queryUpdateReserva);
+        $stmtReserva->bind_param('si', $motivo_cancelacion, $id_reserva);
+        $stmtReserva->execute();
 
-if ($result->num_rows > 0) {
-    $idSucursal = $result->fetch_assoc()['id_sucursal'];
+        if ($stmtReserva->affected_rows === 0) {
+            throw new Exception("No se pudo actualizar la reserva. Verifica el ID.");
+        }
 
-    // Actualizar el estado de la reserva a "Cancelado"
-    $updateQuery = "UPDATE reserva SET rela_estado_reserva = 5 WHERE id_reserva = ?";
-    $stmt = $conexion->prepare($updateQuery);
-    $stmt->bind_param("i", $idReserva);
+        // Actualizar la categoría en la tabla notificación
+        $queryUpdateNotificacion = "UPDATE notificacion SET categoria = 'cancelacion', titulo = 'Reserva Cancelada', rela_sucursal = ? WHERE rela_reserva = ?";
+        $stmtNotificacion = $conexion->prepare($queryUpdateNotificacion);
+        $stmtNotificacion->bind_param('ii', $id_sucursal, $id_reserva);
+        $stmtNotificacion->execute();
 
-    if ($stmt->execute()) {
-        // Crear una notificación para la sucursal
-        $notificacionQuery = "INSERT INTO notificacion (titulo, mensaje, rela_sucursal) 
-                              VALUES ('Cancelación', ?, ?)";
-        $mensaje = "El usuario $username ha cancelado su reserva.";
-        $stmt = $conexion->prepare($notificacionQuery);
-        $stmt->bind_param("si", $mensaje, $idSucursal);
-        $stmt->execute();
+        if ($stmtNotificacion->affected_rows === 0) {
+            throw new Exception("No se pudo actualizar la notificación. Verifica el ID.");
+        }
 
+        // Confirmar la transacción
+        $conexion->commit();
         echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['error' => 'No se pudo cancelar la reserva.']);
+    } catch (Exception $e) {
+        // Revertir los cambios en caso de error
+        $conexion->rollback();
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
+    } finally {
+        $stmtReserva->close();
+        $stmtNotificacion->close();
+        $conexion->close();
     }
-} else {
-    echo json_encode(['error' => 'Reserva no encontrada.']);
 }
-
-$stmt->close();
-$conexion->close();
