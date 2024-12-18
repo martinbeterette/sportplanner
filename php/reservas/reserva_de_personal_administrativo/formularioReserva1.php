@@ -15,6 +15,13 @@ if ($_SESSION['id_perfil'] == 23) {
     }
 }
 
+if ($_SESSION['id_perfil'] == 23) {
+    $id_sucursal = $_GET['id_sucursal'] ?? header("Location: /includes/seleccionar_sucursal.php");
+    if (!$id_sucursal) {
+        header("Location: includes/seleccionar_sucursal.php");
+    }
+}
+
 $registros_cancha = $conexion->query("SELECT * FROM zona WHERE rela_sucursal = $id_sucursal AND estado=1");
 
 ?>

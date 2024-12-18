@@ -67,12 +67,12 @@ table th {
   cursor: pointer;
 }
 
-ul {
+.list-container ul {
   list-style: none;
   padding: 0;
 }
 
-ul li {
+.list-container ul li {
   background-color: #007bff;
   color: white;
   padding: 10px;
