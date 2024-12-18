@@ -88,7 +88,7 @@ if ($_SESSION['id_perfil'] == 1) {
             JOIN persona p ON r.rela_persona = p.id_persona
             JOIN documento d ON p.id_persona = d.rela_persona
             JOIN zona z ON r.rela_zona = z.id_zona
-            WHERE n.rela_usuario = $id_usuario
+            WHERE n.rela_usuario = $id_usuario AND n.rela_sucursal IS NULL
             ORDER BY fecha_creacion DESC";
 
     $sql_unread_count =
@@ -99,7 +99,7 @@ if ($_SESSION['id_perfil'] == 1) {
             JOIN persona p ON r.rela_persona = p.id_persona
             JOIN documento d ON p.id_persona = d.rela_persona
             JOIN zona z ON r.rela_zona = z.id_zona
-            WHERE n.rela_usuario = $id_usuario
+            WHERE n.rela_usuario = $id_usuario AND n.rela_sucursal IS NULL
             ORDER BY fecha_creacion DESC";
 }
 // Consultar notificaciones con el tipo de notificación
