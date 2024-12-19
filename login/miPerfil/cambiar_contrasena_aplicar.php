@@ -26,13 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		session_start();
 		session_unset();
 		session_destroy();
-		header("Location: ../../index2.php");
+		header("Location: ../../index.php");
 		exit();
 	} else {
 		echo "Error en el cambio de contraseña";
-		echo "<a href='" . BASE_URL . "index2.php'>Inicio</a>";
+		echo "<a href='" . BASE_URL . "index.php'>Inicio</a>";
 	}
 } else {
 	echo "No tiene acceso a este modulo." . "<br>";
-	echo "<a href='" . BASE_URL . "index2.php'>Inicio</a>";
+	echo "<a href='" . BASE_URL . "index.php'>Inicio</a>";
 }

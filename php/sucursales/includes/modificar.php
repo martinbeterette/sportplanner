@@ -3,16 +3,16 @@ require_once('../../../config/root_path.php');
 require_once(RUTA . 'config/database/conexion.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_zona = isset($_POST['id_zona']) ? intval($_POST['id_zona']) : null;
+    $id_zona = isset($_POST['idZona']) ? intval($_POST['idZona']) : null;
     $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : null;
-    $tipo = isset($_POST['tipo_terreno']) ? intval($_POST['tipo_terreno']) : null;
-    $formato_deporte = isset($_POST['formato_deporte']) ? intval($_POST['formato_deporte']) : null;
+    $tipo = isset($_POST['tipoTerreno']) ? intval($_POST['tipoTerreno']) : null;
+    $formato_deporte = isset($_POST['formatoDeporte']) ? intval($_POST['formatoDeporte']) : null;
     $estado = isset($_POST['estado']) ? intval($_POST['estado']) : null;
 
     // Validar datos obligatorios
     if (!$id_zona || !$descripcion || !$tipo || !$formato_deporte || !$estado) {
         http_response_code(400);
-        echo json_encode(['status' => 'error', 'message' => 'Todos los campos son obligatorios.']);
+        echo json_encode(['success' => false, 'message' => 'Todos los campos son obligatorios.']);
         exit;
     }
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conexion->prepare($sql);
     if (!$stmt) {
         http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'Error en la preparación de la consulta.']);
+        echo json_encode(['success' => false, 'message' => 'Error en la preparación de la consulta.']);
         exit;
     }
 
@@ -38,16 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
-        echo json_encode(['status' => 'success']);
+        echo json_encode(['success' => true, 'message' => 'Cancha modificada correctamente.']);
     } else {
         http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'Error al actualizar el registro.']);
+        echo json_encode(['success' => false, 'message' => 'Error al actualizar el registro.']);
     }
 
     $stmt->close();
 } else {
     http_response_code(405); // Método no permitido
-    echo json_encode(['status' => 'error', 'message' => 'Método no permitido.']);
+    echo json_encode(['success' => false, 'message' => 'Método no permitido.']);
 }
 
 $conexion->close();

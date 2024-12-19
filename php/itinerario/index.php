@@ -107,23 +107,6 @@ $dias_español = [
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css" ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
     <style type="text/css">
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            /*display: flex;*/
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f3f0f9;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
         form {
             margin: auto;
             margin-bottom: 10px;
@@ -135,11 +118,11 @@ $dias_español = [
             text-align: center;
         }
 
-        h2 {
+        .contenedorItinerario h2 {
             color: #5e4a8f;
         }
 
-        label {
+        .contenedorItinerario label {
             display: block;
             margin-top: 15px;
             color: #5e4a8f;
@@ -176,7 +159,7 @@ $dias_español = [
             margin-top: 20px;
         }
 
-        button {
+        .contenedorItinerario button {
             background-color: #5e4a8f;
             color: #fff;
             padding: 10px 20px;
@@ -186,7 +169,7 @@ $dias_español = [
             margin-top: 10px;
         }
 
-        button:hover {
+        .contenedorItinerario button:hover {
             background-color: #4a3773;
         }
     </style>
@@ -196,26 +179,36 @@ $dias_español = [
     <?php include(RUTA . "includes/header.php"); ?>
     <?php include(RUTA . "includes/menu_aside.php") ?>
 
-    <form id="form-itinerario" method="POST">
-        <label for="dia-select">Selecciona un día:</label>
-        <select id="dia-select" name="dia">
-            <option value="" disabled selected>Selecciona un día</option>
-            <?php foreach ($dias as $reg): ?>
-                <option value="<?php echo $reg['id_dia']; ?>">
-                    <?php echo $dias_español[$reg['descripcion_dia']]; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+    <div class="contenedorItinerario">
+        <form id="form-itinerario" method="POST">
+            <label for="dia-select">Selecciona un día:</label>
+            <select id="dia-select" name="dia">
+                <option value="" disabled selected>Selecciona un día</option>
+                <?php foreach ($dias as $reg): ?>
+                    <option value="<?php echo $reg['id_dia']; ?>">
+                        <?php echo $dias_español[$reg['descripcion_dia']]; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
-        <label for="horario-desde">Horario Desde:</label>
-        <input type="time" id="horario-desde" name="horario_desde" value="">
+            <label for="horario-desde">Horario Desde:</label>
+            <input type="time" id="horario-desde" name="horario_desde" value="">
 
-        <label for="horario-hasta">Horario Hasta:</label>
-        <input type="time" id="horario-hasta" name="horario_hasta" value="">
-        <div>
-            <button type="submit" id="boton-submit" name="boton-submit">Guardar</button>
-        </div>
-    </form>
+            <label for="horario-hasta">Horario Hasta:</label>
+            <input type="time" id="horario-hasta" name="horario_hasta" value="">
+            <div>
+                <button type="submit" id="boton-submit" name="boton-submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <?php include(RUTA . "includes/footer.php"); ?>
+
+    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
+    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js" ?>"></script>
 
     <script>
         let id_sucursal = <?php echo json_encode($id_sucursal); ?>;
@@ -244,14 +237,6 @@ $dias_español = [
             });
         });
     </script>
-
-    <?php include(RUTA . "includes/footer.php"); ?>
-
-    <script src="<?php echo BASE_URL . "libs/jquery-3.7.1.min.js" ?>"></script>
-    <script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js" ?>"></script>
-    <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
-    <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
-    <script src="<?php echo BASE_URL . "js/terminoscondiciones.js" ?>"></script>
 
     <div id="resultado-ajax"></div>
     <script src="js/validaciones.js"></script>

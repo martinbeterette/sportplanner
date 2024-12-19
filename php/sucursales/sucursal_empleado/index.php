@@ -1,12 +1,9 @@
 <?php
-
 // ESTE ES PARA EL EMPLEADO
 session_start();
 require_once("includes/functions.php");
 require_once("../../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
-
-
 
 $id_sucursal = false;
 if ($_SESSION['id_perfil'] == 3) {
@@ -47,10 +44,12 @@ $sql_canchas = "
         z.id_zona,
         z.descripcion_zona,
         estado_zona.descripcion_estado_zona,
+        descripcion_tipo_terreno,
         fd.descripcion_formato_deporte
     FROM zona z
     JOIN formato_deporte fd ON z.rela_formato_deporte = fd.id_formato_deporte
     JOIN estado_zona ON rela_estado_zona = id_estado_zona
+    JOIN tipo_terreno ON rela_tipo_terreno = id_tipo_terreno
     WHERE z.rela_sucursal = ? AND z.estado = 1";
 $stmt_canchas = $conexion->prepare($sql_canchas);
 $stmt_canchas->bind_param("i", $id_sucursal);
@@ -103,6 +102,7 @@ $canchas = $stmt_canchas->get_result();
                     <div class="cancha-card">
                         <h3><?php echo htmlspecialchars($cancha['descripcion_zona']); ?></h3>
                         <p><strong>Tipo:</strong> <?php echo htmlspecialchars($cancha['descripcion_formato_deporte']); ?></p>
+                        <p><strong>Terreno:</strong> <?php echo htmlspecialchars($cancha['descripcion_tipo_terreno']); ?></p>
                         <p><strong>Estado:</strong> <?php echo $cancha['descripcion_estado_zona']; ?></p>
                         <button
                             class="btn btn-reservar"
@@ -111,12 +111,17 @@ $canchas = $stmt_canchas->get_result();
                         </button>
                         <button
                             class="btn btn-modificar"
-                            onclick="location.href='modificar_cancha.php?id_zona=<?php echo $cancha['id_zona']; ?>'">
+                            data-id="<?php echo $cancha['id_zona']; ?>"
+                            data-descripcion="<?php echo htmlspecialchars($cancha['descripcion_zona']); ?>"
+                            data-tipo="<?php echo htmlspecialchars($cancha['descripcion_formato_deporte']); ?>"
+                            data-terreno="<?php echo htmlspecialchars($cancha['descripcion_tipo_terreno']); ?>"
+                            data-estado="<?php echo htmlspecialchars($cancha['descripcion_estado_zona']); ?>">
                             Modificar
                         </button>
                         <button
                             class="btn btn-eliminar"
-                            onclick="if(confirm('¿Desea eliminar esta cancha?')) location.href='eliminar_cancha.php?id_zona=<?php echo $cancha['id_zona']; ?>';">
+                            data-id="<?php echo $cancha['id_zona']; ?>"
+                            data-sucursal="<?php echo $id_sucursal; ?>">
                             Eliminar
                         </button>
                     </div>
@@ -139,6 +144,321 @@ $canchas = $stmt_canchas->get_result();
     <script src="<?php echo BASE_URL . "js/header.js" ?>"></script>
     <script src="<?php echo BASE_URL . "js/aside.js" ?>"></script>
     <script src="<?php echo BASE_URL . "js/terminoscondiciones.js" ?>"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Botón Eliminar
+            document.querySelectorAll(".btn-eliminar").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const idZona = this.getAttribute("data-id");
+                    const idSucursal = this.getAttribute("data-sucursal");
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "Esta acción no se puede deshacer.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = `includes/eliminar.php?id_zona=${idZona}&id_sucursal=${idSucursal}`;
+                        }
+                    });
+                });
+            });
+
+            // Botón Modificar
+            // document.querySelectorAll(".btn-modificar").forEach(btn => {
+            //     btn.addEventListener("click", function() {
+            //         const idZona = this.getAttribute("data-id");
+            //         const descripcion = this.getAttribute("data-descripcion");
+            //         const estado = this.getAttribute("data-estado");
+            //         const tipo = this.getAttribute("data-tipo");
+            //         const terreno = this.getAttribute("data-terreno");
+
+            //         // Cargar datos dinámicos para los selects
+            //         $.ajax({
+            //             url: '../includes/obtener_datos_cancha.php',
+            //             method: 'GET',
+            //             success: function(data) {
+            //                 const {
+            //                     terrenos,
+            //                     formatos,
+            //                     estados
+            //                 } = data;
+
+            //                 // Construir las opciones de los selects
+            //                 // const terrenoOptions = terrenos.map(terreno => `<option value="${terreno.id_tipo_terreno}" ${terreno.descripcion_tipo_terreno === terreno ? 'selected' : ''}>${terreno.descripcion_tipo_terreno}</option>`).join('');
+            //                 // const formatoOptions = formatos.map(formato => `<option value="${formato.id_formato_deporte}" ${formato.descripcion_formato_deporte === tipo ? 'selected' : ''}>${formato.descripcion_formato_deporte}</option>`).join('');
+            //                 // const estadoOptions = estados.map(estado => `<option value="${estado.id_estado_zona}" ${estado.descripcion_estado_zona === estado ? 'selected' : ''}>${estado.descripcion_estado_zona}</option>`).join('');
+            //                 const terrenoOptions = terrenos.map(terrenoItem =>
+            //                     `<option value="${terrenoItem.id_tipo_terreno}" ${terrenoItem.descripcion_tipo_terreno === terreno ? 'selected' : ''}>
+            //                             ${terrenoItem.descripcion_tipo_terreno}
+            //                         </option>`
+            //                 ).join('');
+
+            //                 const formatoOptions = formatos.map(formatoItem =>
+            //                     `<option value="${formatoItem.id_formato_deporte}" ${formatoItem.descripcion_formato_deporte === tipo ? 'selected' : ''}>
+            //                             ${formatoItem.descripcion_formato_deporte}
+            //                         </option>`
+            //                 ).join('');
+
+            //                 const estadoOptions = estados.map(estadoItem =>
+            //                     `<option value="${estadoItem.id_estado_zona}" ${estadoItem.descripcion_estado_zona === estado ? 'selected' : ''}>
+            //                             ${estadoItem.descripcion_estado_zona}
+            //                         </option>`
+            //                 ).join('');
+
+
+            //                 Swal.fire({
+            //                     title: 'Modificar Cancha',
+            //                     html: `
+            //             <form id="form-modificar" style="text-align: left;">
+            //                 <div style="margin-bottom: 1rem;">
+            //                     <label for="descripcion" style="display: block; margin-bottom: 0.5rem;">Descripción</label>
+            //                     <input type="text" id="descripcion" class="swal2-input" style="padding: 0.5rem;" value="${descripcion}">
+            //                 </div>
+
+            //                 <div style="margin-bottom: 1rem;">
+            //                     <label for="tipo-terreno" style="display: block; margin-bottom: 0.5rem;">Tipo de Terreno</label>
+            //                     <select id="tipo-terreno" class="swal2-select" style="padding: 0.5rem;">
+            //                         ${terrenoOptions}
+            //                     </select>
+            //                 </div>
+
+            //                 <div style="margin-bottom: 1rem;">
+            //                     <label for="formato-deporte" style="display: block; margin-bottom: 0.5rem;">Formato de Deporte</label>
+            //                     <select id="formato-deporte" class="swal2-select" style="padding: 0.5rem;">
+            //                         ${formatoOptions}
+            //                     </select>
+            //                 </div>
+
+            //                 <div style="margin-bottom: 1rem;">
+            //                     <label for="estado" style="display: block; margin-bottom: 0.5rem;">Estado</label>
+            //                     <select id="estado" class="swal2-select" style="padding: 0.5rem;">
+            //                         ${estadoOptions}
+            //                     </select>
+            //                 </div>
+            //             </form>
+            //         `,
+            //                     focusConfirm: false,
+            //                     showCancelButton: true,
+            //                     confirmButtonText: 'Guardar',
+            //                     cancelButtonText: 'Cancelar',
+            //                     preConfirm: () => {
+            //                         const descripcion = document.getElementById('descripcion').value;
+            //                         const tipoTerreno = document.getElementById('tipo-terreno').value;
+            //                         const formatoDeporte = document.getElementById('formato-deporte').value;
+            //                         const estado = document.getElementById('estado').value;
+
+            //                         if (!descripcion.trim()) {
+            //                             Swal.showValidationMessage('La descripción no puede estar vacía.');
+            //                             return false;
+            //                         }
+
+            //                         // Devolver los datos recopilados
+            //                         return {
+            //                             idZona,
+            //                             descripcion,
+            //                             tipoTerreno,
+            //                             formatoDeporte,
+            //                             estado
+            //                         };
+            //                     }
+            //                 }).then((result) => {
+            //                     if (result.isConfirmed) {
+            //                         const {
+            //                             idZona,
+            //                             descripcion,
+            //                             tipoTerreno,
+            //                             formatoDeporte,
+            //                             estado
+            //                         } = result.value;
+
+            //                         // Realizar la petición AJAX para actualizar los datos
+            //                         preConfirm: () => {
+            //                             const formData = {
+            //                                 idZona: idZona,
+            //                                 descripcion: descripcion,
+            //                                 tipoTerreno: tipoTerreno,
+            //                                 formatoDeporte: formatoDeporte,
+            //                                 estado: estado
+            //                             };
+
+            //                             console.log(formData);
+
+            //                             return $.ajax({
+            //                                 url: '../includes/modificar.php',
+            //                                 method: 'POST',
+            //                                 data: formData,
+            //                                 success: function(response) {
+            //                                     if (response.success) {
+            //                                         Swal.fire('Éxito', 'Cancha modificada correctamente.', 'success')
+            //                                             .then(() => location.reload());
+            //                                     } else {
+            //                                         Swal.showValidationMessage(response.message || 'Error al modificar la cancha.');
+            //                                     }
+            //                                 },
+            //                                 error: function() {
+            //                                     Swal.showValidationMessage('Error al comunicarse con el servidor.');
+            //                                 }
+            //                             });
+            //                         }
+            //                     }
+            //                 });
+            //             },
+            //             error: function() {
+            //                 Swal.fire('Error', 'No se pudieron cargar los datos dinámicos.', 'error');
+            //             }
+            //         });
+            //     });
+            // });
+
+            document.querySelectorAll(".btn-modificar").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const idZona = this.getAttribute("data-id");
+                    const descripcion = this.getAttribute("data-descripcion");
+                    const estado = this.getAttribute("data-estado");
+                    const tipo = this.getAttribute("data-tipo");
+                    const terreno = this.getAttribute("data-terreno");
+
+                    // Cargar datos dinámicos para los selects
+                    $.ajax({
+                        url: '../includes/obtener_datos_cancha.php',
+                        method: 'GET',
+                        dataType: 'json', // Asegurarse de que el servidor retorne un JSON válido
+                        success: function(data) {
+                            const {
+                                terrenos,
+                                formatos,
+                                estados
+                            } = data;
+
+                            // Construir las opciones de los selects
+                            const terrenoOptions = terrenos.map(terrenoItem =>
+                                `<option value="${terrenoItem.id_tipo_terreno}" ${terrenoItem.descripcion_tipo_terreno === terreno ? 'selected' : ''}>
+                        ${terrenoItem.descripcion_tipo_terreno}
+                    </option>`
+                            ).join('');
+
+                            const formatoOptions = formatos.map(formatoItem =>
+                                `<option value="${formatoItem.id_formato_deporte}" ${formatoItem.descripcion_formato_deporte === tipo ? 'selected' : ''}>
+                        ${formatoItem.descripcion_formato_deporte}
+                    </option>`
+                            ).join('');
+
+                            const estadoOptions = estados.map(estadoItem =>
+                                `<option value="${estadoItem.id_estado_zona}" ${estadoItem.descripcion_estado_zona === estado ? 'selected' : ''}>
+                        ${estadoItem.descripcion_estado_zona}
+                    </option>`
+                            ).join('');
+
+                            // Mostrar el modal de SweetAlert
+                            Swal.fire({
+                                title: 'Modificar Cancha',
+                                html: `
+                        <form id="form-modificar" style="text-align: left;">
+                            <div style="margin-bottom: 1rem;">
+                                <label for="descripcion" style="display: block; margin-bottom: 0.5rem;">Descripción</label>
+                                <input type="text" id="descripcion" class="swal2-input" style="padding: 0.5rem;" value="${descripcion}">
+                            </div>
+                            
+                            <div style="margin-bottom: 1rem;">
+                                <label for="tipo-terreno" style="display: block; margin-bottom: 0.5rem;">Tipo de Terreno</label>
+                                <select id="tipo-terreno" class="swal2-select" style="padding: 0.5rem;">
+                                    ${terrenoOptions}
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label for="formato-deporte" style="display: block; margin-bottom: 0.5rem;">Formato de Deporte</label>
+                                <select id="formato-deporte" class="swal2-select" style="padding: 0.5rem;">
+                                    ${formatoOptions}
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label for="estado" style="display: block; margin-bottom: 0.5rem;">Estado</label>
+                                <select id="estado" class="swal2-select" style="padding: 0.5rem;">
+                                    ${estadoOptions}
+                                </select>
+                            </div>
+                        </form>
+                    `,
+                                focusConfirm: false,
+                                showCancelButton: true,
+                                confirmButtonText: 'Guardar',
+                                cancelButtonText: 'Cancelar',
+                                preConfirm: () => {
+                                    const descripcion = document.getElementById('descripcion').value;
+                                    const tipoTerreno = document.getElementById('tipo-terreno').value;
+                                    const formatoDeporte = document.getElementById('formato-deporte').value;
+                                    const estado = document.getElementById('estado').value;
+
+                                    // Validar datos
+                                    if (!descripcion.trim()) {
+                                        Swal.showValidationMessage('La descripción no puede estar vacía.');
+                                        return false;
+                                    }
+
+                                    // Devolver los datos recopilados
+                                    return {
+                                        idZona,
+                                        descripcion,
+                                        tipoTerreno,
+                                        formatoDeporte,
+                                        estado
+                                    };
+                                }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    const {
+                                        idZona,
+                                        descripcion,
+                                        tipoTerreno,
+                                        formatoDeporte,
+                                        estado
+                                    } = result.value;
+
+                                    // Realizar la petición AJAX para actualizar los datos
+                                    $.ajax({
+                                        url: '../includes/modificar.php',
+                                        method: 'POST',
+                                        data: {
+                                            idZona: idZona,
+                                            descripcion: descripcion,
+                                            tipoTerreno: tipoTerreno,
+                                            formatoDeporte: formatoDeporte,
+                                            estado: estado
+                                        },
+                                        dataType: 'json', // Asegúrate de que la respuesta sea JSON
+                                        success: function(response) {
+                                            console.log(response); // Para depuración
+                                            if (response.success) {
+                                                Swal.fire('Éxito', response.message || 'Cancha modificada correctamente.', 'success')
+                                                    .then(() => location.reload());
+                                            } else {
+                                                Swal.fire('Error', response.message || 'No se pudo modificar la cancha.', 'error');
+                                            }
+                                        },
+                                        error: function() {
+                                            Swal.fire('Error', 'No se pudo comunicar con el servidor.', 'error');
+                                        }
+                                    });
+                                }
+                            });
+                        },
+                        error: function() {
+                            Swal.fire('Error', 'No se pudieron cargar los datos dinámicos.', 'error');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
