@@ -12,7 +12,7 @@ if ($_SESSION['id_perfil'] == 3) {
 if ($_SESSION['id_perfil'] == 23) {
     $id_sucursal = $_GET['id_sucursal'] ?? header("Location: /includes/seleccionar_sucursal.php");
     if (!$id_sucursal) {
-        header("Location: /includes/seleccionar_sucursal.php");
+        header("Location: includes/seleccionar_sucursal.php");
     }
 }
 
