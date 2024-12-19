@@ -11,6 +11,7 @@ $registrosMembresia = $conexion->query("SELECT * FROM membresia");
 $id_socio = $_GET['id_socio'] ?? 12;
 $id_complejo = $_GET['id_complejo'] ?? null;
 
+$documento_ocupado = false;
 $consulta = "
 	SELECT id_socio, nombre, apellido, id_documento, rela_sexo, descripcion_documento, rela_tipo_documento, fecha_nacimiento, rela_membresia, descripcion_complejo
 	FROM
@@ -37,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 	$validacion = validarPersona($id_documento, $descripcion_documento, $rela_tipo_documento);
 	if($validacion->num_rows >= 1) {
-		echo "ya existe"; die;
+		$documento_ocupado = true;
 	} else {
 		// Intentar actualizar el registro
         if (actualizarSocio($conexion, $id_socio, $descripcion_documento, $rela_tipo_documento, $nombre, $apellido, $fecha_nacimiento, $rela_membresia, $rela_sexo)) {
@@ -137,5 +138,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			<button type="submit" id="formulario" name="formulario">Enviar</button>
 		</form>
 	</div>
+	<script src="<?php echo BASE_URL . "libs/sweetalert2.all.min.js" ?>"></script>
+	<?php if ($documento_ocupado) { ?>
+		<script>
+			Swal.fire({
+				icon: 'warning',
+				title: 'Documento Ocupado',
+				text: 'Ese documento se encuentra ocupado. Por favor ingrese uno valido',
+			});
+		</script>
+	<?php } ?>
 </body>
 </html>

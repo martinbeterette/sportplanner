@@ -3,6 +3,9 @@ session_start();
 require_once("../../../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
 
+//id usuario
+$id_usuario = $_SESSION['id_usuario'];
+
 
 // Saneamiento de datos
 $nombre = $conexion->real_escape_string($_REQUEST['nombre']);
@@ -92,6 +95,7 @@ try {
     ");
     $stmt_socio->bind_param("iiii",$cantidad_meses,$id_complejo,$id_membresia,$id_persona);
     $stmt_socio->execute();
+    $id_socio = $conexion->insert_id;
     
     $stmt_contacto = $conexion->prepare(
         "
@@ -120,6 +124,31 @@ try {
     );
     $stmt_usuario->bind_param("ssi",$username, $documento_hasheado, $id_contacto);
     $stmt_usuario->execute();
+
+    $sql_posterior = "
+            SELECT
+                id_socio, nombre, apellido,fecha_nacimiento, descripcion_documento,
+                descripcion_tipo_documento, descripcion_sexo, descripcion_contacto, fecha_afiliacion,
+                fecha_expiracion, descripcion_complejo, id_complejo, descripcion_membresia, descuento,
+                precio_membresia
+            FROM socio s JOIN persona p ON s.rela_persona = p.id_persona
+            JOIN documento d ON p.id_persona = d.rela_persona
+            JOIN tipo_documento td ON d.rela_tipo_documento = td.id_tipo_documento 
+            JOIN contacto c ON p.id_persona = c.rela_persona
+            JOIN complejo co ON co.id_complejo = s.rela_complejo
+            JOIN sexo se ON se.id_sexo = p.rela_sexo
+            JOIN membresia m ON s.rela_membresia = m.id_membresia 
+            WHERE id_socio = $id_socio
+    ";
+
+    $resultado_posterior = $conexion->query($sql_posterior)->fetch_assoc();
+
+    $json_posterior = json_encode($resultado_posterior);
+
+    $sql = "INSERT into auditoria_socio(accion, tiempo_accion, rela_usuario, estado_anterior, estado_posterior) VALUES('Alta', CURTIME(), $id_usuario, null, '$json_posterior')";
+
+    $conexion->query($sql);
+
 
     $conexion->commit();
 } catch (Exception $e) {

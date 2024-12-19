@@ -5,6 +5,7 @@
 
 	$id_sucursal = $_GET['id_sucursal'] ?? null;
 	$id_complejo = $_GET['id_complejo'] ?? null;
+	$id_usuario  = $_SESSION['id_usuario'];
 
 	if(!$id_complejo) {
 		header("Location: ../complejos_no_verificadors.php");
@@ -16,13 +17,41 @@
 
 	echo "ESTAMOS ACA  el id sucursal es : $id_sucursal" . "<br>" . "y el id_complejo: $id_complejo";
 
+	$resultado_anterior = $conexion->query("SELECT 
+													id_sucursal,
+													descripcion_sucursal,
+													descripcion_complejo,
+													sucursal.fecha_alta,
+													sucursal.verificado
+												FROM sucursal JOIN complejo
+												on sucursal.rela_complejo = complejo.id_complejo
+												WHERE id_sucursal = $id_sucursal
+													 ")->fetch_assoc();
+	$json_anterior = json_encode($resultado_anterior);
 
 	$sql = "
 		UPDATE sucursal SET verificado = 'verificado' WHERE id_sucursal = $id_sucursal;
 	";
 
 	if($conexion->query($sql)) {
-		header("Location: listado_sucursales.php?id_complejo=$id_complejo");
+
+		$resultado_posterior = $conexion->query("SELECT 
+												id_sucursal,
+												descripcion_sucursal,
+												descripcion_complejo,
+												sucursal.fecha_alta,
+												sucursal.verificado
+											FROM sucursal JOIN complejo
+											on sucursal.rela_complejo = complejo.id_complejo
+											WHERE id_sucursal = $id_sucursal
+												 ")->fetch_assoc();
+		$json_posterior = json_encode($resultado_posterior);
+
+		$sql = "INSERT into auditoria_verificado_sucursal(accion,estado_anterior, estado_posterior, tiempo_accion, rela_usuario) VALUES('Verificación', '$json_anterior', '$json_posterior', CURTIME(), $id_usuario)";
+		if($conexion->query($sql)) {
+
+			header("Location: listado_sucursales.php?id_complejo=$id_complejo");
+		}
 	}
 
 
