@@ -20,7 +20,7 @@ function cancelarReserva($id_sucursal, $id_reserva, $observacion, $pagina_actual
         $id_usuario = $resultUsuario->fetch_assoc()['rela_usuario'];
 
         if (!$id_usuario) {
-            throw new Exception("No se encontró un usuario relacionado con la reserva.");
+            // throw new Exception("No se encontró un usuario relacionado con la reserva.");
         }
 
         // Actualizar la tabla reserva
@@ -44,11 +44,14 @@ function cancelarReserva($id_sucursal, $id_reserva, $observacion, $pagina_actual
         $tituloNotificacion = "Cancelación de reserva";
         $categoria = "cancelacion";
 
-        $sqlNotificacion = "INSERT INTO notificacion (titulo, mensaje, rela_usuario,rela_reserva, categoria) 
-                            VALUES (?, ?, ?, ?,?)";
-        $stmtNotificacion = $conexion->prepare($sqlNotificacion);
-        $stmtNotificacion->bind_param('ssiis', $tituloNotificacion, $mensajeNotificacion, $id_usuario,$id_reserva, $categoria);
-        $stmtNotificacion->execute();
+        if(!$id_usuario) {
+            
+            $sqlNotificacion = "INSERT INTO notificacion (titulo, mensaje, rela_usuario,rela_reserva, categoria) 
+                                VALUES (?, ?, ?, ?,?)";
+            $stmtNotificacion = $conexion->prepare($sqlNotificacion);
+            $stmtNotificacion->bind_param('ssiis', $tituloNotificacion, $mensajeNotificacion, $id_usuario,$id_reserva, $categoria);
+            $stmtNotificacion->execute();
+        }
 
         // Confirmar transacción
         $conexion->commit();

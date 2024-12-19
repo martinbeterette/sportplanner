@@ -8,8 +8,8 @@ if(!isset($_SESSION['id_usuario'])) {
     header("Location: ". BASE_URL);
 }
 
-echo $id_persona = $_SESSION['id_persona'];
-echo $id_usuario = $_SESSION['id_usuario'];
+$id_persona = $_SESSION['id_persona'];
+$id_usuario = $_SESSION['id_usuario'];
 
 if ($_SESSION['id_perfil'] == 3) {
     $id_sucursal = obtenerSucursalDelEmpleado($id_persona, $id_usuario);
@@ -68,6 +68,7 @@ $consulta_reservas =
             s.id_sucursal = {$id_sucursal}
 ";
 echo $id_sucursal;
+$descripcion_sucursal = $conexion->query("SELECT descripcion_sucursal FROM sucursal WHERE id_sucursal = $id_sucursal")->fetch_assoc()['descripcion_sucursal'];
 $reservas_hechas = $conexion->query($consulta_reservas);
 ?>
 <html lang="es">
@@ -88,7 +89,7 @@ $reservas_hechas = $conexion->query($consulta_reservas);
 <?php include(RUTA."includes/menu_aside.php"); ?>
 
 <div class="contenedor-listado">
-    <h1 class="titulo-listado">Listado de Reservas</h1>
+    <h1 class="titulo-listado">Listado de Reservas de la sucursal: <?php echo $descripcion_sucursal ?></h1>
 
     <!-- Contenedor del buscador -->
     <input type="text" id="buscador" placeholder="Buscar nombre, apellido..." />

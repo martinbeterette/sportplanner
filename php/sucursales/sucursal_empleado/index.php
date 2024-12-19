@@ -13,7 +13,7 @@ if ($_SESSION['id_perfil'] == 3) {
 }
 
 if (!$id_sucursal) {
-    header("Location: " . BASE_URL . "errors/error403.php?no_tiene_acceso");
+    header("Location: " . BASE_URL);
 }
 
 // Consulta para obtener la información de la sucursal

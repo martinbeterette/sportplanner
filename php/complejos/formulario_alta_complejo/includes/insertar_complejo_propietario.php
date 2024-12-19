@@ -26,7 +26,6 @@ try {
 
 
 
-    $rela_usuario = $_SESSION['id_usuario'];
     // Insertar en la tabla Asignacion_persona_complejo
     $sql_asignacion_pc = "INSERT INTO Asignacion_persona_complejo (fecha_alta,rela_persona, rela_complejo,rela_usuario) 
                           VALUES (?, ?, ?,?)";

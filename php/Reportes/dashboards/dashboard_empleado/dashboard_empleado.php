@@ -2,7 +2,9 @@
 session_start();
 require_once("../../../../config/root_path.php");
 require_once(RUTA."config/database/conexion.php");
+echo $_SESSION['id_persona']. ' ' . $_SESSION['id_usuario'];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
