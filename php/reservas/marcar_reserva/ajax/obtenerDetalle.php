@@ -30,28 +30,21 @@
 		WHERE id_reserva = $id_reserva
 	";
 
-	if($conexion->query($sql)) {
-
+	if($datos = $conexion->query($sql)->fetch_assoc()) {
+		echo json_encode([
+			'success' => true,
+			'datos' => $datos,
+			'mensaje' => false,
+		]);
 	} else {
 		$mensaje = $conexion->error;
 		echo json_encode([
 			'success' => false,
 			'datos' => false,
 			'mensaje' => $mensaje,
-
 		]);
 	}
 
 ?>
 
- <p><strong>Nombre:</strong> ${respuesta.datos.nombre}</p>
-                            <p><strong>apellido:</strong> ${respuesta.datos.apellido}</p>
-                            <p><strong>documento:</strong> ${respuesta.datos.descripcion_documento}</p>
-                            <p><strong>sexo:</strong> ${respuesta.datos.descripcion_sexo}</p>
-                            <p><strong>ID reserva:</strong> ${respuesta.datos.id_reserva}</p>
-                            <p><strong>Fecha reserva:</strong> ${respuesta.datos.fecha_reserva}</p>
-                            <p><strong>Fecha alta:</strong> ${respuesta.datos.fecha_alta}</p>
-                            <p><strong>Cancha:</strong> ${respuesta.datos.descripcion_zona}</p>
-                            <p><strong>Sucursal:</strong> ${respuesta.datos.descripcion_sucursal}</p>
-                            <p><strong>Direccion:</strong> ${respuesta.datos.direccion}</p>
-                            <p><strong>Estado:</strong> ${respuesta.datos.estado_reserva}</p>
+ 
