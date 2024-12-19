@@ -13,6 +13,7 @@ $(document).on('click', '.notification-item', function () {
                 <button class="accept-btn" id="aceptar">Aceptar</button>
                 <button class="reject-btn" id="rechazar">Rechazar</button>
                 <button class="view-btn ver_detalle" id="ver_detalle">Ver Detalle</button>
+                ${reserva.comprobante ? `<button class="view-btn ver_comprobante" id="ver_comprobante" data-comprobante="${reserva.comprobante}">Ver Comprobante</button>` : ''}
             </div>`;
             break;
         case 'cancelacion':

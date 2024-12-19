@@ -67,18 +67,18 @@ table th {
   cursor: pointer;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+.list-container ul {
+    list-style: none;
+    padding: 0;
 }
 
-ul li {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  margin-bottom: 5px;
-  border-radius: 4px;
-  text-align: center;
+.list-container ul li {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    text-align: center;
 }
 
 #datepicker {
