@@ -157,8 +157,29 @@ $registros_socios = obtenerSocios($id_complejo);
             window.location.href = `../exportar_pdf.php?id_sucursal=${id_sucursal}&id_complejo=${id_complejo}`;
         });
     </script>
+    <script>
+
+        function eliminarSocio(id_socio, id_complejo) {
+            // Mostrar el modal de confirmación con SweetAlert2
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Este registro se eliminará permanentemente!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, redirigir para eliminar el registro
+                    window.location.href = `includes/eliminar.php?id_socio=${id_socio}&id_complejo=${id_complejo}`;
+                }
+            });
+        }
+    </script>
 
     <script src="js/TablaYPaginado.js"></script>
+
 </body>
 
 </html>

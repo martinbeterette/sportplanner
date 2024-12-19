@@ -152,7 +152,8 @@ $reservas_hechas = $conexion->query($consulta_reservas);
                     <button onclick="marcarLlegada(${idReserva})" style="margin: 5px; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer;" title="El cliente llegó a jugar">Marcar Llegada</button>
                     <button onclick="marcarSalida(${idReserva})" style="margin: 5px; padding: 10px; background: #2196F3; color: white; border: none; cursor: pointer;" title="El cliente se retiró de forma satisfactoria">Marcar Salida</button>
                     <button onclick="marcarInasistencia(${idReserva})" style="margin: 5px; padding: 10px; background: #f44336; color: white; border: none; cursor: pointer;" title="El cliente no se presentó a jugar">Marcar Inasistencia</button>
-                    <button onclick="salidaAnticipada(${idReserva})" style="margin: 5px; padding: 10px; background: #FFC107; color: black; border: none; cursor: pointer;" title="El cliente no concluyó su reserva esperadamente">Salida Anticipada</button>
+                    <button onclick="cancelarReserva(${idReserva})" style="margin: 5px; padding: 10px; background: #FFC107; color: black; border: none; cursor: pointer;" title="El cliente no concluyó su reserva esperadamente">Cancelar Reserva</button>
+                    <button onclick="ver_detalle(${idReserva})" style="margin: 5px; padding: 10px; background: #FFC107; color: black; border: none; cursor: pointer;" title="El cliente no concluyó su reserva esperadamente">Ver Detalle</button>
                 </div>
                 <button onclick="Swal.close()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
             `,
@@ -208,21 +209,63 @@ $reservas_hechas = $conexion->query($consulta_reservas);
         ${id_sucursal}&pagina_actual=${pagina_actual}`;
     }
 
-    function salidaAnticipada(id) {
-        console.log("Salida anticipada para ID: " + id);
+    function cancelarReserva(id) {
+        console.log("cancelar reserva para ID: " + id);
         Swal.fire({
-            title: "salida anticipada",
+            title: "Cancelar Reserva",
             html: `
                 <button onclick="Swal.close()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
-                <input type='text' placeholder='motivo de salida'>`,
-            showConfirmButton: false,
+
+                <label for="observacion">Adjunte un motivo</label>
+                <input type='text' id="observacion_cancelacion" placeholder='motivo de Cancelacion' name="observacion">`,
+            ConfirmButtonText: 'Cancelar Reserva',
 
         }).then(function(input) {
             if (input.isConfirmed) {
-                window.location.href = `includes/marcar_salida_anticipada.php?id_reserva=${id}&id_sucursal=
-            ${id_sucursal}&pagina_actual=${pagina_actual}`;
+                let observacion = $('#observacion_cancelacion').val();
+                window.location.href = `includes/cancelar_reserva.php?id_reserva=${id}&id_sucursal=
+            ${id_sucursal}&pagina_actual=${pagina_actual}&observacion=${observacion}`;
             }
 
+        });
+    }
+
+    function ver_detalle(idReserva) {
+
+        $.ajax({
+            url: 'ajax/obtenerDetalle.php',
+            method: 'POST',
+            data: {id_reserva: idReserva},
+            dataType: 'json',
+            success: function(respuesta) {
+
+                if (respuesta.success == true) {
+
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Detalle',
+                        html:`
+                            <p><strong>Nombre:</strong> ${respuesta.datos.nombre}</p>
+                            <p><strong>apellido:</strong> ${respuesta.datos.apellido}</p>
+                            <p><strong>documento:</strong> ${respuesta.datos.descripcion_documento}</p>
+                            <p><strong>sexo:</strong> ${respuesta.datos.descripcion_sexo}</p>
+                            <p><strong>ID reserva:</strong> ${respuesta.datos.id_reserva}</p>
+                            <p><strong>Fecha reserva:</strong> ${respuesta.datos.fecha_reserva}</p>
+                            <p><strong>Fecha alta:</strong> ${respuesta.datos.fecha_alta}</p>
+                            <p><strong>Cancha:</strong> ${respuesta.datos.descripcion_zona}</p>
+                            <p><strong>Sucursal:</strong> ${respuesta.datos.descripcion_sucursal}</p>
+                            <p><strong>Direccion:</strong> ${respuesta.datos.direccion}</p>
+                            <p><strong>Estado:</strong> ${respuesta.datos.estado_reserva}</p>
+                        `,
+
+                    });
+                } else if(respuesta.success == false) {
+                    console.log(respuesta.mensaje);
+                }
+            },
+            error: function() {
+                console.log("error en el ajax");
+            }
         });
     }
 </script>

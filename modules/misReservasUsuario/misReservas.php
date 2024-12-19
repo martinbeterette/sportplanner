@@ -6,7 +6,7 @@ require_once(RUTA . "config/database/db_functions/personas.php");
 
 // Verificar sesión
 if (!isset($_SESSION['id_persona']) || !isset($_SESSION['id_usuario'])) {
-    die("Acceso denegado. Por favor inicie sesión.");
+    header("Location: ". BASE_URL);
 }
 
 $idPersona = $_SESSION['id_persona'];

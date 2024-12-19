@@ -194,12 +194,14 @@ if (isset($query_notificacion)) {
                 </div>
             </li>
 
+            <?php if($_SESSION['id_perfil'] == 1) {?>
             <li class="profile-dropdown-list-item">
                 <a href="<?php echo BASE_URL . 'modules/misReservasUsuario/misReservas.php' ?>">
                     <i class="fa-solid fa-futbol"></i>
                     Mis Reservas
                 </a>
             </li>
+            <?php } ?>
 
             <li class="profile-dropdown-list-item">
                 <a href="#">
