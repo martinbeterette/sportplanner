@@ -77,7 +77,7 @@ foreach ($registros as $reg) {
     $sucursal    = $reg['rela_sucursal'];
 }
 
-if (isset($_POST['modificacion'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $zona = $_POST['descripcion'];
     $terreno = $_POST['terreno'];
     $tipoFutbol = $_POST['tipo_futbol'];
@@ -122,9 +122,9 @@ if (isset($_POST['modificacion'])) {
 
     <div class="containerEmpleado">
         <h1>Modulo de Modificacion de Zona</h1>
-        <form action="<?php echo $_SERVER['PHP_SELF'] . '?id_zona=' . $id . '&id_sucursal=' . $id_sucursal; ?>" method="post" onsubmit="return confirmModification();">
-            <label for="descripcion">Código:</label>
-            <input type="text" id="descripcion" name="descripcion" value="" placeholder="cancha número 1" required>
+        <form action="<?php echo $_SERVER['PHP_SELF'] . '?id_zona=' . $id . '&id_sucursal=' . $id_sucursal; ?>" method="post" onsubmit="return confirmModification(event);" id="form">
+            <label for="descripcion">Descripcion:</label>
+            <input type="text" id="descripcion" name="descripcion" value="<?php echo $zona ? $zona : '' ?>" placeholder="cancha número 1" required>
             <p id="error_descripcion" style="color: red; display: none;">Solo se permiten letras, números y espacios.</p>
 
             <label for="terreno">Terreno:</label>
@@ -180,11 +180,28 @@ if (isset($_POST['modificacion'])) {
     <script src="../../js/validarNomCancha.js"></script>
 
     <script>
-        function confirmModification() {
-            var respuesta = confirm("¿Estás seguro de que deseas aplicar las modificaciones?");
-            return respuesta;
-        }
-    </script>
+    function confirmModification(event) {
+        event.preventDefault(); // Detiene el envío inmediato del formulario
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¿Deseas aplicar las modificaciones?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, modificar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, envía el formulario
+                document.getElementById('form').submit();
+            }
+        });
+
+        return false; // Previene el envío mientras no se confirma
+    }
+</script>
 </body>
 
 </html>

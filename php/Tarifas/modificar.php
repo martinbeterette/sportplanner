@@ -58,7 +58,7 @@
             $stmt->close();
             $conexion->close();
             error_log("Comparando: $hora_inicio-$hora_fin con $bd_hora_inicio-$bd_hora_fin");
-            // header("Location: ". $_SERVER['PHP_SELF'] ."?id_sucursal={$id_sucursal}&id={$id_tarifa}&tarifa_solapada");
+            header("Location: tabla_tarifa.php?id_sucursal=$id_sucursal&tarifa_solapada");
             exit();
         } else {
             // Aquí modificamos la tarifa

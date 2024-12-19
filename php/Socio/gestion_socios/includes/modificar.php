@@ -71,7 +71,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 	<div class="containerEmpleado">
 		<h1>Modificar Socio</h1>
-		<form action="<?php echo $_SERVER['PHP_SELF'] . "?id={$id_socio}&id_complejo={$id_complejo}"; ?>" method="post">
+		<form action="<?php echo $_SERVER['PHP_SELF'] . "?id_socio={$id_socio}&id_complejo={$id_complejo}"; ?>" method="post">
 
 			<label for="nombre">Nombre:</label>
 			<input type="text" id="nombre" name="nombre" value="<?php echo $regi['nombre']; ?>">
