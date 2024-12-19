@@ -3,7 +3,6 @@ session_start();
 require_once("../../../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
 
-
 // Saneamiento de datos
 $nombre = $conexion->real_escape_string($_REQUEST['nombre']);
 $apellido = $conexion->real_escape_string($_REQUEST['apellido']);
@@ -12,7 +11,6 @@ $correo = filter_var($_REQUEST['correo'], FILTER_VALIDATE_EMAIL);
 $tipo_documento = intval($_REQUEST['id_tipo_documento']);
 $id_sexo = intval($_REQUEST['id_sexo']);
 $fecha_nacimiento = $_REQUEST['fecha_nacimiento'];
-
 
 //valido la fecha
 if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha_nacimiento)) {
@@ -111,7 +109,5 @@ try {
     exit();
 }
 
-
-
 // Respuesta exitosa
-echo 'success';
+header('Location: ../formularioReserva1.php');

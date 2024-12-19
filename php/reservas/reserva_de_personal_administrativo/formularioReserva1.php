@@ -156,47 +156,47 @@ $registros_cancha = $conexion->query("SELECT * FROM zona WHERE rela_sucursal = $
                     if (response.success) {
                         // Construir los selects dinámicamente
                         const tipoDocumentoOptions = response.tipo_documento.map(
-                            option => `<option value="${option.id}">${option.descripcion}</option>`
+                            option => `<option value="${option.id_tipo_documento}">${option.descripcion_tipo_documento}</option>`
                         ).join('');
                         const sexoOptions = response.sexo.map(
-                            option => `<option value="${option.id}">${option.descripcion}</option>`
+                            option => `<option value="${option.id_sexo}">${option.descripcion_sexo}</option>`
                         ).join('');
 
                         // Mostrar el modal
                         Swal.fire({
                             title: 'Agregar Persona',
                             html: `
-                            <form id="form_persona">
+                            <form id="form_persona" action="includes/insert_persona.php" method="post" style="display: flex; justify-conten: center; flex-direction:column;">
                                 <label>Nombre:</label>
                                 <input type="text" id="nombre" name="nombre" class="swal2-input" placeholder="Nombre" required>
                                 <label>Apellido:</label>
                                 <input type="text" id="apellido" name="apellido" class="swal2-input" placeholder="Apellido" required>
                                 <label>Tipo Documento:</label>
-                                <select id="tipo_documento" name="tipo_documento" class="swal2-select">
+                                <select id="tipo_documento" name="id_tipo_documento" class="swal2-select">
                                     ${tipoDocumentoOptions}
                                 </select>
                                 <label>Documento:</label>
                                 <input type="text" id="documento" name="documento" class="swal2-input" placeholder="Documento" required>
                                 <label>Sexo:</label>
-                                <select id="sexo" name="sexo" class="swal2-select">
+                                <select id="sexo" name="id_sexo" class="swal2-select">
                                     ${sexoOptions}
                                 </select>
                                 <label>Fecha de Nacimiento:</label>
                                 <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="swal2-input" required>
                                 <label>Correo:</label>
                                 <input type="email" id="correo" name="correo" class="swal2-input" placeholder="Correo" required>
+                                <button type="submit">Registrar</button>
                             </form>
                         `,
                             showCancelButton: true,
-                            confirmButtonText: 'Guardar',
                             preConfirm: () => {
                                 // Obtener valores del formulario
                                 const formValues = {
                                     nombre: document.getElementById("nombre").value.trim(),
                                     apellido: document.getElementById("apellido").value.trim(),
-                                    tipo_documento: document.getElementById("tipo_documento").value,
+                                    id_tipo_documento: document.getElementById("tipo_documento").value,
                                     documento: document.getElementById("documento").value.trim(),
-                                    sexo: document.getElementById("sexo").value,
+                                    id_sexo: document.getElementById("sexo").value,
                                     fecha_nacimiento: document.getElementById("fecha_nacimiento").value,
                                     correo: document.getElementById("correo").value.trim()
                                 };
@@ -211,25 +211,25 @@ $registros_cancha = $conexion->query("SELECT * FROM zona WHERE rela_sucursal = $
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Enviar datos al servidor
-                                $.ajax({
-                                    url: "includes/insert_persona.php",
-                                    method: "POST",
-                                    data: result.value,
-                                    success: function(response) {
-                                        Swal.fire({
-                                            title: 'Éxito',
-                                            text: 'Persona agregada correctamente',
-                                            icon: 'success'
-                                        });
-                                    },
-                                    error: function() {
-                                        Swal.fire({
-                                            title: 'Error',
-                                            text: 'No se pudo agregar la persona',
-                                            icon: 'error'
-                                        });
-                                    }
-                                });
+                                // $.ajax({
+                                //     url: "includes/insert_persona.php",
+                                //     method: "POST",
+                                //     data: result.value,
+                                //     success: function(response) {
+                                //         Swal.fire({
+                                //             title: 'Éxito',
+                                //             text: 'Persona agregada correctamente',
+                                //             icon: 'success'
+                                //         });
+                                //     },
+                                //     error: function() {
+                                //         Swal.fire({
+                                //             title: 'Error',
+                                //             text: 'No se pudo agregar la persona',
+                                //             icon: 'error'
+                                //         });
+                                //     }
+                                // });
                             }
                         });
                     } else {
