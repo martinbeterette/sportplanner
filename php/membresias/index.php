@@ -39,6 +39,8 @@ require_once("includes/aumento_masivo.php");
     <?php include(RUTA . "includes/menu_aside.php"); ?>
 
     <div class="container">
+        <h1 align="center">Listado de Membresías</h1>
+
         <form id="form-actualizar-precios" method="post" align="center">
             <label for="porcentaje">Aumento en porcentaje:(%)</label>
             <input type="number" id="porcentaje" name="porcentaje" min="1" placeholder="Ingrese el porcentaje" required>
@@ -48,10 +50,15 @@ require_once("includes/aumento_masivo.php");
                 name="btn-actualizar-precios">Aplicar Aumento Masivo</button>
         </form>
 
-        <h1 align="center">Listado de Membresías</h1>
-
         <!-- Filtro de búsqueda -->
-        <input type="text" id="buscador" placeholder="Buscar por descripción o descuento" />
+        <div class="accionencabezado">
+            <input type="text" id="buscador" placeholder="Buscar por descripción o descuento" />
+            <div class="export">
+                <button id="exportarpdf" onclick="window.location.href='exportar_pdf.php';">
+                    <i class="fa-regular fa-file-pdf"></i>
+                </button>
+            </div>
+        </div>
 
         <!-- Contenedor de la tabla -->
         <div id="tabla-container"></div>
@@ -86,7 +93,30 @@ require_once("includes/aumento_masivo.php");
     <script>
         $(document).on("click", ".eliminar", function() {
             let id_membresia = $(this).attr('valor');
-            window.location.href = `includes/eliminar_membresia.php?id_membresia=${id_membresia}`;
+
+            // Mostrar el modal de confirmación con SweetAlert2
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Este registro se eliminará permanentemente!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, redirigir para eliminar el registro
+                    window.location.href = `includes/eliminar_membresia.php?id_membresia=${id_membresia}`;
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Agregamos un listener al botón
+        document.getElementById("exportarpdf").addEventListener("click", function() {
+            // Redirige a la URL con el parámetro id_sucursal
+            window.location.href = `exportar_pdf.php?id_complejo=${id_complejo}`;
         });
     </script>
 </body>

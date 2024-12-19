@@ -14,7 +14,7 @@ if ($_SESSION['id_perfil'] == 3) {
 }
 
 if (!$id_sucursal) {
-    header("Location: " . BASE_URL . "index2.php");
+    header("Location: " . BASE_URL . "index.php");
 }
 
 ?>
@@ -34,6 +34,43 @@ if (!$id_sucursal) {
     <link rel="stylesheet" href="<?php echo BASE_URL . 'css/header.css' ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . 'css/footer.css' ?>">
     <link rel="stylesheet" href="css/index.css">
+    <style>
+        .export {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export button {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export button i {
+            font-size: 35px;
+            color: #333;
+        }
+
+        .export button:hover i {
+            color: #ff0000;
+        }
+
+        .accionencabezado {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 10px;
+        }
+
+        #buscador {
+            width: 25%;
+        }
+    </style>
 </head>
 
 <body>
@@ -42,7 +79,14 @@ if (!$id_sucursal) {
 
     <div class="containerEmpleado">
         <h1 align="center">Modulo de Empleados de Complejos Deportivos</h1>
-        <input type="text" id="buscador" placeholder="Buscar...">
+        <div class="accionencabezado">
+            <input type="text" id="buscador" placeholder="Buscar...">
+            <div class="export">
+                <button id="exportarpdf" onclick="window.location.href='exportar_pdf.php';">
+                    <i class="fa-regular fa-file-pdf"></i>
+                </button>
+            </div>
+        </div>
         <div id="tabla-container"></div>
         <div id="paginacion-container"></div>
     </div>
@@ -147,7 +191,16 @@ if (!$id_sucursal) {
         }); // Cierre del DOCUMENT READY
     </script>
 
+    <script>
+        // Supongamos que tienes el id_sucursal en una variable
+        let id_sucursal = <?php echo $id_sucursal; ?>; // Reemplaza con el valor dinámico que tengas
 
+        // Agregamos un listener al botón
+        document.getElementById("exportarpdf").addEventListener("click", function() {
+            // Redirige a la URL con el parámetro id_sucursal
+            window.location.href = `exportar_pdf.php?id_sucursal=${id_sucursal}`;
+        });
+    </script>
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 session_start();
 require_once("../../../config/root_path.php");
 require_once(RUTA . "config/database/conexion.php");
+
 if ($_SESSION['id_perfil'] == 3) {
     $id_persona = $_SESSION['id_persona'];
     $id_usuario = $_SESSION['id_usuario'];
@@ -42,6 +43,14 @@ $registros_cancha = $conexion->query("SELECT * FROM zona WHERE rela_sucursal = $
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/aside.css" ?>">
     <link rel="stylesheet" href="<?php echo BASE_URL . "css/footer.css" ?>">
     <link rel="stylesheet" href="css/index.css">
+    <style>
+        .personatitulo {
+            display: flex;
+            align-content: center;
+            justify-content: space-evenly;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,7 +62,10 @@ $registros_cancha = $conexion->query("SELECT * FROM zona WHERE rela_sucursal = $
     <div class="container">
         <!-- Tabla de Personas -->
         <div class="table-container">
-            <h2>Personas</h2>
+            <div class="personatitulo">
+                <h2>Personas</h2>
+                <button id="alta_persona">Agregar Persona</button>
+            </div>
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Buscar por nombre, apellido o documento">
                 <button id="buscar">Buscar</button>
@@ -130,6 +142,112 @@ $registros_cancha = $conexion->query("SELECT * FROM zona WHERE rela_sucursal = $
             let fecha_reserva = $('#datepicker').val();
             alert(`id_persona=${id_persona}&cancha=${id_zona}&fecha_reserva=${fecha_reserva}`);
             window.location.href = `formularioReserva2.php?persona=${id_persona}&cancha=${id_zona}&fecha_reserva=${fecha_reserva}`;
+        });
+    </script>
+
+    <script>
+        $(document).on("click", "#alta_persona", function() {
+            // Llamada AJAX para obtener opciones de la base de datos
+            $.ajax({
+                url: "ajax/get_options.php", // Archivo PHP para obtener opciones
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                    if (response.success) {
+                        // Construir los selects dinámicamente
+                        const tipoDocumentoOptions = response.tipo_documento.map(
+                            option => `<option value="${option.id}">${option.descripcion}</option>`
+                        ).join('');
+                        const sexoOptions = response.sexo.map(
+                            option => `<option value="${option.id}">${option.descripcion}</option>`
+                        ).join('');
+
+                        // Mostrar el modal
+                        Swal.fire({
+                            title: 'Agregar Persona',
+                            html: `
+                            <form id="form_persona">
+                                <label>Nombre:</label>
+                                <input type="text" id="nombre" name="nombre" class="swal2-input" placeholder="Nombre" required>
+                                <label>Apellido:</label>
+                                <input type="text" id="apellido" name="apellido" class="swal2-input" placeholder="Apellido" required>
+                                <label>Tipo Documento:</label>
+                                <select id="tipo_documento" name="tipo_documento" class="swal2-select">
+                                    ${tipoDocumentoOptions}
+                                </select>
+                                <label>Documento:</label>
+                                <input type="text" id="documento" name="documento" class="swal2-input" placeholder="Documento" required>
+                                <label>Sexo:</label>
+                                <select id="sexo" name="sexo" class="swal2-select">
+                                    ${sexoOptions}
+                                </select>
+                                <label>Fecha de Nacimiento:</label>
+                                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="swal2-input" required>
+                                <label>Correo:</label>
+                                <input type="email" id="correo" name="correo" class="swal2-input" placeholder="Correo" required>
+                            </form>
+                        `,
+                            showCancelButton: true,
+                            confirmButtonText: 'Guardar',
+                            preConfirm: () => {
+                                // Obtener valores del formulario
+                                const formValues = {
+                                    nombre: document.getElementById("nombre").value.trim(),
+                                    apellido: document.getElementById("apellido").value.trim(),
+                                    tipo_documento: document.getElementById("tipo_documento").value,
+                                    documento: document.getElementById("documento").value.trim(),
+                                    sexo: document.getElementById("sexo").value,
+                                    fecha_nacimiento: document.getElementById("fecha_nacimiento").value,
+                                    correo: document.getElementById("correo").value.trim()
+                                };
+
+                                // Validación simple
+                                if (!formValues.nombre || !formValues.apellido || !formValues.documento || !formValues.fecha_nacimiento || !formValues.correo) {
+                                    Swal.showValidationMessage('Todos los campos son obligatorios');
+                                }
+
+                                return formValues;
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Enviar datos al servidor
+                                $.ajax({
+                                    url: "includes/insert_persona.php",
+                                    method: "POST",
+                                    data: result.value,
+                                    success: function(response) {
+                                        Swal.fire({
+                                            title: 'Éxito',
+                                            text: 'Persona agregada correctamente',
+                                            icon: 'success'
+                                        });
+                                    },
+                                    error: function() {
+                                        Swal.fire({
+                                            title: 'Error',
+                                            text: 'No se pudo agregar la persona',
+                                            icon: 'error'
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'No se pudieron cargar las opciones',
+                            icon: 'error'
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al cargar datos de la base de datos',
+                        icon: 'error'
+                    });
+                }
+            });
         });
     </script>
 </body>
