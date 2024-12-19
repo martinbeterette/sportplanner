@@ -36,10 +36,16 @@ require_once("includes/obtener_notificaciones.php");
         <div class="container">
             <div class="sidebar">
                 <?php if (!is_null($Notificaciones)): ?>
+
                     <?php if ($Notificaciones->num_rows > 0): ?>
+
                         <?php while ($row = $Notificaciones->fetch_assoc()): ?>
-                            <div class="notification-item <?php echo $row['leido'] == 'no leido' ? 'unread' : ''; ?>" row="<?php echo htmlspecialchars(json_encode($row)); ?>"
-                                id-notificacion="<?php echo $row['id_notificacion'] ?>">
+
+                            <div 
+                                class="notification-item <?php echo $row['leido'] == 'no leido' ? 'unread' : ''; echo !empty($row['comprobante']) ? 'con-comprobante' : '' ?>" row="<?php echo htmlspecialchars(json_encode($row)); ?>"
+                                id-notificacion="<?php echo $row['id_notificacion'] ?>"
+
+                            >
                                 <div class="notification-title">
                                     <div class="imgNotificacion">
                                         <?php if ($row['leido'] == 'no leido') { ?>
@@ -98,6 +104,7 @@ require_once("includes/obtener_notificaciones.php");
     <script src="js/aceptar_reserva.js"></script>
     <script src="js/ver_detalle.js"></script>
     <script src="js/show_details.js"></script>
+    <script src="js/ver_comprobante.js"></script>
 </body>
 
 </html>
