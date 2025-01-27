@@ -2,7 +2,7 @@
 	
 	require_once("../../../../config/root_path.php");
 	require_once(RUTA. "config/database/conexion.php");
-	$id_provincia = isset($_GET['id_provincia']) ? $_GET['id_provincia'] : die("error: falta GET de id_provincia");
+	$id_provincia = isset($_POST['id_provincia']) ? $_POST['id_provincia'] : die("error: falta GET de id_provincia");
 
 	$sql = "SELECT id_localidad,descripcion_localidad FROM localidad WHERE estado IN(1) AND rela_provincia = ?";
 	$stmt = $conexion->prepare($sql);
