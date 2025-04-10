@@ -43,3 +43,7 @@ Route::get('/primer-inicio', function() {
 Route::get('/sublime-merge', function() {
     return view("sublimeMerge");
 });
+
+Route::get('/prueba', function() {
+    return view("probando_funciones");
+});
