@@ -1,0 +1,15 @@
+{% extends 'partials/modals/generic.html.twig' %}
+
+{% set title = 'Agregar Tipo de Contacto' %}
+{% set id_modal = 'agregar_modal' %}
+{% set id_form = 'agregar_form' %}
+{% set action = base_url ~ '/tablas-maestras/tipo-de-contactos' %}
+{% set button_text = 'Agregar' %}
+{% set button_text = 'POST' %}
+
+{% block modal_body %}
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="descripcion" name="descripcion">
+    </div>
+{% endblock %}

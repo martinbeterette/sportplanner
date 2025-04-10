@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipo de contacto{% endblock %}
+
+{% block extra_stylesheets %}
+    <style>
+        .welcome-card {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Lista de Elementos</h2>
+        <button type="button" class="btn btn-primary mb-3" data-mdb-toggle="modal" data-mdb-target="#agregar_modal">
+            Agregar
+        </button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each contactos}}
+
+                    <tr>
+                        <td>{{ id_tipo_contacto }}</td>
+                        <td>{{ descripcion }}</td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm" data-mdb-toggle="modal" data-mdb-target="#modificar_modal" data-id="{{ id_tipo_contacto }}">Modificar</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-mdb-toggle="modal" data-mdb-target="#eliminar_modal" data-id="{{ id_tipo_contacto }}">Eliminar</button>
+                        </td>
+                    </tr>
+
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    {# INCLUIMOS LOS MODALES #}
+    {% include 'partials/modals/tipoContacto/agregar.html.twig' %}
+    {% include 'partials/modals/tipoContacto/modificar.html.twig' %}
+    {% include 'partials/modals/tipoContacto/eliminar.html.twig' %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ base_url }}/public/js/partials/modals/masterTables/tipoContacto/agregar.js"></script>
+    <script src="{{ base_url }}/public/js/partials/modals/masterTables/tipoContacto/modificar.js"></script>
+    <script src="{{ base_url }}/public/js/partials/modals/masterTables/tipoContacto/eliminar.js"></script>
+    <script>
+        $.ajax({
+            url: "",
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                let source = $("#template-registros").html();
+                let template = Handlebars.compile(source);
+                let html = template({ usuarios: data });
+
+                $("#tabla-body").html(html);
+            }
+        });
+
+    </script>
+{% endblock %}

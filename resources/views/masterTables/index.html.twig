@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablas Maestras</title>
+    <!-- Bootstrap MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="bg-dark text-white p-3" style="width: 250px; min-height: 100vh;">
+            <h4>Menú</h4>
+            <ul class="list-unstyled">
+                <li><a href="#" class="text-white">Inicio</a></li>
+                <li><a href="#" class="text-white">Tablas Maestras</a></li>
+                <li><a href="#" class="text-white">Configuración</a></li>
+            </ul>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="container mt-4">
+            <h2 class="mb-4">Seleccionar Tabla Maestra</h2>
+            <div class="row">
+                <!-- Cards de Tablas Maestras -->
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Sexos</h5>
+                            <a href="{{ sexos_url }}" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Tipo de Contactos</h5>
+                            <a href="{{ base_url }}/tablas-maestras/tipo-contactos" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Superficies</h5>
+                            <a href="#" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Estados</h5>
+                            <a href="#" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Categorías</h5>
+                            <a href="#" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Ciudades</h5>
+                            <a href="{{ base_url }}/ciudades" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Provincias</h5>
+                            <a href="#" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MDB Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
+</body>
+</html>

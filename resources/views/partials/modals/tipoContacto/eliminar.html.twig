@@ -1,0 +1,14 @@
+{% extends 'partials/modals/generic.html.twig' %}
+
+{% set title = 'Eliminar tipo de contacto' %}
+{% set id_modal = 'eliminar_modal' %}
+{% set id_form = 'eliminar_form' %}
+{% set action = '' %}
+{% set button_text = 'Eliminar' %}
+{% set method = 'POST' %}
+
+{% block modal_body %}
+    <div class="mb-3">
+        <h2>¿Seguro que desea eliminar este tipo de contacto?</h2>
+    </div>
+{% endblock %}
