@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/personas',         [PersonaController::class, 'index']);
+Route::get('/personas',         [PersonaController::class, 'indexApi']);
 Route::post('/personas',        [PersonaController::class, 'store']);
 Route::get('/personas/{id}',    [PersonaController::class, 'show']);
 Route::put('/personas/{id}',    [PersonaController::class, 'update']);

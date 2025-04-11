@@ -21,6 +21,25 @@ class PersonaController extends Controller
         }
     }
 
+    public function indexApi(Request $request)
+    {
+        $paginaActual       = $request->pagina_actual ?? 1;
+        $registrosPorPagina = $request->registros_por_pagina ?? 10;
+        $offset             = ($paginaActual - 1) * $registrosPorPagina;
+        $totalPersonas      = Persona::count();
+        $totalPaginas       = ceil($totalPersonas / $registrosPorPagina); 
+
+        $personas = Persona::limit($registrosPorPagina)->offset($offset)->get();
+
+        $data = (object)[
+            "data"              => $personas,
+            "total_registros"   => $totalPersonas,
+            "pagina"            => $paginaActual,
+            "total_paginas"     => $totalPaginas,
+        ];
+        return response()->json($data);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

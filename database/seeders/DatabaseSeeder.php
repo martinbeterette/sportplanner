@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             TipoDocumentoSeeder::class,
             SexoSeeder::class,
+            PersonaSeeder::class
         ]);
         User::factory()->create([
             'name' => 'Test User',
