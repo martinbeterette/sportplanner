@@ -20,11 +20,19 @@
 </head>
 <body>
     <h2>Tabla de asd</h2>
-    <div id="table-container"></div>
-    <div id="pagination-container" style="margin-top: 1rem;"></div>
+    <div id="mi-tabla">
+        <table>
+            <thead>
+                <th>nombre</th>
+                <th>apellido</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div id="paginador" style="margin-top: 1rem;"></div>
 
-    <script src="{{ asset("js/utils.js") }}"></script>
-    <script>
+    <script src="{{ asset('js/utils.js') }}"></script>
+    <!-- <script>
      
         async function mostrarTabla() {
             const contenido = await getData('/api/personas');
@@ -62,6 +70,17 @@
         }
     
         mostrarTabla();
+    </script> -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderizarTablaConPaginador({
+          url: '/api/personas',
+          parametros: {}, // podés poner filtros o lo que quieras
+          campos: ['nombre', 'apellido'],
+          tablaSelector: '#miTabla',
+          paginadorSelector: '#paginador'
+        });
+      });
     </script>
     
 </body>

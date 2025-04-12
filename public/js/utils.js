@@ -58,3 +58,64 @@ function renderizarPaginador(paginaActual, totalPaginas, paginasVisibles, conten
       contenedor.appendChild(btnNext);
   }
 }
+
+
+async function renderizarTablaConPaginador({
+  url,
+  parametros = {},
+  campos = [],
+  tablaSelector,
+  paginadorSelector,
+  paginasVisibles = 5,
+  paginaActual = 1
+}) {
+  try {
+    // Agregamos la página actual a los parámetros
+    parametros.page = paginaActual;
+
+    // Traer datos del endpoint
+    const data = await getData(url, parametros);
+
+    const registros = data.data || data.items || []; // adaptá esto según tu estructura
+    const totalPaginas = data.last_page || data.total_pages || 1;
+
+    // Referencias a elementos del DOM
+    const tabla = document.querySelector(tablaSelector);
+    const tbody = tabla.querySelector("tbody");
+    tbody.innerHTML = ""; // Limpiar cuerpo de la tabla
+
+    // Renderizar filas según campos
+    registros.forEach(registro => {
+      const tr = document.createElement("tr");
+      campos.forEach(campo => {
+        const td = document.createElement("td");
+        td.textContent = registro[campo] ?? "";
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+
+    // Renderizar paginador
+    renderizarPaginador(paginaActual, totalPaginas, paginasVisibles, paginadorSelector);
+
+    // Event delegation para los botones del paginador
+    const contenedor = document.querySelector(paginadorSelector);
+    contenedor.onclick = (e) => {
+      if (e.target.tagName === "BUTTON") {
+        const nuevaPagina = parseInt(e.target.dataset.pagina);
+        renderizarTablaConPaginador({
+          url,
+          parametros,
+          campos,
+          tablaSelector,
+          paginadorSelector,
+          paginasVisibles,
+          paginaActual: nuevaPagina
+        });
+      }
+    };
+
+  } catch (error) {
+    console.error("Error al renderizar la tabla:", error);
+  }
+}
