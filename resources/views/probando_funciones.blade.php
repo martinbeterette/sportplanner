@@ -20,7 +20,7 @@
 </head>
 <body>
     <h2>Tabla de asd</h2>
-    <div id="mi-tabla">
+    <div id="tabla-container">
         <table>
             <thead>
                 <th>nombre</th>
@@ -35,13 +35,7 @@
    
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        renderizarTablaConPaginador({
-          url: '/api/personas',
-          parametros: {}, // podés poner filtros o lo que quieras
-          campos: ['nombre', 'apellido'],
-          tablaSelector: '#miTabla',
-          paginadorSelector: '#paginador'
-        });
+        renderTable('/api/personas', {}, ['nombre', 'apellido', 'fecha_nacimiento']);
       });
     </script>
     
