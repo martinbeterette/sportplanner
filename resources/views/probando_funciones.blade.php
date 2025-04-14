@@ -32,45 +32,7 @@
     <div id="paginador" style="margin-top: 1rem;"></div>
 
     <script src="{{ asset('js/utils.js') }}"></script>
-    <!-- <script>
-     
-        async function mostrarTabla() {
-            const contenido = await getData('/api/personas');
-    
-            if (contenido && Array.isArray(contenido.data)) {
-                const datos = {
-                    pagina: contenido.pagina,
-                    total_paginas: contenido.total_paginas,
-                    paginas_visibles: 5
-                };
-                let tabla = document.querySelector('#table-container');
-                tabla.innerHTML = `
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Título</th>
-                                <th>Contenido</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body">
-                            ${contenido.data.map(data => `
-                                <tr>
-                                    <td>${data.id}</td>
-                                    <td>${data.nombre}</td>
-                                    <td>${data.apellido}</td>
-                                </tr>`).join('')}
-                        </tbody>
-                        </table>
-                    `;
-                renderizarPaginador(datos.pagina, datos.total_paginas, datos.paginas_visibles, "#pagination-container");
-            } else {
-                console.error("No se recibió un array válido");
-            }
-        }
-    
-        mostrarTabla();
-    </script> -->
+   
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         renderizarTablaConPaginador({
