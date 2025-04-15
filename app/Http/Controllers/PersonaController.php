@@ -26,10 +26,13 @@ class PersonaController extends Controller
         $paginaActual       = $request->pagina_actual ?? 1;
         $registrosPorPagina = $request->registros_por_pagina ?? 10;
         $offset             = ($paginaActual - 1) * $registrosPorPagina;
-        $totalPersonas      = Persona::count();
+        $totalPersonas      = Persona::where('activo', 1)->get()->count();
         $totalPaginas       = ceil($totalPersonas / $registrosPorPagina); 
 
-        $personas = Persona::limit($registrosPorPagina)->offset($offset)->get();
+        $personas = Persona::limit($registrosPorPagina)
+            ->offset($offset)
+            ->where('activo', 1)
+            ->get();
 
         $data = (object)[
             "data"              => $personas,

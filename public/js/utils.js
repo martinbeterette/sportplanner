@@ -7,19 +7,28 @@ async function renderTable(url, data = {}, campos = [],page = 1) {
       }
     });
     // en el success de ajax hacia esto
-    const container = document.querySelector('#tabla-container');
+    const container = document.querySelector('#table-body');
+    container.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos datos
+
+    const paginaActual = response.data.pagina;
+    const totalPaginas = response.data.total_paginas;
 
     response.data.data.forEach(row => {
 
-      const contenido = campos.map(campo => row[campo]).join(' - ');
+      const contenido = campos.map(campo => 
+        `<td>
+          ${row[campo]}
+        </td>`
+      ).join('');
+
       container.innerHTML += `
-        <div>
+        <tr>
           ${contenido}
-        </div>
+        </tr>
       `;
     });
     // Actualizar la paginación
-    // renderPagination(data.total_pages, data.current_page);
+    renderPagination(totalPaginas, paginaActual);
     return true
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
@@ -28,18 +37,23 @@ async function renderTable(url, data = {}, campos = [],page = 1) {
 };
 
 function renderPagination(total_pages, current_page) {
-  var paginacionHTML = '';
+  let paginacionHTML = `
+    <nav aria-label="Paginación">
+        <ul class="pagination justify-content-center">
+  `;
 
   // Generar botones de paginación
-  for (var i = 1; i <= total_pages; i++) {
-      if (i === current_page) {
-          paginacionHTML += '<span class="pagina-activa">' + i + '</span>';
-      } else {
-          paginacionHTML += '<button class="pagina-boton" data-page="' + i + '">' + i + '</button>';
-      }
+  for (let i = 1; i <= total_pages; i++) {
+    paginacionHTML += `
+      <li class="page-item ${i === current_page ? 'active' : ''}">
+        <button class="page-link bg-dark text-white border-secondary" data-page="${i}">
+          ${i}
+        </button>
+      </li>
+    `;
   }
 
-  $('#paginacion-container').html(paginacionHTML);
+  document.querySelector('#paginator').innerHTML = paginacionHTML;
 }
 
   
