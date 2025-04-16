@@ -46,7 +46,7 @@ function renderPagination(total_pages, current_page) {
   for (let i = 1; i <= total_pages; i++) {
     paginacionHTML += `
       <li class="page-item ${i === current_page ? 'active' : ''}">
-        <button class="page-link bg-dark text-white border-secondary" data-page="${i}">
+        <button class="page-btn page-link bg-dark text-white border-secondary" data-page="${i}">
           ${i}
         </button>
       </li>

@@ -23,7 +23,7 @@ class PersonaController extends Controller
 
     public function indexApi(Request $request)
     {
-        $paginaActual       = $request->pagina_actual ?? 1;
+        $paginaActual       = $request->page ?? 1;
         $registrosPorPagina = $request->registros_por_pagina ?? 10;
         $offset             = ($paginaActual - 1) * $registrosPorPagina;
         $totalPersonas      = Persona::where('activo', 1)->get()->count();

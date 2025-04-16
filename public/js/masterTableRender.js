@@ -9,10 +9,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //hay que corregit, el evento se dispara al clickear en el id no tiene sentido. 
     // deberia ser en la clas
-    document.querySelector('.page-link').addEventListener('click', function(event) {
-        if (event.target.matches('.page-link')) {
-            let page = event.target.getAttribute('data-page');
-            renderTable(url, data, campos, page);
-        }
-    });
+    //funcion js vanilla que no le encuentro la vuelta
+    /* 
+        document.querySelector('#paginator').addEventListener('click', function(event) {
+            if (event.target.matches('.page-link')) {
+                let page = event.target.getAttribute('data-page');
+                renderTable(url, data, campos, page);
+            }
+        }); 
+    */
+
+});
+
+$(document).on('click','.page-btn', function() {
+    let page = $(this).data('page');
+    alert(`page:  ${page}\n url: ${url} \n data: ${data} \n campos: ${campos}`);
+    renderTable(url, data, campos, page);
 });
