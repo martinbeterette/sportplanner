@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(document).on('click','.page-btn', function() {
     let page = $(this).data('page');
-    alert(`page:  ${page}\n url: ${url} \n data: ${data} \n campos: ${campos}`);
+
+    // alert(`page:  ${page}\n url: ${url} \n data: ${data} \n campos: ${campos}`);
+    
     renderTable(url, data, campos, page);
 });

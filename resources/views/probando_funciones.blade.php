@@ -8,6 +8,21 @@
 
 @section('content')
     <h2 class="text-center my-4">Tabla de Personas</h2>
+    {{-- Filtros --}}
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <input type="text" id="filtro" class="form-control" placeholder="Buscar...">
+        </div>
+        <div class="col-md-6">
+            <select id="campo-filtro" class="form-select">
+                <option value="nombre">Nombre</option>
+                <option value="apellido">Apellido</option>
+                <option value="fecha_nacimiento">Fecha de Nacimiento</option>
+            </select>
+        </div>
+    </div>
+
+    {{-- Tabla --}}
     <div id="tabla-container" class="table-responsive">
         <table class="table table-striped table-hover table-bordered align-middle mb-0 bg-white">
             <thead class="table-dark">

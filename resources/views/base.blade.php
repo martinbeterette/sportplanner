@@ -21,7 +21,8 @@
        
 
         {{-- Contenido principal --}}
-        <div class="flex-grow-1" style="margin-left: 250px;">
+        <div class="flex-grow-1" style="margin-left: 250px; padding: 20px;">
+            {{-- Header --}}
             <main class="container-mt-4">
                 @yield('content')
             </main>

@@ -23,15 +23,34 @@ class PersonaController extends Controller
 
     public function indexApi(Request $request)
     {
+        //iniciamos el query y filtro
+        $query  = Persona::where('activo', 1);
+        $filtro = $request->filtro ?? null;
+        
+        //si el filtro no es vacio, lo aplicamos
+        if(!empty($filtro)){
+            $campos = ["nombre", "apellido", "fecha_nacimiento"];
+            $query->where(function($q) use ($filtro, $campos) {
+                foreach ($campos as $campo) {
+                    $q->orWhere($campo, 'LIKE', "%$filtro%");
+                }
+            });
+        }
+
+        //tomamos el Request y calculos del paginado
         $paginaActual       = $request->page ?? 1;
         $registrosPorPagina = $request->registros_por_pagina ?? 10;
         $offset             = ($paginaActual - 1) * $registrosPorPagina;
-        $totalPersonas      = Persona::where('activo', 1)->get()->count();
-        $totalPaginas       = ceil($totalPersonas / $registrosPorPagina); 
+        $totalPersonas      = $query->get()->count();
+        $totalPaginas       = ceil($totalPersonas / $registrosPorPagina);
+        
 
-        $personas = Persona::limit($registrosPorPagina)
+        
+        //ejecutamos el query
+        $personas = $query
             ->offset($offset)
-            ->where('activo', 1)
+            ->limit($registrosPorPagina)
+            ->orderBy('nombre', 'asc')
             ->get();
 
         $data = (object)[
