@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -129,5 +130,68 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         return "Eliminar el usuario con id: $id";
+    }
+
+    public function mostrarMiPerfil()
+    {
+        $usuario = Usuario::with('contacto.persona')->find(session('usuario')->id);
+        return view('auth.miPerfil', compact('usuario'));
+    }
+
+    public function cambiarContrasena(Request $request) {
+        $passwordIngresada          = $request->password; //contraseña "actual" enviada en el form
+        $passwordNueva              = $request->password_nueva;
+        $confirmarPassword          = $request->confirmar_password;
+
+
+        if(!$this->verificarContrasenaActual($passwordIngresada)) {
+            return response()->json([
+                "success" => false,
+                "message" => "La contraseña ingresada no coincide con la actual",
+            ], 400);
+        }
+
+        if ($passwordNueva !== $confirmarPassword) {
+            return response()->json([
+                "success" => false,
+                "message" => "Las contraseñas nuevas no coinciden",
+            ], 400);
+        }
+
+        $usuarioId = session('usuario')->id;
+        $usuario = Usuario::find($usuarioId);
+
+        if (!$usuario) {
+            return response()->json([
+                "success" => false,
+                "message" => "Usuario no encontrado",
+            ], 404);
+        }
+
+        $usuario->password = Hash::make($passwordNueva);
+        $usuario->save();
+
+
+        session()->flush();
+        
+        return redirect('/login')->with([
+            "success" => true,
+            "message" => "Contraseña actualizada correctamente",
+        ], 200);
+    }
+
+    private function verificarContrasenaActual($passwordIngresada) {
+        // Obtener ID del usuario desde la sesión
+        $usuarioId = session('usuario')->id;
+    
+        // Buscar el usuario en la base de datos
+        $usuario = Usuario::find($usuarioId);
+    
+        // Verificar si el usuario existe y si la contraseña coincide
+        if ($usuario && Hash::check($passwordIngresada, $usuario->password)) {
+            return true;
+        }
+    
+        return false;
     }
 }

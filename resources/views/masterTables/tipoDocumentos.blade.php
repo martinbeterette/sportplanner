@@ -1,13 +1,13 @@
 @extends('base')
 
-@section('title', 'Tipo de Contactos')
+@section('title', 'Tabla Personas')
 
 @section('extra_stylesheets')
     
 @endsection
 
 @section('content')
-    <h2 class="text-center my-4">Tabla de Tipo de Contactos</h2>
+    <h2 class="text-center my-4">Tabla de Personas</h2>
     {{-- Filtros --}}
     <div class="row mb-4">
         <div class="col-md-6">
@@ -15,7 +15,6 @@
         </div>
         <div class="col-md-6">
             <select id="campo-filtro" class="form-select">
-                {{-- deberia ser dinamico de la base de datos --}}
                 <option value="nombre">Nombre</option>
                 <option value="apellido">Apellido</option>
                 <option value="fecha_nacimiento">Fecha de Nacimiento</option>
@@ -27,8 +26,9 @@
     <div id="tabla-container" class="table-responsive">
         <table class="table table-striped table-hover table-bordered align-middle mb-0 bg-white">
             <thead class="table-dark">
-                <th>ID</th>
-                <th>DESCRIPCION</th>
+                <th>NOMBRE</th>
+                <th>APELLIDO</th>
+                <th>FECHA DE NACIMIENTO</th>
             </thead>
             <tbody id="table-body"></tbody>
         </table>
@@ -39,11 +39,16 @@
 @section('extra_js')
     <script src="{{ asset('js/utils.js') }}"></script>
     <script>
-        let url = '/api/tipo-contactos';
+        let url = '/api/tipo-documentos';
         let data = {registros_por_pagina:5};
         let campos = ['id', 'descripcion'];
         let page = 1; // Página inicial
     </script>
     <script src="{{ asset('js/masterTableRender.js') }}"></script>
+    {{-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderTable('/api/personas', {}, ['nombre', 'apellido', 'fecha_nacimiento']);
+        });
+    </script> --}}
 @endsection
 

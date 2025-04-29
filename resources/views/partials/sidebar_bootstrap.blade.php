@@ -7,7 +7,7 @@
     <!-- Menú de navegación -->
     <ul class="nav flex-column w-100">
         <li class="nav-item">
-            <a href="/" class="nav-link text-white">
+            <a href="/home" class="nav-link text-white">
                 <i class="fas fa-home me-2"></i> Inicio
             </a>
         </li>
@@ -38,11 +38,34 @@
         </li>
     </ul>
 
-    <!-- Botón cerrar sesión abajo -->
-    <div class="w-100 mt-auto">
-        <a href="{{ route('logout') }}" class="nav-link text-white">
-            <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
-        </a>
+    <!-- Usuario con menú desplegable -->
+    <div class="dropdown dropup w-100 mt-auto text-start px-3 mb-3">
+        <button class="btn btn-outline-light w-100 d-flex align-items-center justify-content-between" type="button" id="dropdownUserMenu" data-mdb-toggle="dropdown" aria-expanded="false">
+            <div>
+                <i class="fas fa-user-circle me-2"></i> {{ session('usuario')->username }}
+            </div>
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <ul class="dropdown-menu w-100" aria-labelledby="dropdownUserMenu">
+            <li>
+                <a class="dropdown-item" href="/mi-perfil">
+                    <i class="fas fa-id-badge me-2"></i> Mi Perfil
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="/configuracion">
+                    <i class="fas fa-sliders-h me-2"></i> Configuración
+                </a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item text-danger" href="{{ route('logout') }}">
+                    <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 

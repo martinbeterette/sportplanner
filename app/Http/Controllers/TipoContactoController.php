@@ -20,6 +20,58 @@ class TipoContactoController extends Controller
         }
     }
 
+    public function indexApi(Request $request)
+    {
+        //iniciamos el query y filtro
+        $query  = TipoContacto::where('activo', 1);
+        $filtro = $request->filtro ?? null;
+        
+        //si el filtro no es vacio, lo aplicamos
+        if(!empty($filtro)){
+            $campos = ["id", "descripcion"];
+            $query->where(function($q) use ($filtro, $campos) {
+                foreach ($campos as $campo) {
+                    $q->orWhere($campo, 'LIKE', "%$filtro%");
+                }
+            });
+        }
+
+        //tomamos el Request y calculos del paginado
+        $paginaActual       = $request->page ?? 1;
+        $registrosPorPagina = $request->registros_por_pagina ?? 10;
+        $offset             = ($paginaActual - 1) * $registrosPorPagina;
+        $totalRegistros     = $query->get()->count();
+        $totalPaginas       = ceil($totalRegistros / $registrosPorPagina);
+        
+
+        
+        //ejecutamos el query
+        $personas = $query
+            ->offset($offset)
+            ->limit($registrosPorPagina)
+            ->orderBy('id', 'asc')
+            ->get();
+
+        $data = (object)[
+            "data"              => $personas,
+            "total_registros"   => $totalRegistros,
+            "pagina"            => $paginaActual,
+            "total_paginas"     => $totalPaginas,
+        ];
+        return response()->json($data);
+    }
+
+    public function showApi($id)
+    {
+        $tipoContacto = TipoContacto::find($id);
+
+        if (!$tipoContacto) {
+            return response()->json(['message' => 'Tipo de contacto no encontrado'], 404);
+        }
+
+        return response()->json($tipoContacto,201);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

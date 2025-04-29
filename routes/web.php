@@ -34,10 +34,29 @@ Route::get('/tablasMaestras', function () {
     return view('tablasMaestras/tablasMaestras');
 });
 
+//mi perfil
+Route::get('/mi-perfil', [UsuarioController::class, 'mostrarMiPerfil'])->name('miPerfil');
+Route::get('/perfil/cambiar-contraseña', function () {
+    return view('auth/cambiarContrasena');
+})->name('actualizarContrasena');
+Route::post('/perfil/cambiar-contraseña', [UsuarioController::class, 'cambiarContrasena'])->name('cambiarContrasena');
+
 //PROTOTIPO PRIMER INICIO DEL ADMINISTRADOR
 Route::get('/primer-inicio', function() {
     return view('primerInicio');
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 // PRUEBA
 Route::get('/sublime-merge', function() {

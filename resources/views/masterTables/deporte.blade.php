@@ -1,13 +1,13 @@
 @extends('base')
 
-@section('title', 'Tipo de Contactos')
+@section('title', 'Tabla Deportes')
 
 @section('extra_stylesheets')
     
 @endsection
 
 @section('content')
-    <h2 class="text-center my-4">Tabla de Tipo de Contactos</h2>
+    <h2 class="text-center my-4">Tabla de Personas</h2>
     {{-- Filtros --}}
     <div class="row mb-4">
         <div class="col-md-6">
@@ -39,7 +39,7 @@
 @section('extra_js')
     <script src="{{ asset('js/utils.js') }}"></script>
     <script>
-        let url = '/api/tipo-contactos';
+        let url = '/api/deportes';
         let data = {registros_por_pagina:5};
         let campos = ['id', 'descripcion'];
         let page = 1; // Página inicial
