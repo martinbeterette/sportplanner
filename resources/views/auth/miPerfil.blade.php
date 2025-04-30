@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+    @php $mensaje = ' No asignado' @endphp
     <div class="container my-5">
         <h2 class="mb-4">Mi Perfil</h2>
         
@@ -16,12 +17,9 @@
                 <div class="card shadow-3">
                     <div class="card-body">
                         <h5 class="card-title mb-3"><i class="fas fa-user-circle me-2"></i> Datos del Usuario</h5>
-                        <p><strong>Username:</strong> usuario123</p>
-                        <p><strong>Email:</strong> usuario@mail.com</p>
-                        <p><strong>Rol:</strong> Administrador</p>
-                        <p><strong>probando Username:</strong> {{ $usuario->username }}</p>
-                        <p><strong>probando Nombre:</strong> {{ $usuario->nombre ?? '-' }}</p>
-
+                        <p><strong>Username:</strong>{{ $usuario->username }}</p>
+                        <p><strong>Email:</strong>{{ $usuario->email }}</p>
+                        <p><strong>Rol:</strong>{{ $usuario->rela_rol }}</p>
                         <hr>
                         <a href="/perfil/cambiar-contraseña" class="btn btn-outline-primary btn-sm">
                             <i class="fas fa-key me-1"></i> Cambiar contraseña
@@ -35,12 +33,12 @@
                 <div class="card shadow-3">
                     <div class="card-body">
                         <h5 class="card-title mb-3"><i class="fas fa-id-card me-2"></i> Datos Personales</h5>
-                        <p><strong>Nombre:</strong> Martín</p>
-                        <p><strong>Apellido:</strong> Pérez</p>
-                        <p><strong>Tipo de Documento:</strong> DNI</p>
-                        <p><strong>Número de Documento:</strong> 40123456</p>
-                        <p><strong>Sexo:</strong> Masculino</p>
-                        <p><strong>Fecha de Nacimiento:</strong> 15/03/1995</p>
+                        <p><strong>Nombre:</strong>{{ $usuario->persona->nombre ?? $mensaje }}</p>
+                        <p><strong>Apellido:</strong>{{ $usuario->persona->apellido ?? $mensaje }}</p>
+                        <p><strong>Tipo de Documento:</strong>{{ $usuario->documento->tipo_documento ?? $mensaje }}</p>
+                        <p><strong>Número de Documento:</strong>{{ $usuario->documento->descripcion ?? $mensaje }}</p>
+                        <p><strong>Sexo:</strong>{{ $usuario->sexo->descripcion ?? $mensaje }}</p>
+                        <p><strong>Fecha de Nacimiento:</strong>{{ $usuario->persona->fecha_nacimiento ?? $mensaje }}</p>
                     </div>
                 </div>
             </div>
