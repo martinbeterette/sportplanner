@@ -27,6 +27,7 @@ Route::get('/formulario-registro', [AuthController::class, 'showRegisterForm'])-
 Route::post('/registrar-usuario', [AuthController::class, 'recibirFormularioRegistro'])->name('procesarRegistro');
 
 // INICIO
+//prueba
 Route::get('/home', [HomeController::class, 'home']);
 
 // TABLAS MAESTRAS CATALOGO
