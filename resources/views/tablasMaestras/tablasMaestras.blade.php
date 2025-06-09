@@ -16,6 +16,14 @@
         <h2 class="text-center mb-4">Tablas Maestras</h2>
         <div class="row">
             <div class="col-md-4">
+                <div 
+                    class="card p-3 text-center shadow-sm"
+                    onclick="window.location.href='{{ route('rol.index') }}'"
+                >
+                    <h5>Roles de Usuario</h5>
+                </div>
+            </div>
+            <div class="col-md-4">
                 <div class="card p-3 text-center shadow-sm">
                     <h5>Sexos</h5>
                 </div>

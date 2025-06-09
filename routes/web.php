@@ -5,6 +5,7 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\RolController;
 
 
 Route::get('/', function () {
@@ -31,9 +32,32 @@ Route::post('/registrar-usuario', [AuthController::class, 'recibirFormularioRegi
 Route::get('/home', [HomeController::class, 'home']);
 
 // TABLAS MAESTRAS CATALOGO
-Route::get('/tablasMaestras', function () {
+Route::get('/tablas-maestras', function () {
     return view('tablasMaestras/tablasMaestras');
 });
+
+
+
+
+
+//ROL (perfiles)
+//index
+Route::get('/tablas-maestras/rol', function () {
+    return view('tablasMaestras/rol/index');
+})->name('rol.index');
+//crear
+Route::get('/tablas-maestras/rol/crear', [RolController::class, 'create'])->name('rol.create');
+Route::post('/tablas-maestras/rol/crear/insert', [RolController::class, 'store'])->name('rol.insert');
+//modificar
+Route::get('/tablas-maestras/rol/modificar/{id}/edit', [RolController::class, 'edit'])->name('rol.edit');
+Route::put('/tablas-maestras/rol/modificar/{id}', [RolController::class, 'update'])->name('rol.update');
+//eliminar
+Route::delete('/tablas-maestras/rol/eliminar/{id}', [RolController::class, 'destroy'])->name('rol.delete');
+
+
+
+
+
 
 //mi perfil
 Route::get('/mi-perfil', [UsuarioController::class, 'mostrarMiPerfil'])->name('miPerfil');

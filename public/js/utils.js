@@ -21,9 +21,29 @@ async function renderTable(url, data = {}, campos = [],page = 1) {
         </td>`
       ).join('');
 
+      // Agregamos botones de acción (modificar y eliminar)
+      const botones = `
+        <td>
+          <button 
+            class="btn btn-outline-primary btn-sm" 
+            data-id="${row.id}" 
+            onclick="window.location.href='/tablas-maestras/rol/modificar/${row.id}/edit'"
+
+          >
+            <i class="fas fa-edit"></i> Modificar
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-outline-danger btn-sm" data-id="${row.id}" onclick="eliminar(${row.id})">
+            <i class="fas fa-trash-alt"></i> Eliminar
+          </button>
+        </td>
+      `;
+
       container.innerHTML += `
         <tr>
           ${contenido}
+          ${botones}
         </tr>
       `;
     });
@@ -56,21 +76,22 @@ function renderPagination(total_pages, current_page) {
   document.querySelector('#paginator').innerHTML = paginacionHTML;
 }
 
-  
-/*$.ajax({
-  url: 'ajax/obtenerMembresias.php',
-  type: 'GET',
-  data: { filtro: filtro, pagina: pagina, id_complejo: id_complejo },
-  dataType: 'json',
-  success: function(data) {
-      // Actualizar el contenedor de la tabla con el HTML generado
-      $('#tabla-container').html(data.tabla);
-      // Actualizar la paginación
-      actualizarPaginacion(data.total_pages, data.current_page);
 
-  console.log(data)
-  },
-  error: function(xhr, status, error) {
-      console.error("Error en la solicitud AJAX: ", status, error);
+//eliminacion de registro
+let idAEliminar = null;
+
+function eliminar(id) {
+  idAEliminar = id;
+  const modal = new mdb.Modal(document.getElementById('modalConfirmDelete'));
+  modal.show();
+}
+function confirmarEliminar() {
+  if (idAEliminar) {
+    let form = document.getElementById('form-eliminar');
+    // form.action = `/tablas-maestras/rol/eliminar/${idAEliminar}`;
+    form.action = `${urlDeEliminacion}${idAEliminar}`;
+    document.getElementById(`form-eliminar`).submit();
+    // window.location.href = `/url-de-prueba-${idAEliminar}`;
   }
-});*/
+}
+

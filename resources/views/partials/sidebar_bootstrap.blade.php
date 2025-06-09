@@ -22,7 +22,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/tablasMaestras" class="nav-link text-white">
+            <a href="/tablas-maestras" class="nav-link text-white">
                 <i class="fas fa-calendar-alt me-2"></i> Tablas maestras
             </a>
         </li>

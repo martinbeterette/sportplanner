@@ -24,8 +24,8 @@ Route::post('tipo-contactos',   [TipoContactoController::class, 'store']);
 Route::get('contactos',         [ContactoController::class, 'index']);
 Route::post('contactos',        [ContactoController::class, 'store']);
 
-Route::get('roles',             [rolController::class, 'index']);
-Route::post('roles',            [rolController::class, 'store']);
+Route::get('rol',             [rolController::class, 'indexApi']);
+Route::post('rol',            [rolController::class, 'store']);
 
 Route::get('usuarios',          [UsuarioController::class, 'index']);
 Route::post('usuarios',         [UsuarioController::class, 'store']);

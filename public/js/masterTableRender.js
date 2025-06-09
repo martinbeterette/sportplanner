@@ -28,3 +28,9 @@ $(document).on('click','.page-btn', function() {
     
     renderTable(url, data, campos, page);
 });
+
+$(document).on('keyup', '#filtro', function () {
+    let valor = $(this).val();
+    data.filtro = valor; // ✅ agregás o actualizás la key 'filtro' en el objeto data
+    renderTable(url, data, campos, page);
+});
