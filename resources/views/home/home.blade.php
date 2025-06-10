@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card welcome-card p-4 shadow-sm">
-                <h2>Bienvenido a Mi Sistema {{ session('usuario')->username }}</h2>
+                <h2>Bienvenido a Mi Sistema {{ session('usuario')->username ?? '-' }}</h2>
                 <p class="mb-0">Gestiona usuarios, reservas y más desde este panel centralizado.</p>
             </div>
         </div>

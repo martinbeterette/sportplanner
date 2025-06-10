@@ -75,15 +75,17 @@ class RolController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'descripcion' => 'required|unique:rol,descripcion',
+            'descripcion' => 'required|unique:rol,descripcion|string|max:50',
         ],
         [
             'descripcion.required' => 'El campo descripcion es obligatorio',
-            'descripcion.unique'   => 'El campo descripcion debe ser único',
+            'descripcion.unique'   => 'Esa descripción ya existe',
+            'descripcion.string'   => 'El campo descripcion debe ser un texto',
+            'descripcion.max'      => 'El campo es demaciado largo'
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return response()->json($validator->errors()->all(), 400);
         }
 
         $rol = Rol::create([
@@ -94,7 +96,7 @@ class RolController extends Controller
             return response()->json(['message' => 'Error al crear el rol'], 500);
         }
 
-        return response()->json($rol, 201);
+        return redirect()->route('rol.index')->with('success', true);
     }
 
     public function update(Request $request, $id)

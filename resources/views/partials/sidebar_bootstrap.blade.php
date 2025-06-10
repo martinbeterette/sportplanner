@@ -17,8 +17,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/reservas" class="nav-link text-white">
-                <i class="fas fa-calendar-alt me-2"></i> Reservas
+            <a href="/sucursales" class="nav-link text-white">
+                <i class="fas fa-calendar-alt me-2"></i> Sucursales
             </a>
         </li>
         <li class="nav-item">
@@ -42,7 +42,7 @@
     <div class="dropdown dropup w-100 mt-auto text-start px-3 mb-3">
         <button class="btn btn-outline-light w-100 d-flex align-items-center justify-content-between" type="button" id="dropdownUserMenu" data-mdb-toggle="dropdown" aria-expanded="false">
             <div>
-                <i class="fas fa-user-circle me-2"></i> {{ session('usuario')->username }}
+                <i class="fas fa-user-circle me-2"></i> {{ session('usuario')->username ?? '-' }}
             </div>
             <i class="fas fa-chevron-up"></i>
         </button>

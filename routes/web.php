@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\SucursalController;
 
 
 Route::get('/', function () {
@@ -36,9 +37,12 @@ Route::get('/tablas-maestras', function () {
     return view('tablasMaestras/tablasMaestras');
 });
 
+// SUCURSALES
+Route::get('/sucursales', [SucursalController::class, 'index'])->name('sucursal.index');
+Route::get('/sucursales/{id}', [SucursalController::class, 'show'])->name('sucursal.show');
 
-
-
+//ZONAS 
+Route::get('/zonas');
 
 //ROL (perfiles)
 //index
@@ -66,22 +70,19 @@ Route::get('/perfil/cambiar-contraseña', function () {
 })->name('actualizarContrasena');
 Route::post('/perfil/cambiar-contraseña', [UsuarioController::class, 'cambiarContrasena'])->name('cambiarContrasena');
 
+
+
+
+
+
+
+
+
+
 //PROTOTIPO PRIMER INICIO DEL ADMINISTRADOR
 Route::get('/primer-inicio', function() {
     return view('primerInicio');
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 // PRUEBA
 Route::get('/sublime-merge', function() {

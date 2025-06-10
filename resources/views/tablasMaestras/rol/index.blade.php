@@ -34,6 +34,11 @@
             <tbody id="table-body"></tbody>
         </table>
     </div>
+    <div class="mb-3 text-end">
+        <a href="{{ route('rol.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i> Crear Rol
+        </a>
+    </div>
     <div id="paginator" class="d-flex justify-content-center mt-4"></div>
 
     
