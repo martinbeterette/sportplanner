@@ -1,13 +1,13 @@
 @extends('base')
 
-@section('title', 'Tabla Roles')
+@section('title', 'Tabla Sexos')
 
 @section('extra_stylesheets')
     
 @endsection
 
 @section('content')
-    <h2 class="text-center my-4">Tabla de Roles</h2>
+    <h2 class="text-center my-4">Tabla de Sexos</h2>
     {{-- Filtros --}}
     <div class="row mb-4">
         <div class="col-md-6">
@@ -35,8 +35,8 @@
         </table>
     </div>
     <div class="mb-3 text-end">
-        <a href="{{ route('rol.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus me-2"></i> Crear Rol
+        <a href="{{ route('sexo.create') }}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i> Crear Sexo
         </a>
     </div>
     <div id="paginator" class="d-flex justify-content-center mt-4"></div>
@@ -51,7 +51,7 @@
             <button type="button" class="btn-close btn-close-white" data-mdb-dismiss="modal" aria-label="Cerrar"></button>
           </div>
           <div class="modal-body">
-            ¿Estás seguro de que querés eliminar este rol? Esta acción no se puede deshacer.
+            ¿Estás seguro de que querés eliminar este sexo? Esta acción no se puede deshacer.
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cancelar</button>
@@ -69,12 +69,12 @@
 
 @section('extra_js')
     <script>
-        let url = '/api/rol';
+        let url = '/api/sexos';
         let data = {registros_por_pagina: 5};
         let campos = ['id', 'descripcion'];
         let page = 1;
-        let urlDeEliminacion    = '/tablas-maestras/rol/eliminar/';
-        let urlDeModificacion   = '/tablas-maestras/rol/modificar/';
+        let urlDeEliminacion    = '/tablas-maestras/sexo/eliminar/';
+        let urlDeModificacion   = '/tablas-maestras/sexo/modificar/';
     </script>
     <script src="{{ asset('js/utils.js') }}"></script>
     <script src="{{ asset('js/masterTableRender.js') }}"></script>

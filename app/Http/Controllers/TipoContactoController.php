@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 
 class TipoContactoController extends Controller
 {
+    private $model = TipoContacto::class;
+    private $table = "tipo_contacto";
     //
     public function index(Request $request)
     {
@@ -23,7 +25,8 @@ class TipoContactoController extends Controller
     public function indexApi(Request $request)
     {
         //iniciamos el query y filtro
-        $query  = TipoContacto::where('activo', 1);
+        $query  = $this->model::query();
+        // $query = TipoContacto::where('activo', true);
         $filtro = $request->filtro ?? null;
         
         //si el filtro no es vacio, lo aplicamos
@@ -40,25 +43,28 @@ class TipoContactoController extends Controller
         $paginaActual       = $request->page ?? 1;
         $registrosPorPagina = $request->registros_por_pagina ?? 10;
         $offset             = ($paginaActual - 1) * $registrosPorPagina;
-        $totalRegistros     = $query->get()->count();
+        $totalRegistros     = $query->count();
         $totalPaginas       = ceil($totalRegistros / $registrosPorPagina);
         
 
         
         //ejecutamos el query
-        $personas = $query
+        $registros = $query
             ->offset($offset)
             ->limit($registrosPorPagina)
             ->orderBy('id', 'asc')
             ->get();
 
+        // Preparamos la respuesta
         $data = (object)[
-            "data"              => $personas,
+            "data"              => $registros,
             "total_registros"   => $totalRegistros,
             "pagina"            => $paginaActual,
             "total_paginas"     => $totalPaginas,
         ];
-        return response()->json($data);
+
+        //retornamos la respuesta
+        return response()->json($data, 200);
     }
 
     public function showApi($id)
@@ -74,32 +80,29 @@ class TipoContactoController extends Controller
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'descripcion'           => 'required|string',
-        ], [
-            'descripcion.required'  => 'La descripcion es requerida',
-            'descripcion.string'    => 'La descripcion debe ser un texto',
+            'descripcion' => "required|unique:{$this->table},descripcion|string|max:50",
+        ],
+        [
+            'descripcion.required' => 'El campo es obligatorio',
+            'descripcion.unique'   => 'El campo ya existe',
+            'descripcion.string'   => 'El campo debe ser un texto',
+            'descripcion.max'      => 'El campo es demaciado largo'
         ]);
 
         if ($validator->fails()) {
-            if ($request->wantsJson()) {
-                return response()->json($validator->errors(), 400);
-            }  
-            return response()->json($validator->errors(), 400);      
+            return response()->json($validator->errors()->all(), 400);
         }
 
-        $tipoContacto = TipoContacto::create([
-            'descripcion'            => $request->descripcion,
+        $objeto = $this->model::create([
+            "descripcion" => $request->descripcion,
         ]);
 
-        if (!$tipoContacto) {
-            if ($request->wantsJson()) {
-            }
-            return response()->json(['message' => 'Error al crear el tipo de contacto'], 500);
+        if (!$objeto) {
+            return response()->json(['message' => "Error al crear el registro"], 500);
         }
 
-        if ($request->wantsJson()) {
-        }
-        return response()->json($tipoContacto, 201);
+        return redirect()->route("{$this->table}.index")->with('success', true);
     }
 }

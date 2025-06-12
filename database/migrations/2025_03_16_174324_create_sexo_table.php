@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('sexo', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
-            $table->boolean('activo');
+            $table->boolean('activo')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

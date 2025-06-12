@@ -16,7 +16,7 @@ class Zona extends Model
 
     public function tipoZona()
     {
-        return $this->belongsTo(tipoZona::class, 'rela_tipo_zona');
+        return $this->belongsTo(TipoZona::class, 'rela_tipo_zona');
     }
 
     public function superficie()

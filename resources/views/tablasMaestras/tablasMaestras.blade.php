@@ -24,12 +24,18 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-3 text-center shadow-sm">
+                <div 
+                    class="card p-3 text-center shadow-sm"
+                    onclick="window.location.href='{{ route('sexo.index') }}'"
+                >
                     <h5>Sexos</h5>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-3 text-center shadow-sm">
+                <div 
+                    class="card p-3 text-center shadow-sm"
+                    onclick="window.location.href='{{ route('deporte.index') }}'"
+                >
                     <h5>Deportes</h5>
                 </div>
             </div>

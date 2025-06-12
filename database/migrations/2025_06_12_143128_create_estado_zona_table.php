@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipo_documento', function (Blueprint $table) {
+        Schema::create('estado_zona', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->boolean('activo')->default(true);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipo_documento');
+        Schema::dropIfExists('estado_zona');
     }
 };

@@ -27,7 +27,7 @@ async function renderTable(url, data = {}, campos = [],page = 1) {
           <button 
             class="btn btn-outline-primary btn-sm" 
             data-id="${row.id}" 
-            onclick="window.location.href='/tablas-maestras/rol/modificar/${row.id}/edit'"
+            onclick="window.location.href='${urlDeModificacion}${row.id}/edit'"
 
           >
             <i class="fas fa-edit"></i> Modificar
