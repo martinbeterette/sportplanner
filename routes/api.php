@@ -4,12 +4,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\EstadoZonaController;
 use App\Http\Controllers\TipoContactoController;
 use App\Http\Controllers\TipoDocumentoController;
+use App\Http\Controllers\TipoZonaController;
+use App\Http\Controllers\EstadoReservaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\DeporteController;
 use App\Http\Controllers\SexoController;
+use App\Http\Controllers\SuperficieController;
 
 
 Route::get('/user', function (Request $request) {
@@ -48,6 +52,6 @@ Route::get('superficie',            [SuperficieController::class, 'indexApi']);
 
 Route::get('tipo-zona',             [TipoZonaController::class, 'indexApi']);
 
-Route::get('estado-reserva',             [EstadoReservaController::class, 'indexApi']);
+// Route::get('estado-reserva',             [EstadoReservaController::class, 'indexApi']);
 
 Route::get('estado-zona',             [EstadoZonaController::class, 'indexApi']);

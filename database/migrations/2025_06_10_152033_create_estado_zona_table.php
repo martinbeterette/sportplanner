@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('estado_zona', function (Blueprint $table) {
             $table->id();
+            $table->string('descripcion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

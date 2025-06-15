@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('rela_tipo_deporte')->constrained('tipo_deporte')->onDelete('restrict');
             $table->foreignId('rela_superficie')->constrained('superficie')->onDelete('restrict');
             $table->foreignId('rela_tipo_zona')->constrained('tipo_zona')->onDelete('restrict');
+            $table->foreignId('rela_estado_zona')->constrained('estado_zona')->onDelete('restrict');
             $table->foreignId('rela_sucursal')->constrained('sucursal')->onDelete('restrict');
             $table->timestamps();
             $table->softDeletes();

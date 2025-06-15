@@ -44,6 +44,7 @@ class ComplejoSeeder extends Seeder
             'descripcion' => 'Cancha Principal LeClub1',
             'rela_tipo_deporte' => 1,
             'rela_superficie' => 1,
+            'rela_estado_zona' => 1, // Asumiendo que el estado "Buen Estado" tiene ID 1
             'rela_tipo_zona' => 1,
             'rela_sucursal' => $sucursal1Id,
             'created_at' => now(),
@@ -55,6 +56,7 @@ class ComplejoSeeder extends Seeder
             'descripcion' => 'Cancha Principal LeClub2',
             'rela_tipo_deporte' => 1,
             'rela_superficie' => 1,
+            'rela_estado_zona' => 2, // Asumiendo que el estado "Mal estado" tiene ID 2
             'rela_tipo_zona' => 1,
             'rela_sucursal' => $sucursal2Id,
             'created_at' => now(),

@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EstadoZonaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\DeporteController;
 use App\Http\Controllers\SexoController;
+use App\Http\Controllers\SuperficieController;
 
 
 Route::get('/', function () {
@@ -91,6 +93,40 @@ Route::get('/tablas-maestras/sexo/modificar/{id}/edit',  [SexoController::class,
 Route::put('/tablas-maestras/sexo/modificar/{id}',       [SexoController::class, 'update'])->name('sexo.update');
 //eliminar
 Route::delete('/tablas-maestras/sexo/eliminar/{id}',     [SexoController::class, 'destroy'])->name('sexo.delete');
+
+
+//ESTADO ZONA
+//index
+Route::get('/tablas-maestras/estado-zona', function () {
+    return view('tablasMaestras/estadoZona/index');
+})->name('estado_zona.index');
+//crear
+Route::get('/tablas-maestras/estado-zona/crear', [EstadoZonaController::class, 'create'])->name('estado_zona.create');
+Route::post('/tablas-maestras/estado-zona/crear/insert', [EstadoZonaController::class, 'store'])->name('estado_zona.insert');
+//modificar
+Route::get('/tablas-maestras/estado-zona/modificar/{id}/edit', [EstadoZonaController::class, 'edit'])->name('estado_zona.edit');
+Route::put('/tablas-maestras/estado-zona/modificar/{id}', [EstadoZonaController::class, 'update'])->name('estado_zona.update');
+//eliminar
+Route::delete('/tablas-maestras/estado-zona/eliminar/{id}', [EstadoZonaController::class, 'destroy'])->name('estado_zona.delete');
+
+
+//SUPERFICIE
+//index
+Route::get('/tablas-maestras/superficie', function () {
+    return view('tablasMaestras/superficie/index');
+})->name('superficie.index');
+//crear
+Route::get('/tablas-maestras/superficie/crear', [SuperficieController::class, 'create'])->name('superficie.create');
+Route::post('/tablas-maestras/superficie/crear/insert', [SuperficieController::class, 'store'])->name('superficie.insert');
+//modificar
+Route::get('/tablas-maestras/superficie/modificar/{id}/edit', [SuperficieController::class, 'edit'])->name('superficie.edit');
+Route::put('/tablas-maestras/superficie/modificar/{id}', [SuperficieController::class, 'update'])->name('superficie.update');
+//eliminar
+Route::delete('/tablas-maestras/superficie/eliminar/{id}', [SuperficieController::class, 'destroy'])->name('superficie.delete');
+
+
+
+
 
 
 
